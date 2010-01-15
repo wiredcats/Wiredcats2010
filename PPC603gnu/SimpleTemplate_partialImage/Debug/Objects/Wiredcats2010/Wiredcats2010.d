@@ -1,5 +1,5 @@
-SimpleTemplate_partialImage/Debug/Objects/Wiredcats2010/MyRobot.o:  \
- C:/windriver/workspace/Wiredcats2010/MyRobot.cpp \
+SimpleTemplate_partialImage/Debug/Objects/Wiredcats2010/Wiredcats2010.o:  \
+ C:/windriver/workspace/Wiredcats2010/Wiredcats2010.cpp \
   C:/windriver/workspace/Wiredcats2010/Wiredcats2010.h \
   C:/WindRiver/vxworks-6.3/target/h/WPILib/WPILib.h \
   C:/WindRiver/vxworks-6.3/target/h/string.h \
