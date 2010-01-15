@@ -9,6 +9,7 @@
 #include "Vision/HSLImage.h"
 
 // 2415 classes
+#include "Log.h"
 #include "Gamepad.h"
 
 #endif

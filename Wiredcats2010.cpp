@@ -10,14 +10,16 @@ class RobotDemo : public SimpleRobot
 {
 	RobotDrive myRobot; // robot drive system
 	Gamepad pad;
+	
+	Log log;
 
 public:
 	RobotDemo(void):
-		myRobot(1,2), pad(1)
+		myRobot(1,2), pad(1), log("debuglog.log")
 	{
 		GetWatchdog().SetExpiration(0.1);
 	}
-
+	
 	/**
 	 * Drive left & right motors for 2 seconds then stop
 	 */
@@ -46,9 +48,9 @@ public:
 			GetWatchdog().Feed();
 			
 			if(pad.buttonOnePressed()) {
-				printf("button one pressed omg!");
+				log.addLine("Button One Pressed");
 			}
-			Wait(0.005);				// wait for a motor update time
+			Wait(0.005);
 		}
 	}
 };
