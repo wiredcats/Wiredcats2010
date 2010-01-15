@@ -1,4 +1,6 @@
 #include "Wiredcats2010.h"
+#include "Vision/AxisCamera2010.h"
+#include "Vision/HSLImage.h"
 
 /**
  * This is a demo program showing the use of the RobotBase class.
@@ -36,9 +38,15 @@ public:
 	void OperatorControl(void)
 	{
 		GetWatchdog().SetEnabled(true);
+		
+		// Start up camera
+		AxisCamera &camera = AxisCamera::getInstance();
+		
 		while (IsOperatorControl())
 		{
 			GetWatchdog().Feed();
+			ColorImage *image = camera.GetImage();
+			
 			if(pad.buttonOnePressed()) {
 				printf("button one pressed omg!");
 			}
