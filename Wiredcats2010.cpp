@@ -20,7 +20,7 @@ class RobotDemo : public SimpleRobot
 
 public:
 	RobotDemo(void):
-		myRobot(1,2), stick(1), rlog("stuff.log"), gyro(1)
+		myRobot(1,2), stick(1), gyro(1), rlog("stuff.log")
 	{
 		rlog.addLine("Constructor");
 		GetWatchdog().SetExpiration(0.1);
