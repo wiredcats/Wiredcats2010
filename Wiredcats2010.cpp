@@ -9,23 +9,28 @@
 class RobotDemo : public SimpleRobot
 {
 	RobotDrive myRobot; // robot drive system
-	Gamepad pad;
+	Joystick stick;
 	
-	Log log;
+	Log rlog;
 
 public:
 	RobotDemo(void):
-		myRobot(1,2), pad(1), log("debuglog.log")
+		myRobot(1,2), stick(1), rlog("newthing.log")
 	{
+		rlog.addLine("Constructor");
 		GetWatchdog().SetExpiration(0.1);
 	}
 	
 	/**
 	 * Drive left & right motors for 2 seconds then stop
+	 * Woooooooooooooooooooooooooo!
 	 */
 	void Autonomous(void)
 	{
 		GetWatchdog().SetEnabled(false);
+		
+		rlog.addLine("Started Autonomous Mode");
+		
 		myRobot.Drive(0.5, 0.0); 	// drive forwards half speed
 		Wait(2.0); 				//    for 2 seconds
 		myRobot.Drive(0.0, 0.0); 	// stop robot
@@ -38,6 +43,8 @@ public:
 	{
 		GetWatchdog().SetEnabled(true);
 		
+		rlog.addLine("Started Teleop Mode");
+		
 		// Start up camera
 		AxisCamera &camera = AxisCamera::getInstance();
 		camera.writeResolution(k320x240);
@@ -47,9 +54,7 @@ public:
 		{
 			GetWatchdog().Feed();
 			
-			if(pad.buttonOnePressed()) {
-				log.addLine("Button One Pressed");
-			}
+			myRobot.ArcadeDrive(stick);
 			Wait(0.005);
 		}
 	}

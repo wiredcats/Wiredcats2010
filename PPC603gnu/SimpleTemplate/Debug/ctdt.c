@@ -9,6 +9,8 @@
 
 void _GLOBAL__I__Z20FRC_userClassFactoryv();
 
+void _GLOBAL__I__ZN3LogC2EPc();
+
 void _GLOBAL__I__ZN7GamepadC2Ej();
 
 void _GLOBAL__I__ZN9ErrorBase16globalErrorMutexE();
@@ -25,6 +27,7 @@ extern void (*_ctors[])();
 void (*_ctors[])() =
     {
     _GLOBAL__I__Z20FRC_userClassFactoryv,
+    _GLOBAL__I__ZN3LogC2EPc,
     _GLOBAL__I__ZN7GamepadC2Ej,
     _GLOBAL__I__ZN9ErrorBase16globalErrorMutexE,
     _GLOBAL__I__ZN9RobotBase10m_instanceE,
@@ -35,6 +38,8 @@ void (*_ctors[])() =
     };
 
 void _GLOBAL__D__Z20FRC_userClassFactoryv();
+
+void _GLOBAL__D__ZN3LogC2EPc();
 
 void _GLOBAL__D__ZN7GamepadC2Ej();
 
@@ -50,6 +55,7 @@ extern void (*_dtors[])();
 void (*_dtors[])() =
     {
     _GLOBAL__D__Z20FRC_userClassFactoryv,
+    _GLOBAL__D__ZN3LogC2EPc,
     _GLOBAL__D__ZN7GamepadC2Ej,
     _GLOBAL__D__ZN9ErrorBase16globalErrorMutexE,
     _GLOBAL__D__ZN9RobotBase10m_instanceE,
