@@ -12,11 +12,10 @@
 #include "Target.h"
 
 //Can Junk
-# include "CanLibrary.h"
-# include "2CAN.h"
+# include "CAN/CanLibrary.h"
+# include "CAN/2CAN.h"
 
 // 2415 classes
 #include "Log.h"
-#include "Gamepad.h"
 
 #endif

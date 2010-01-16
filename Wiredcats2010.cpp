@@ -10,7 +10,6 @@
  */
 class RobotDemo : public SimpleRobot
 {
-	RobotDrive myRobot; // robot drive system
 	Joystick stick;
 	
 	HSLImage image;
@@ -23,13 +22,15 @@ class RobotDemo : public SimpleRobot
 	JaguarOverCAN pLeftBackJagOverCAN;
     JaguarOverCAN pRightFrontJagOverCAN;
 	JaguarOverCAN pRightBackJagOverCAN;
+	
+	RobotDrive myRobot; // robot drive system
 
 public:
 	RobotDemo(void):
 		stick(1),gyro(1), rlog("stuff.log"), 
         pLeftFrontJagOverCAN(2),pLeftBackJagOverCAN(3), 
         pRightFrontJagOverCAN(4),pRightBackJagOverCAN(5),
-        myRobot(pLeftJagOverCAN,pRightJagOverCAN,0.5), 
+        myRobot(pLeftFrontJagOverCAN,pRightFrontJagOverCAN,0.5)
 	{
 		rlog.addLine("Constructor");
 		GetWatchdog().SetExpiration(0.1);
