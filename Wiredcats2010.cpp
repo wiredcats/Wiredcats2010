@@ -14,12 +14,13 @@ class RobotDemo : public SimpleRobot
 	Joystick stick;
 	
 	HSLImage image;
+	Gyro gyro;
 	
 	Log rlog;
 
 public:
 	RobotDemo(void):
-		myRobot(1,2), stick(1), rlog("stuff.log")
+		myRobot(1,2), stick(1), rlog("stuff.log"), gyro(1)
 	{
 		rlog.addLine("Constructor");
 		GetWatchdog().SetExpiration(0.1);
@@ -46,6 +47,7 @@ public:
 	void OperatorControl(void)
 	{
 		GetWatchdog().SetEnabled(true);
+		gyro.Reset();
 		
 		rlog.addLine("Started Teleop Mode");
 		
@@ -57,6 +59,8 @@ public:
 		while (IsOperatorControl())
 		{
 			GetWatchdog().Feed();
+			
+			printf("\n%g = angle",gyro.GetAngle());
 			
 			if (camera.freshImage()) {
 				ColorImage *image = camera.GetImage();
