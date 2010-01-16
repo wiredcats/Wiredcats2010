@@ -1,5 +1,7 @@
 #include "Wiredcats2010.h"
 
+#define MINIMUM_SCORE 0.01
+
 /**
  * This is a demo program showing the use of the RobotBase class.
  * The SimpleRobot class is the base of a robot application that will automatically call your
@@ -11,11 +13,13 @@ class RobotDemo : public SimpleRobot
 	RobotDrive myRobot; // robot drive system
 	Joystick stick;
 	
+	HSLImage image;
+	
 	Log rlog;
 
 public:
 	RobotDemo(void):
-		myRobot(1,2), stick(1), rlog("newthing.log")
+		myRobot(1,2), stick(1), rlog("stuff.log")
 	{
 		rlog.addLine("Constructor");
 		GetWatchdog().SetExpiration(0.1);
@@ -53,6 +57,16 @@ public:
 		while (IsOperatorControl())
 		{
 			GetWatchdog().Feed();
+			
+			if (camera.freshImage()) {
+				ColorImage *image = camera.GetImage();
+				vector<Target> targets = Target::FindCircularTargets(image);
+				delete image;
+				
+				if (targets.size() > 0 && targets[0].m_score > MINIMUM_SCORE) {
+					printf("found a target omg!");
+				}
+			}
 			
 			myRobot.ArcadeDrive(stick);
 			Wait(0.005);

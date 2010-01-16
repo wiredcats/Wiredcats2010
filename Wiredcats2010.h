@@ -8,6 +8,9 @@
 #include "Vision/AxisCamera2010.h"
 #include "Vision/HSLImage.h"
 
+// Copy Pasta
+#include "Target.h"
+
 // 2415 classes
 #include "Log.h"
 #include "Gamepad.h"
