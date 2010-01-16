@@ -17,10 +17,19 @@ class RobotDemo : public SimpleRobot
 	Gyro gyro;
 	
 	Log rlog;
+	
+	// Dont' kill me if this doesn't work...
+	JaguarOverCAN pLeftFrontJagOverCAN;
+	JaguarOverCAN pLeftBackJagOverCAN;
+    JaguarOverCAN pRightFrontJagOverCAN;
+	JaguarOverCAN pRightBackJagOverCAN;
 
 public:
 	RobotDemo(void):
-		myRobot(1,2), stick(1), gyro(1), rlog("stuff.log")
+		stick(1),gyro(1), rlog("stuff.log"), 
+        pLeftFrontJagOverCAN(2),pLeftBackJagOverCAN(3), 
+        pRightFrontJagOverCAN(4),pRightBackJagOverCAN(5),
+        myRobot(pLeftJagOverCAN,pRightJagOverCAN,0.5), 
 	{
 		rlog.addLine("Constructor");
 		GetWatchdog().SetExpiration(0.1);
@@ -47,6 +56,10 @@ public:
 	void OperatorControl(void)
 	{
 		GetWatchdog().SetEnabled(true);
+		pLeftFrontJagOverCAN.Set(0);
+		pLeftBackJagOverCAN.Set(0);
+		pRightFrontJagOverCAN.Set(0);
+		pRightBackJagOverCAN.Set(0);
 		gyro.Reset();
 		
 		rlog.addLine("Started Teleop Mode");
