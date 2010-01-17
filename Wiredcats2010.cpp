@@ -17,7 +17,6 @@ class RobotDemo : public SimpleRobot
 	
 	Log rlog;
 	
-	// Dont' kill me if this doesn't work...
 	JaguarOverCAN pLeftFrontJagOverCAN;
 	JaguarOverCAN pLeftBackJagOverCAN;
     JaguarOverCAN pRightFrontJagOverCAN;
@@ -30,7 +29,9 @@ public:
 		stick(1),gyro(1), rlog("stuff.log"), 
         pLeftFrontJagOverCAN(2),pLeftBackJagOverCAN(3), 
         pRightFrontJagOverCAN(4),pRightBackJagOverCAN(5),
-        myRobot(pLeftFrontJagOverCAN,pRightFrontJagOverCAN,0.5)
+        
+        myRobot(pLeftFrontJagOverCAN,pLeftBackJagOverCAN,pRightFrontJagOverCAN,pRightBackJagOverCAN,0.5)
+        
 	{
 		rlog.addLine("Constructor");
 		GetWatchdog().SetExpiration(0.1);
@@ -72,6 +73,8 @@ public:
 		
 		while (IsOperatorControl())
 		{
+            if(IsNewDataAvailable())
+			    C2CAN::GetInstance()->FeedWatchDog();
 			GetWatchdog().Feed();
 			
 			printf("\n%g = angle",gyro.GetAngle());
