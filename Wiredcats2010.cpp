@@ -1,36 +1,27 @@
 #include "Wiredcats2010.h"
 
-#define MINIMUM_SCORE 0.01
-
 /**
  * This is a demo program showing the use of the RobotBase class.
  * The SimpleRobot class is the base of a robot application that will automatically call your
  * Autonomous and OperatorControl methods at the right time as controlled by the switches on
  * the driver station or the field controls.
  */
+
 class RobotDemo : public SimpleRobot
 {
-	Joystick stick;
+	ControlBoard board;
 	
 	HSLImage image;
 	Gyro gyro;
 	
 	Log rlog;
 	
-	JaguarOverCAN pLeftFrontJagOverCAN;
-	JaguarOverCAN pLeftBackJagOverCAN;
-    JaguarOverCAN pRightFrontJagOverCAN;
-	JaguarOverCAN pRightBackJagOverCAN;
-	
 	RobotDrive myRobot; // robot drive system
 
 public:
 	RobotDemo(void):
-		stick(1),gyro(1), rlog("stuff.log"), 
-        pLeftFrontJagOverCAN(2),pLeftBackJagOverCAN(3), 
-        pRightFrontJagOverCAN(4),pRightBackJagOverCAN(5),
-        
-        myRobot(pLeftFrontJagOverCAN,pLeftBackJagOverCAN,pRightFrontJagOverCAN,pRightBackJagOverCAN,0.5)
+		board(), gyro(1), rlog("stuff.log"),
+        myRobot(1,2)
         
 	{
 		rlog.addLine("Constructor");
@@ -58,10 +49,7 @@ public:
 	void OperatorControl(void)
 	{
 		GetWatchdog().SetEnabled(true);
-		pLeftFrontJagOverCAN.Set(0);
-		pLeftBackJagOverCAN.Set(0);
-		pRightFrontJagOverCAN.Set(0);
-		pRightBackJagOverCAN.Set(0);
+		
 		gyro.Reset();
 		
 		rlog.addLine("Started Teleop Mode");
@@ -73,8 +61,6 @@ public:
 		
 		while (IsOperatorControl())
 		{
-            if(IsNewDataAvailable())
-			    C2CAN::GetInstance()->FeedWatchDog();
 			GetWatchdog().Feed();
 			
 			printf("\n%g = angle",gyro.GetAngle());
@@ -89,7 +75,9 @@ public:
 				}
 			}
 			
-			myRobot.ArcadeDrive(stick);
+			myRobot.TankDrive(board.GetLeftJoy()->GetY(),
+							  board.GetRightJoy()->GetY());
+			
 			Wait(0.005);
 		}
 	}
