@@ -7,7 +7,7 @@
  * the driver station or the field controls.
  */
 
-class RobotDemo : public SimpleRobot
+class Wiredcats2010 : public SimpleRobot
 {
 	ControlBoard board;
 	
@@ -19,7 +19,7 @@ class RobotDemo : public SimpleRobot
 	RobotDrive myRobot; // robot drive system
 
 public:
-	RobotDemo(void):
+	Wiredcats2010(void):
 		board(), gyro(1), rlog("stuff.log"),
         myRobot(1,2)
         
@@ -74,17 +74,18 @@ public:
 				if (targets.size() > 0 && targets[0].m_score > MINIMUM_SCORE){
 					printf(" %f = horizontal angle", targets[0].GetHorizontalAngle());
 					if (board.GetLeftJoy()->GetRawButton(1)) {
-						double angleTurn = targets[0].GetHorizontalAngle()+gyro.GetAngle();
+						double angleTurn = targets[0].GetHorizontalAngle() + gyro.GetAngle();
 						double upperBound = gyro.GetAngle() + AUTO_THRESHOLD;
 						double lowerBound = gyro.GetAngle() - AUTO_THRESHOLD;
-						while (lowerBound <= gyro.GetAngle() && upperBound >= gyro.GetAngle()){
+						
+						while (lowerBound <= gyro.GetAngle() && upperBound >= gyro.GetAngle()) {
 							GetWatchdog().Feed();
 							
 							printf("\ntracking gyro = %f", gyro.GetAngle());
-							if(gyro.GetAngle() > angleTurn){
+							if (gyro.GetAngle() > angleTurn){
 								myRobot.TankDrive(0.6, -0.6);
 							} else {
-								myRobot.TankDrive(-0.6,0.6);
+								myRobot.TankDrive(-0.6, 0.6);
 							}
 						} 
 						myRobot.TankDrive(0.0,0.0);
@@ -100,5 +101,5 @@ public:
 	}
 };
 
-START_ROBOT_CLASS(RobotDemo);
+START_ROBOT_CLASS(Wiredcats2010);
 
