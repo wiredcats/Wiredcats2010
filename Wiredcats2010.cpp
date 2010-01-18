@@ -71,18 +71,17 @@ public:
 				vector<Target> targets = Target::FindCircularTargets(image);
 				delete image;
 				
-				if (targets.size() > 0 && targets[0].m_score>MINIMUM_SCORE){
+				if (targets.size() > 0 && targets[0].m_score > MINIMUM_SCORE){
 					printf(" %f = horizontal angle", targets[0].GetHorizontalAngle());
 					if (board.GetLeftJoy()->GetRawButton(1)) {
-						printf("test test test");
 						double angleTurn = targets[0].GetHorizontalAngle()+gyro.GetAngle();
-						double upperBound = gyro.GetAngle() + 4;
-						double lowerBound = gyro.GetAngle() - 4;
-						while((lowerBound<=gyro.GetAngle() && upperBound >= gyro.GetAngle())){
+						double upperBound = gyro.GetAngle() + AUTO_THRESHOLD;
+						double lowerBound = gyro.GetAngle() - AUTO_THRESHOLD;
+						while (lowerBound <= gyro.GetAngle() && upperBound >= gyro.GetAngle()){
 							GetWatchdog().Feed();
 							
-							printf("\nnew gyro = %f", gyro.GetAngle());
-							if(gyro.GetAngle()>angleTurn){
+							printf("\ntracking gyro = %f", gyro.GetAngle());
+							if(gyro.GetAngle() > angleTurn){
 								myRobot.TankDrive(0.6, -0.6);
 							} else {
 								myRobot.TankDrive(-0.6,0.6);

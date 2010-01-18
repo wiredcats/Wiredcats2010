@@ -3,6 +3,7 @@
 
 // Constants
 #define MINIMUM_SCORE 0.01
+#define AUTO_THRESHOLD 4
 
 // WPI library
 #include "WPILib.h"

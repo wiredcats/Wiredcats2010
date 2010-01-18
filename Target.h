@@ -16,7 +16,7 @@ public:
     double m_rotation;
     double m_xMax;
     bool m_bothFound;
-
+    
     static vector<Target> FindCircularTargets(ColorImage *image);
     double GetHorizontalAngle();
     void Print();
