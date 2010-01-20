@@ -7,6 +7,10 @@
  * the driver station or the field controls.
  */
 
+bool WithinThreshold(float gyroAngle, float lowerBound, float upperBound) {
+	return (gyroAngle >= lowerBound) && (gyroAngle <= upperBound);
+}
+
 class Wiredcats2010 : public SimpleRobot
 {
 	ControlBoard board;
@@ -75,20 +79,22 @@ public:
 					printf(" %f = horizontal angle", targets[0].GetHorizontalAngle());
 					if (board.GetLeftJoy()->GetRawButton(1)) {
 						double angleTurn = targets[0].GetHorizontalAngle() + gyro.GetAngle();
-						double upperBound = gyro.GetAngle() + AUTO_THRESHOLD;
-						double lowerBound = gyro.GetAngle() - AUTO_THRESHOLD;
-						
-						while (lowerBound <= gyro.GetAngle() && upperBound >= gyro.GetAngle()) {
-							GetWatchdog().Feed();
-							
-							printf("\ntracking gyro = %f", gyro.GetAngle());
-							if (gyro.GetAngle() > angleTurn){
-								myRobot.TankDrive(0.6, -0.6);
-							} else {
-								myRobot.TankDrive(-0.6, 0.6);
-							}
-						} 
-						myRobot.TankDrive(0.0,0.0);
+						double upperBound = angleTurn + AUTO_THRESHOLD;
+						double lowerBound = angleTurn - AUTO_THRESHOLD;
+
+						if (!WithinThreshold(gyro.GetAngle(), lowerBound, upperBound)) {
+							while (!WithinThreshold(gyro.GetAngle(), lowerBound, upperBound)) {
+								GetWatchdog().Feed();
+								
+								printf("\ntracking gyro = %f", gyro.GetAngle());
+								if (gyro.GetAngle() > angleTurn){
+									myRobot.TankDrive(0.6, -0.6);
+								} else {
+									myRobot.TankDrive(-0.6, 0.6);
+								}
+							} 
+							myRobot.TankDrive(0.0,0.0);
+						}
 					}
 				}
 			}

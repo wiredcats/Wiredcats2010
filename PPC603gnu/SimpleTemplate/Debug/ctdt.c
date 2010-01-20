@@ -7,7 +7,7 @@
 /*       -fdollars-in-identifiers flag.                   */
 
 
-void _GLOBAL__I__Z20FRC_userClassFactoryv();
+void _GLOBAL__I__Z15WithinThresholdfff();
 
 void _GLOBAL__I__ZN12ControlBoardC2Ev();
 
@@ -26,7 +26,7 @@ void _GLOBAL__I_AxisCamera_debugFlag();
 extern void (*_ctors[])();
 void (*_ctors[])() =
     {
-    _GLOBAL__I__Z20FRC_userClassFactoryv,
+    _GLOBAL__I__Z15WithinThresholdfff,
     _GLOBAL__I__ZN12ControlBoardC2Ev,
     _GLOBAL__I__ZN3LogC2EPc,
     _GLOBAL__I__ZN9ErrorBase16globalErrorMutexE,
@@ -37,7 +37,7 @@ void (*_ctors[])() =
     0
     };
 
-void _GLOBAL__D__Z20FRC_userClassFactoryv();
+void _GLOBAL__D__Z15WithinThresholdfff();
 
 void _GLOBAL__D__ZN12ControlBoardC2Ev();
 
@@ -54,7 +54,7 @@ void _GLOBAL__D_AxisCamera_debugFlag();
 extern void (*_dtors[])();
 void (*_dtors[])() =
     {
-    _GLOBAL__D__Z20FRC_userClassFactoryv,
+    _GLOBAL__D__Z15WithinThresholdfff,
     _GLOBAL__D__ZN12ControlBoardC2Ev,
     _GLOBAL__D__ZN3LogC2EPc,
     _GLOBAL__D__ZN9ErrorBase16globalErrorMutexE,
