@@ -1,3 +1,12 @@
+/**
+ * This is in a txt file so that it won't interfere with the program.
+ * To have this work on Kitbot, we need to change the Jaguar values,
+ * add two more Jags to the code (or tell Tyler to disconncet two 
+ * Jags. I think we should use this code because it's much simpler
+ * and easier to read. Also, they have a lot of the wanted modes
+ * already preset. I'll play with this first chance I get.
+ */
+
 #include "WPILib.h"
 #include "CANJaguar.h"
 
