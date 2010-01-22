@@ -162,10 +162,6 @@ SimpleTemplate_partialImage/$(MODE_DIR)/Objects/Wiredcats2010/CAN/2CAN.o : C:/wi
 	$(TRACE_FLAG)if [ ! -d "`dirname "$@"`" ]; then mkdir -p "`dirname "$@"`"; fi;echo "building $@"; $(TOOL_PATH)ccppc $(DEBUGFLAGS_C++-Compiler) $(CC_ARCH_SPEC) -ansi -Wall  -MD -MP -mlongcall $(ADDED_C++FLAGS) $(IDE_INCLUDES) $(ADDED_INCLUDES) -DCPU=$(CPU) -DTOOL_FAMILY=$(TOOL_FAMILY) -DTOOL=$(TOOL) -D_WRS_KERNEL   $(DEFINES) -o "$@" -c "$<"
 
 
-SimpleTemplate_partialImage/$(MODE_DIR)/Objects/Wiredcats2010/CAN/CanLibrary.o : C:/windriver/workspace/Wiredcats2010/CAN/CanLibrary.cpp
-	$(TRACE_FLAG)if [ ! -d "`dirname "$@"`" ]; then mkdir -p "`dirname "$@"`"; fi;echo "building $@"; $(TOOL_PATH)ccppc $(DEBUGFLAGS_C++-Compiler) $(CC_ARCH_SPEC) -ansi -Wall  -MD -MP -mlongcall $(ADDED_C++FLAGS) $(IDE_INCLUDES) $(ADDED_INCLUDES) -DCPU=$(CPU) -DTOOL_FAMILY=$(TOOL_FAMILY) -DTOOL=$(TOOL) -D_WRS_KERNEL   $(DEFINES) -o "$@" -c "$<"
-
-
 SimpleTemplate_partialImage/$(MODE_DIR)/Objects/Wiredcats2010/CAN/UDPSockets.o : C:/windriver/workspace/Wiredcats2010/CAN/UDPSockets.cpp
 	$(TRACE_FLAG)if [ ! -d "`dirname "$@"`" ]; then mkdir -p "`dirname "$@"`"; fi;echo "building $@"; $(TOOL_PATH)ccppc $(DEBUGFLAGS_C++-Compiler) $(CC_ARCH_SPEC) -ansi -Wall  -MD -MP -mlongcall $(ADDED_C++FLAGS) $(IDE_INCLUDES) $(ADDED_INCLUDES) -DCPU=$(CPU) -DTOOL_FAMILY=$(TOOL_FAMILY) -DTOOL=$(TOOL) -D_WRS_KERNEL   $(DEFINES) -o "$@" -c "$<"
 
@@ -187,7 +183,6 @@ SimpleTemplate_partialImage/$(MODE_DIR)/Objects/Wiredcats2010/Wiredcats2010.o : 
 
 
 OBJECTS_SimpleTemplate_partialImage = SimpleTemplate_partialImage/$(MODE_DIR)/Objects/Wiredcats2010/CAN/2CAN.o \
-	 SimpleTemplate_partialImage/$(MODE_DIR)/Objects/Wiredcats2010/CAN/CanLibrary.o \
 	 SimpleTemplate_partialImage/$(MODE_DIR)/Objects/Wiredcats2010/CAN/UDPSockets.o \
 	 SimpleTemplate_partialImage/$(MODE_DIR)/Objects/Wiredcats2010/ControlBoard.o \
 	 SimpleTemplate_partialImage/$(MODE_DIR)/Objects/Wiredcats2010/Log.o \
@@ -204,9 +199,8 @@ _clean :: SimpleTemplate_partialImage/$(MODE_DIR)/SimpleTemplate_partialImage_cl
 SimpleTemplate_partialImage/$(MODE_DIR)/SimpleTemplate_partialImage_clean : 
 	$(TRACE_FLAG)if [ -d "SimpleTemplate_partialImage" ]; then cd "SimpleTemplate_partialImage"; rm -rf $(MODE_DIR); fi
 
-DEP_FILES := SimpleTemplate_partialImage/$(MODE_DIR)/Objects/Wiredcats2010/CAN/2CAN.d SimpleTemplate_partialImage/$(MODE_DIR)/Objects/Wiredcats2010/CAN/CanLibrary.d SimpleTemplate_partialImage/$(MODE_DIR)/Objects/Wiredcats2010/CAN/UDPSockets.d \
-	 SimpleTemplate_partialImage/$(MODE_DIR)/Objects/Wiredcats2010/ControlBoard.d SimpleTemplate_partialImage/$(MODE_DIR)/Objects/Wiredcats2010/Log.d SimpleTemplate_partialImage/$(MODE_DIR)/Objects/Wiredcats2010/Target.d \
-	 SimpleTemplate_partialImage/$(MODE_DIR)/Objects/Wiredcats2010/Wiredcats2010.d
+DEP_FILES := SimpleTemplate_partialImage/$(MODE_DIR)/Objects/Wiredcats2010/CAN/2CAN.d SimpleTemplate_partialImage/$(MODE_DIR)/Objects/Wiredcats2010/CAN/UDPSockets.d SimpleTemplate_partialImage/$(MODE_DIR)/Objects/Wiredcats2010/ControlBoard.d \
+	 SimpleTemplate_partialImage/$(MODE_DIR)/Objects/Wiredcats2010/Log.d SimpleTemplate_partialImage/$(MODE_DIR)/Objects/Wiredcats2010/Target.d SimpleTemplate_partialImage/$(MODE_DIR)/Objects/Wiredcats2010/Wiredcats2010.d
 -include $(DEP_FILES)
 
 

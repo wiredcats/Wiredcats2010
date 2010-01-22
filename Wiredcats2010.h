@@ -16,7 +16,6 @@
 #include "Target.h"
 
 // Can Junk
-# include "CAN/CanLibrary.h"
 # include "CAN/2CAN.h"
 
 // 2415 classes

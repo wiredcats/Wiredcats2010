@@ -71,13 +71,13 @@ public:
 			
 			// Autotracking
 			if (camera.freshImage()) {
-				ColorImage *image = camera.GetImage();
-				vector<Target> targets = Target::FindCircularTargets(image);
-				delete image;
-				
-				if (targets.size() > 0 && targets[0].m_score > MINIMUM_SCORE){
-					printf(" %f = horizontal angle", targets[0].GetHorizontalAngle());
-					if (board.GetLeftJoy()->GetRawButton(1)) {
+				if (board.GetLeftJoy()->GetRawButton(1)) {
+					ColorImage *image = camera.GetImage();
+					vector<Target> targets = Target::FindCircularTargets(image);
+					delete image;
+					
+					if (targets.size() > 0 && targets[0].m_score > MINIMUM_SCORE){
+						printf(" %f = horizontal angle", targets[0].GetHorizontalAngle());
 						double angleTurn = targets[0].GetHorizontalAngle() + gyro.GetAngle();
 						double upperBound = angleTurn + AUTO_THRESHOLD;
 						double lowerBound = angleTurn - AUTO_THRESHOLD;
