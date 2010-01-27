@@ -1,6 +1,7 @@
-SimpleTemplate_partialImage/Debug/Objects/Wiredcats2010/Wiredcats2010.o:  \
- C:/windriver/workspace/Wiredcats2010/Wiredcats2010.cpp \
-  C:/windriver/workspace/Wiredcats2010/Wiredcats2010.h \
+ \
+ SimpleTemplate_partialImage/Debug/Objects/Wiredcats2010/WiredCats2010/Wiredcats2010.o:  \
+ C:/windriver/workspace/Wiredcats2010/WiredCats2010/Wiredcats2010.cpp \
+  C:/windriver/workspace/Wiredcats2010/WiredCats2010/Wiredcats2010.h \
   C:/windriver/vxworks-6.3/target/h/WPILib/WPILib.h \
   C:/windriver/vxworks-6.3/target/h/string.h \
   C:/windriver/vxworks-6.3/target/h/types/vxANSI.h \
@@ -262,17 +263,53 @@ SimpleTemplate_partialImage/Debug/Objects/Wiredcats2010/Wiredcats2010.o:  \
   C:/windriver/vxworks-6.3/target/h/WPILib/ErrorBase.h \
   C:/windriver/vxworks-6.3/target/h/WPILib/Task.h \
   C:/windriver/vxworks-6.3/target/h/WPILib/Vision/HSLImage.h \
-  C:/windriver/workspace/Wiredcats2010/Target.h \
+  C:/windriver/workspace/Wiredcats2010/WiredCats2010/Target.h \
   C:/windriver/vxworks-6.3/target/h/WPILib/Vision/ColorImage.h \
-  C:/windriver/workspace/Wiredcats2010/CAN2/CANJaguar.h \
+  C:/windriver/workspace/Wiredcats2010/WiredCats2010/CAN/2CAN.h \
+  C:/windriver/workspace/Wiredcats2010/WiredCats2010/CAN/UDPSockets.h \
+  C:/windriver/vxworks-6.3/target/h/WPILib/Task.h \
+  C:/windriver/vxworks-6.3/target/h/wrn/coreip/sockLib.h \
+  C:/windriver/vxworks-6.3/target/h/wrn/coreip/hostLib.h \
+  C:/windriver/vxworks-6.3/target/h/wrn/coreip/netdb.h \
+  C:/windriver/vxworks-6.3/target/h/lstLib.h \
+  C:/windriver/vxworks-6.3/target/h/wrn/coreip/inetLib.h \
+  C:/windriver/vxworks-6.3/target/h/usrLib.h \
+  C:/windriver/vxworks-6.3/target/h/regs.h \
+  C:/windriver/vxworks-6.3/target/h/fppLib.h \
+  C:/windriver/vxworks-6.3/target/h/taskLib.h \
+  C:/windriver/vxworks-6.3/target/h/arch/ppc/fppPpcLib.h \
+  C:/windriver/vxworks-6.3/target/h/moduleLib.h \
+  C:/windriver/vxworks-6.3/target/h/dllLib.h \
+  C:/windriver/vxworks-6.3/target/h/sllLib.h \
+  C:/windriver/vxworks-6.3/target/h/limits.h \
+  C:/windriver/vxworks-6.3/target/h/memPartLib.h \
+  C:/windriver/vxworks-6.3/target/h/private/memPartLibP.h \
+  C:/windriver/vxworks-6.3/target/h/moduleShow.h \
+  C:/windriver/vxworks-6.3/target/h/sys/stat.h \
+  C:/windriver/vxworks-6.3/target/h/usrFsLib.h \
+  C:/windriver/vxworks-6.3/target/h/sigLib.h \
+  C:/windriver/vxworks-6.3/target/h/signal.h \
+  C:/windriver/vxworks-6.3/target/h/sigevent.h \
+  C:/windriver/vxworks-6.3/target/h/sigeventCommon.h \
+  C:/windriver/vxworks-6.3/target/h/base/b_union_sigval.h \
+  C:/windriver/vxworks-6.3/target/h/sigCodes.h \
+  C:/windriver/vxworks-6.3/target/h/arch/ppc/sigPpcCodes.h \
+  C:/windriver/vxworks-6.3/target/h/iv.h \
+  C:/windriver/vxworks-6.3/target/h/arch/ppc/ivPpc.h \
+  C:/windriver/vxworks-6.3/target/h/private/sigLibP.h \
+  C:/windriver/vxworks-6.3/target/h/private/funcBindP.h \
+  C:/windriver/vxworks-6.3/target/h/fioLib.h \
+  C:/windriver/workspace/Wiredcats2010/WiredCats2010/CAN/2CANDataObjects.h \
+  C:/windriver/vxworks-6.3/target/h/WPILib/SpeedController.h \
+  C:/windriver/workspace/Wiredcats2010/WiredCats2010/CAN2/CANJaguar.h \
   C:/windriver/vxworks-6.3/target/h/WPILib/SpeedController.h \
   C:/windriver/vxworks-6.3/target/h/WPILib/PIDOutput.h \
-  C:/windriver/workspace/Wiredcats2010/Log.h \
+  C:/windriver/workspace/Wiredcats2010/WiredCats2010/Log.h \
   c:/windriver/gnu/3.4.4-vxworks-6.3/x86-win32/lib/gcc/../../../x86-win32/include/c++/3.4.4/iostream \
   c:/windriver/gnu/3.4.4-vxworks-6.3/x86-win32/lib/gcc/../../../x86-win32/include/c++/3.4.4/fstream \
-  C:/windriver/workspace/Wiredcats2010/ControlBoard.h
+  C:/windriver/workspace/Wiredcats2010/WiredCats2010/ControlBoard.h
 
-C:/windriver/workspace/Wiredcats2010/Wiredcats2010.h:
+C:/windriver/workspace/Wiredcats2010/WiredCats2010/Wiredcats2010.h:
 
 C:/windriver/vxworks-6.3/target/h/WPILib/WPILib.h:
 
@@ -796,20 +833,92 @@ C:/windriver/vxworks-6.3/target/h/WPILib/Task.h:
 
 C:/windriver/vxworks-6.3/target/h/WPILib/Vision/HSLImage.h:
 
-C:/windriver/workspace/Wiredcats2010/Target.h:
+C:/windriver/workspace/Wiredcats2010/WiredCats2010/Target.h:
 
 C:/windriver/vxworks-6.3/target/h/WPILib/Vision/ColorImage.h:
 
-C:/windriver/workspace/Wiredcats2010/CAN2/CANJaguar.h:
+C:/windriver/workspace/Wiredcats2010/WiredCats2010/CAN/2CAN.h:
+
+C:/windriver/workspace/Wiredcats2010/WiredCats2010/CAN/UDPSockets.h:
+
+C:/windriver/vxworks-6.3/target/h/WPILib/Task.h:
+
+C:/windriver/vxworks-6.3/target/h/wrn/coreip/sockLib.h:
+
+C:/windriver/vxworks-6.3/target/h/wrn/coreip/hostLib.h:
+
+C:/windriver/vxworks-6.3/target/h/wrn/coreip/netdb.h:
+
+C:/windriver/vxworks-6.3/target/h/lstLib.h:
+
+C:/windriver/vxworks-6.3/target/h/wrn/coreip/inetLib.h:
+
+C:/windriver/vxworks-6.3/target/h/usrLib.h:
+
+C:/windriver/vxworks-6.3/target/h/regs.h:
+
+C:/windriver/vxworks-6.3/target/h/fppLib.h:
+
+C:/windriver/vxworks-6.3/target/h/taskLib.h:
+
+C:/windriver/vxworks-6.3/target/h/arch/ppc/fppPpcLib.h:
+
+C:/windriver/vxworks-6.3/target/h/moduleLib.h:
+
+C:/windriver/vxworks-6.3/target/h/dllLib.h:
+
+C:/windriver/vxworks-6.3/target/h/sllLib.h:
+
+C:/windriver/vxworks-6.3/target/h/limits.h:
+
+C:/windriver/vxworks-6.3/target/h/memPartLib.h:
+
+C:/windriver/vxworks-6.3/target/h/private/memPartLibP.h:
+
+C:/windriver/vxworks-6.3/target/h/moduleShow.h:
+
+C:/windriver/vxworks-6.3/target/h/sys/stat.h:
+
+C:/windriver/vxworks-6.3/target/h/usrFsLib.h:
+
+C:/windriver/vxworks-6.3/target/h/sigLib.h:
+
+C:/windriver/vxworks-6.3/target/h/signal.h:
+
+C:/windriver/vxworks-6.3/target/h/sigevent.h:
+
+C:/windriver/vxworks-6.3/target/h/sigeventCommon.h:
+
+C:/windriver/vxworks-6.3/target/h/base/b_union_sigval.h:
+
+C:/windriver/vxworks-6.3/target/h/sigCodes.h:
+
+C:/windriver/vxworks-6.3/target/h/arch/ppc/sigPpcCodes.h:
+
+C:/windriver/vxworks-6.3/target/h/iv.h:
+
+C:/windriver/vxworks-6.3/target/h/arch/ppc/ivPpc.h:
+
+C:/windriver/vxworks-6.3/target/h/private/sigLibP.h:
+
+C:/windriver/vxworks-6.3/target/h/private/funcBindP.h:
+
+C:/windriver/vxworks-6.3/target/h/fioLib.h:
+
+C:/windriver/workspace/Wiredcats2010/WiredCats2010/CAN/2CANDataObjects.h:
+
+C:/windriver/vxworks-6.3/target/h/WPILib/SpeedController.h:
+
+C:/windriver/workspace/Wiredcats2010/WiredCats2010/CAN2/CANJaguar.h:
 
 C:/windriver/vxworks-6.3/target/h/WPILib/SpeedController.h:
 
 C:/windriver/vxworks-6.3/target/h/WPILib/PIDOutput.h:
 
-C:/windriver/workspace/Wiredcats2010/Log.h:
+C:/windriver/workspace/Wiredcats2010/WiredCats2010/Log.h:
 
 c:/windriver/gnu/3.4.4-vxworks-6.3/x86-win32/lib/gcc/../../../x86-win32/include/c++/3.4.4/iostream:
 
 c:/windriver/gnu/3.4.4-vxworks-6.3/x86-win32/lib/gcc/../../../x86-win32/include/c++/3.4.4/fstream:
 
-C:/windriver/workspace/Wiredcats2010/ControlBoard.h:
+C:/windriver/workspace/Wiredcats2010/WiredCats2010/ControlBoard.h:

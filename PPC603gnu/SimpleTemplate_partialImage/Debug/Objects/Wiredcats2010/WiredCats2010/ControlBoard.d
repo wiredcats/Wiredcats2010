@@ -1,6 +1,7 @@
-SimpleTemplate_partialImage/Debug/Objects/Wiredcats2010/Wiredcats2010.o:  \
- C:/windriver/workspace/Wiredcats2010/Wiredcats2010.cpp \
-  C:/windriver/workspace/Wiredcats2010/Wiredcats2010.h \
+ \
+ SimpleTemplate_partialImage/Debug/Objects/Wiredcats2010/WiredCats2010/ControlBoard.o:  \
+ C:/windriver/workspace/Wiredcats2010/WiredCats2010/ControlBoard.cpp \
+  C:/windriver/workspace/Wiredcats2010/WiredCats2010/ControlBoard.h \
   C:/windriver/vxworks-6.3/target/h/WPILib/WPILib.h \
   C:/windriver/vxworks-6.3/target/h/string.h \
   C:/windriver/vxworks-6.3/target/h/types/vxANSI.h \
@@ -222,57 +223,9 @@ SimpleTemplate_partialImage/Debug/Objects/Wiredcats2010/Wiredcats2010.o:  \
   C:/windriver/vxworks-6.3/target/h/copyright_wrs.h \
   C:/windriver/vxworks-6.3/target/h/sys/taskDefs.h \
   C:/windriver/vxworks-6.3/target/h/WPILib/Victor.h \
-  C:/windriver/vxworks-6.3/target/h/WPILib/WPIStatus.h \
-  C:/windriver/vxworks-6.3/target/h/WPILib/Vision/AxisCamera2010.h \
-  C:/windriver/vxworks-6.3/target/h/WPILib/nivision.h \
-  C:/windriver/vxworks-6.3/target/h/wrn/coreip/sockLib.h \
-  C:/windriver/vxworks-6.3/target/h/sys/times.h \
-  C:/windriver/vxworks-6.3/target/h/wrn/coreip/sys/socket.h \
-  C:/windriver/vxworks-6.3/target/h/wrn/coreip/netVersion.h \
-  C:/windriver/vxworks-6.3/target/h/wrn/coreip/sockFunc.h \
-  C:/windriver/vxworks-6.3/target/h/ioLib.h \
-  C:/windriver/vxworks-6.3/target/h/wrn/coreip/net/uio.h \
-  C:/windriver/vxworks-6.3/target/h/wrn/coreip/sys/cdefs.h \
-  C:/windriver/vxworks-6.3/target/h/fcntl.h \
-  C:/windriver/vxworks-6.3/target/h/sys/fcntlcom.h \
-  C:/windriver/vxworks-6.3/target/h/unistd.h \
-  C:/windriver/vxworks-6.3/target/h/sys/resource.h \
-  C:/windriver/vxworks-6.3/target/h/wrn/coreip/inetLib.h \
-  C:/windriver/vxworks-6.3/target/h/wrn/coreip/netinet/in.h \
-  C:/windriver/vxworks-6.3/target/h/wrn/coreip/net/mbuf.h \
-  C:/windriver/vxworks-6.3/target/h/wrn/coreip/netBufLib.h \
-  C:/windriver/vxworks-6.3/target/h/wrn/coreip/cfgDefs.h \
-  C:/windriver/vxworks-6.3/target/h/private/memPartLibP.h \
-  C:/windriver/vxworks-6.3/target/h/sllLib.h \
-  C:/windriver/vxworks-6.3/target/h/avlUintLib.h \
-  C:/windriver/vxworks-6.3/target/h/wrn/coreip/netffs.h \
-  C:/windriver/vxworks-6.3/target/h/wrn/coreip/netinet6/in6.h \
-  C:/windriver/vxworks-6.3/target/h/wrn/coreip/net/route.h \
-  C:/windriver/vxworks-6.3/target/h/wrn/coreip/route/ipRouteLib.h \
-  C:/windriver/vxworks-6.3/target/h/wrn/coreip/arpa/inet.h \
-  C:/windriver/vxworks-6.3/target/h/WPILib/Vision/ColorImage.h \
-  C:/windriver/vxworks-6.3/target/h/WPILib/Vision/ImageBase.h \
-  C:/windriver/vxworks-6.3/target/h/WPILib/Utility.h \
-  C:/windriver/vxworks-6.3/target/h/WPILib/Vision/BinaryImage.h \
-  C:/windriver/vxworks-6.3/target/h/WPILib/Vision/MonoImage.h \
-  C:/windriver/vxworks-6.3/target/h/WPILib/VisionAPI.h \
-  C:/windriver/vxworks-6.3/target/h/WPILib/nivision.h \
-  c:/windriver/gnu/3.4.4-vxworks-6.3/x86-win32/lib/gcc/../../../x86-win32/include/c++/3.4.4/algorithm \
-  C:/windriver/vxworks-6.3/target/h/WPILib/Vision/Threshold.h \
-  C:/windriver/vxworks-6.3/target/h/WPILib/ErrorBase.h \
-  C:/windriver/vxworks-6.3/target/h/WPILib/Task.h \
-  C:/windriver/vxworks-6.3/target/h/WPILib/Vision/HSLImage.h \
-  C:/windriver/workspace/Wiredcats2010/Target.h \
-  C:/windriver/vxworks-6.3/target/h/WPILib/Vision/ColorImage.h \
-  C:/windriver/workspace/Wiredcats2010/CAN2/CANJaguar.h \
-  C:/windriver/vxworks-6.3/target/h/WPILib/SpeedController.h \
-  C:/windriver/vxworks-6.3/target/h/WPILib/PIDOutput.h \
-  C:/windriver/workspace/Wiredcats2010/Log.h \
-  c:/windriver/gnu/3.4.4-vxworks-6.3/x86-win32/lib/gcc/../../../x86-win32/include/c++/3.4.4/iostream \
-  c:/windriver/gnu/3.4.4-vxworks-6.3/x86-win32/lib/gcc/../../../x86-win32/include/c++/3.4.4/fstream \
-  C:/windriver/workspace/Wiredcats2010/ControlBoard.h
+  C:/windriver/vxworks-6.3/target/h/WPILib/WPIStatus.h
 
-C:/windriver/workspace/Wiredcats2010/Wiredcats2010.h:
+C:/windriver/workspace/Wiredcats2010/WiredCats2010/ControlBoard.h:
 
 C:/windriver/vxworks-6.3/target/h/WPILib/WPILib.h:
 
@@ -717,99 +670,3 @@ C:/windriver/vxworks-6.3/target/h/sys/taskDefs.h:
 C:/windriver/vxworks-6.3/target/h/WPILib/Victor.h:
 
 C:/windriver/vxworks-6.3/target/h/WPILib/WPIStatus.h:
-
-C:/windriver/vxworks-6.3/target/h/WPILib/Vision/AxisCamera2010.h:
-
-C:/windriver/vxworks-6.3/target/h/WPILib/nivision.h:
-
-C:/windriver/vxworks-6.3/target/h/wrn/coreip/sockLib.h:
-
-C:/windriver/vxworks-6.3/target/h/sys/times.h:
-
-C:/windriver/vxworks-6.3/target/h/wrn/coreip/sys/socket.h:
-
-C:/windriver/vxworks-6.3/target/h/wrn/coreip/netVersion.h:
-
-C:/windriver/vxworks-6.3/target/h/wrn/coreip/sockFunc.h:
-
-C:/windriver/vxworks-6.3/target/h/ioLib.h:
-
-C:/windriver/vxworks-6.3/target/h/wrn/coreip/net/uio.h:
-
-C:/windriver/vxworks-6.3/target/h/wrn/coreip/sys/cdefs.h:
-
-C:/windriver/vxworks-6.3/target/h/fcntl.h:
-
-C:/windriver/vxworks-6.3/target/h/sys/fcntlcom.h:
-
-C:/windriver/vxworks-6.3/target/h/unistd.h:
-
-C:/windriver/vxworks-6.3/target/h/sys/resource.h:
-
-C:/windriver/vxworks-6.3/target/h/wrn/coreip/inetLib.h:
-
-C:/windriver/vxworks-6.3/target/h/wrn/coreip/netinet/in.h:
-
-C:/windriver/vxworks-6.3/target/h/wrn/coreip/net/mbuf.h:
-
-C:/windriver/vxworks-6.3/target/h/wrn/coreip/netBufLib.h:
-
-C:/windriver/vxworks-6.3/target/h/wrn/coreip/cfgDefs.h:
-
-C:/windriver/vxworks-6.3/target/h/private/memPartLibP.h:
-
-C:/windriver/vxworks-6.3/target/h/sllLib.h:
-
-C:/windriver/vxworks-6.3/target/h/avlUintLib.h:
-
-C:/windriver/vxworks-6.3/target/h/wrn/coreip/netffs.h:
-
-C:/windriver/vxworks-6.3/target/h/wrn/coreip/netinet6/in6.h:
-
-C:/windriver/vxworks-6.3/target/h/wrn/coreip/net/route.h:
-
-C:/windriver/vxworks-6.3/target/h/wrn/coreip/route/ipRouteLib.h:
-
-C:/windriver/vxworks-6.3/target/h/wrn/coreip/arpa/inet.h:
-
-C:/windriver/vxworks-6.3/target/h/WPILib/Vision/ColorImage.h:
-
-C:/windriver/vxworks-6.3/target/h/WPILib/Vision/ImageBase.h:
-
-C:/windriver/vxworks-6.3/target/h/WPILib/Utility.h:
-
-C:/windriver/vxworks-6.3/target/h/WPILib/Vision/BinaryImage.h:
-
-C:/windriver/vxworks-6.3/target/h/WPILib/Vision/MonoImage.h:
-
-C:/windriver/vxworks-6.3/target/h/WPILib/VisionAPI.h:
-
-C:/windriver/vxworks-6.3/target/h/WPILib/nivision.h:
-
-c:/windriver/gnu/3.4.4-vxworks-6.3/x86-win32/lib/gcc/../../../x86-win32/include/c++/3.4.4/algorithm:
-
-C:/windriver/vxworks-6.3/target/h/WPILib/Vision/Threshold.h:
-
-C:/windriver/vxworks-6.3/target/h/WPILib/ErrorBase.h:
-
-C:/windriver/vxworks-6.3/target/h/WPILib/Task.h:
-
-C:/windriver/vxworks-6.3/target/h/WPILib/Vision/HSLImage.h:
-
-C:/windriver/workspace/Wiredcats2010/Target.h:
-
-C:/windriver/vxworks-6.3/target/h/WPILib/Vision/ColorImage.h:
-
-C:/windriver/workspace/Wiredcats2010/CAN2/CANJaguar.h:
-
-C:/windriver/vxworks-6.3/target/h/WPILib/SpeedController.h:
-
-C:/windriver/vxworks-6.3/target/h/WPILib/PIDOutput.h:
-
-C:/windriver/workspace/Wiredcats2010/Log.h:
-
-c:/windriver/gnu/3.4.4-vxworks-6.3/x86-win32/lib/gcc/../../../x86-win32/include/c++/3.4.4/iostream:
-
-c:/windriver/gnu/3.4.4-vxworks-6.3/x86-win32/lib/gcc/../../../x86-win32/include/c++/3.4.4/fstream:
-
-C:/windriver/workspace/Wiredcats2010/ControlBoard.h:

@@ -20,12 +20,18 @@ class Wiredcats2010 : public SimpleRobot
 	
 	Log rlog;
 	
+	CANJaguar rightFront;
+	CANJaguar rightBack;
+	CANJaguar leftFront;
+	CANJaguar leftBack;
+	
 	RobotDrive myRobot; // robot drive system
 
 public:
 	Wiredcats2010(void):
 		board(), gyro(1), rlog("stuff.log"),
-        myRobot(1,2)
+		rightFront(4), rightBack(5), leftFront(2), leftBack(3),
+        myRobot(rightFront, rightBack, leftFront, leftBack)
         
 	{
 		rlog.addLine("Constructor");

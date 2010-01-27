@@ -7,12 +7,6 @@
 /*       -fdollars-in-identifiers flag.                   */
 
 
-void _GLOBAL__I__Z15WithinThresholdfff();
-
-void _GLOBAL__I__ZN12ControlBoardC2Ev();
-
-void _GLOBAL__I__ZN3LogC2EPc();
-
 void _GLOBAL__I__ZN9ErrorBase16globalErrorMutexE();
 
 void _GLOBAL__I__ZN9RobotBase10m_instanceE();
@@ -26,9 +20,6 @@ void _GLOBAL__I_AxisCamera_debugFlag();
 extern void (*_ctors[])();
 void (*_ctors[])() =
     {
-    _GLOBAL__I__Z15WithinThresholdfff,
-    _GLOBAL__I__ZN12ControlBoardC2Ev,
-    _GLOBAL__I__ZN3LogC2EPc,
     _GLOBAL__I__ZN9ErrorBase16globalErrorMutexE,
     _GLOBAL__I__ZN9RobotBase10m_instanceE,
     _GLOBAL__I__ZN10Ultrasonic6m_taskE,
@@ -36,12 +27,6 @@ void (*_ctors[])() =
     _GLOBAL__I_AxisCamera_debugFlag,
     0
     };
-
-void _GLOBAL__D__Z15WithinThresholdfff();
-
-void _GLOBAL__D__ZN12ControlBoardC2Ev();
-
-void _GLOBAL__D__ZN3LogC2EPc();
 
 void _GLOBAL__D__ZN9ErrorBase16globalErrorMutexE();
 
@@ -54,9 +39,6 @@ void _GLOBAL__D_AxisCamera_debugFlag();
 extern void (*_dtors[])();
 void (*_dtors[])() =
     {
-    _GLOBAL__D__Z15WithinThresholdfff,
-    _GLOBAL__D__ZN12ControlBoardC2Ev,
-    _GLOBAL__D__ZN3LogC2EPc,
     _GLOBAL__D__ZN9ErrorBase16globalErrorMutexE,
     _GLOBAL__D__ZN9RobotBase10m_instanceE,
     _GLOBAL__D__ZN10Ultrasonic6m_taskE,

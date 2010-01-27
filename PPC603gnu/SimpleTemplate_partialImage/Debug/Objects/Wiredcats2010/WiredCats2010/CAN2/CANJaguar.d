@@ -1,10 +1,12 @@
-SimpleTemplate_partialImage/Debug/Objects/Wiredcats2010/Target.o:  \
- C:/windriver/workspace/Wiredcats2010/Target.cpp \
-  C:/windriver/vxworks-6.3/target/h/WPILib/niVision.h \
-  C:/windriver/vxworks-6.3/target/h/WPILib/Vision/ColorImage.h \
-  C:/windriver/vxworks-6.3/target/h/WPILib/Vision/ImageBase.h \
-  C:/windriver/vxworks-6.3/target/h/stdio.h \
-  C:/windriver/vxworks-6.3/target/h/types/vxANSI.h \
+ \
+ SimpleTemplate_partialImage/Debug/Objects/Wiredcats2010/WiredCats2010/CAN2/CANJaguar.o:  \
+ C:/windriver/workspace/Wiredcats2010/WiredCats2010/CAN2/CANJaguar.cpp \
+  C:/windriver/workspace/Wiredcats2010/WiredCats2010/CAN2/CANJaguar.h \
+  C:/windriver/vxworks-6.3/target/h/WPILib/SpeedController.h \
+  C:/windriver/vxworks-6.3/target/h/WPILib/PIDOutput.h \
+  C:/windriver/vxworks-6.3/target/h/WPILib/Base.h \
+  C:/windriver/vxworks-6.3/target/h/vxWorks.h \
+  C:/windriver/vxworks-6.3/target/h/vxWorksCommon.h \
   C:/windriver/vxworks-6.3/target/h/types/vxCpu.h \
   C:/windriver/vxworks-6.3/target/h/types/vxArch.h \
   C:/windriver/vxworks-6.3/target/h/arch/ppc/archPpc.h \
@@ -14,10 +16,6 @@ SimpleTemplate_partialImage/Debug/Objects/Wiredcats2010/Target.o:  \
   C:/windriver/vxworks-6.3/target/h/types/vxParams.h \
   C:/windriver/vxworks-6.3/target/h/types/vxTypesBase.h \
   c:\windriver\gnu\3.4.4-vxworks-6.3\x86-win32\bin\../lib/gcc/powerpc-wrs-vxworks/3.4.4/include/stddef.h \
-  C:/windriver/vxworks-6.3/target/h/errno.h \
-  C:/windriver/vxworks-6.3/target/h/private/handleLibP.h \
-  C:/windriver/vxworks-6.3/target/h/vxWorks.h \
-  C:/windriver/vxworks-6.3/target/h/vxWorksCommon.h \
   C:/windriver/vxworks-6.3/target/h/types/vxTypes.h \
   C:/windriver/vxworks-6.3/target/h/types/vxANSI.h \
   C:/windriver/vxworks-6.3/target/h/base/b_ssize_t.h \
@@ -46,11 +44,12 @@ SimpleTemplate_partialImage/Debug/Objects/Wiredcats2010/Target.o:  \
   C:/windriver/vxworks-6.3/target/h/tool/gnu/toolMacros.h \
   C:/windriver/vxworks-6.3/target/h/version.h \
   C:/windriver/vxworks-6.3/target/h/sys/vxLibCfgDefsP.h \
-  c:\windriver\gnu\3.4.4-vxworks-6.3\x86-win32\bin\../lib/gcc/powerpc-wrs-vxworks/3.4.4/include/stdarg.h \
-  C:/windriver/vxworks-6.3/target/h/WPILib/nivision.h \
+  C:/windriver/vxworks-6.3/target/h/WPILib/ChipObject/NiRioStatus.h \
+  C:/windriver/workspace/Wiredcats2010/WiredCats2010/CAN2/JaguarCANDriver.h \
+  C:/windriver/vxworks-6.3/target/h/VxWorks.h \
+  C:/windriver/workspace/Wiredcats2010/WiredCats2010/CAN2/can_proto.h \
   C:/windriver/vxworks-6.3/target/h/WPILib/Utility.h \
   C:/windriver/vxworks-6.3/target/h/taskLib.h \
-  C:/windriver/vxworks-6.3/target/h/vxWorks.h \
   C:/windriver/vxworks-6.3/target/h/vwModNum.h \
   C:/windriver/vxworks-6.3/target/h/classLib.h \
   C:/windriver/vxworks-6.3/target/h/vxWorks.h \
@@ -67,6 +66,8 @@ SimpleTemplate_partialImage/Debug/Objects/Wiredcats2010/Target.o:  \
   C:/windriver/vxworks-6.3/target/h/semLibCommon.h \
   C:/windriver/vxworks-6.3/target/h/objLib.h \
   C:/windriver/vxworks-6.3/target/h/objLibCommon.h \
+  C:/windriver/vxworks-6.3/target/h/errno.h \
+  C:/windriver/vxworks-6.3/target/h/types/vxANSI.h \
   C:/windriver/vxworks-6.3/target/h/private/classLibP.h \
   C:/windriver/vxworks-6.3/target/h/memLib.h \
   C:/windriver/vxworks-6.3/target/h/dllLib.h \
@@ -91,48 +92,19 @@ SimpleTemplate_partialImage/Debug/Objects/Wiredcats2010/Target.o:  \
   C:/windriver/vxworks-6.3/target/h/eventLibCommon.h \
   C:/windriver/vxworks-6.3/target/h/arch/ppc/coprocPpc.h \
   C:/windriver/vxworks-6.3/target/h/copyright_wrs.h \
-  C:/windriver/vxworks-6.3/target/h/sys/taskDefs.h \
-  C:/windriver/vxworks-6.3/target/h/WPILib/Vision/BinaryImage.h \
-  C:/windriver/vxworks-6.3/target/h/WPILib/Vision/MonoImage.h \
-  c:/windriver/gnu/3.4.4-vxworks-6.3/x86-win32/lib/gcc/../../../x86-win32/include/c++/3.4.4/vector \
-  c:/windriver/gnu/3.4.4-vxworks-6.3/x86-win32/lib/gcc/../../../x86-win32/include/c++/3.4.4/memory \
-  c:/windriver/gnu/3.4.4-vxworks-6.3/x86-win32/lib/gcc/../../../x86-win32/include/c++/3.4.4/xmemory \
-  c:/windriver/gnu/3.4.4-vxworks-6.3/x86-win32/lib/gcc/../../../x86-win32/include/c++/3.4.4/cstdlib \
-  c:/windriver/gnu/3.4.4-vxworks-6.3/x86-win32/lib/gcc/../../../x86-win32/include/c++/3.4.4/yvals.h \
-  c:/windriver/gnu/3.4.4-vxworks-6.3/x86-win32/lib/gcc/../../../x86-win32/include/c++/3.4.4/new \
-  c:/windriver/gnu/3.4.4-vxworks-6.3/x86-win32/lib/gcc/../../../x86-win32/include/c++/3.4.4/exception \
-  c:/windriver/gnu/3.4.4-vxworks-6.3/x86-win32/lib/gcc/../../../x86-win32/include/c++/3.4.4/xstddef \
-  c:/windriver/gnu/3.4.4-vxworks-6.3/x86-win32/lib/gcc/../../../x86-win32/include/c++/3.4.4/cstddef \
-  c:/windriver/gnu/3.4.4-vxworks-6.3/x86-win32/lib/gcc/../../../x86-win32/include/c++/3.4.4/xutility \
-  c:/windriver/gnu/3.4.4-vxworks-6.3/x86-win32/lib/gcc/../../../x86-win32/include/c++/3.4.4/climits \
-  c:\windriver\gnu\3.4.4-vxworks-6.3\x86-win32\bin\../lib/gcc/powerpc-wrs-vxworks/3.4.4/include/limits.h \
-  c:\windriver\gnu\3.4.4-vxworks-6.3\x86-win32\bin\../lib/gcc/powerpc-wrs-vxworks/3.4.4/include/syslimits.h \
-  C:/windriver/vxworks-6.3/target/h/limits.h \
-  C:/windriver/vxworks-6.3/target/h/tool/gnu/limits.h \
-  c:/windriver/gnu/3.4.4-vxworks-6.3/x86-win32/lib/gcc/../../../x86-win32/include/c++/3.4.4/utility \
-  c:/windriver/gnu/3.4.4-vxworks-6.3/x86-win32/lib/gcc/../../../x86-win32/include/c++/3.4.4/iosfwd \
-  c:/windriver/gnu/3.4.4-vxworks-6.3/x86-win32/lib/gcc/../../../x86-win32/include/c++/3.4.4/cstdio \
-  c:/windriver/gnu/3.4.4-vxworks-6.3/x86-win32/lib/gcc/../../../x86-win32/include/c++/3.4.4/cstring \
-  C:/windriver/vxworks-6.3/target/h/string.h \
-  c:/windriver/gnu/3.4.4-vxworks-6.3/x86-win32/lib/gcc/../../../x86-win32/include/c++/3.4.4/stdexcept \
-  c:/windriver/gnu/3.4.4-vxworks-6.3/x86-win32/lib/gcc/../../../x86-win32/include/c++/3.4.4/xstring \
-  C:/windriver/vxworks-6.3/target/h/WPILib/VisionAPI.h \
-  C:/windriver/vxworks-6.3/target/h/WPILib/nivision.h \
-  c:/windriver/gnu/3.4.4-vxworks-6.3/x86-win32/lib/gcc/../../../x86-win32/include/c++/3.4.4/algorithm \
-  C:/windriver/vxworks-6.3/target/h/WPILib/Vision/Threshold.h \
-  C:/windriver/vxworks-6.3/target/h/WPILib/Vision/MonoImage.h \
-  C:/windriver/workspace/Wiredcats2010/Target.h \
-  C:/windriver/vxworks-6.3/target/h/math.h
+  C:/windriver/vxworks-6.3/target/h/sys/taskDefs.h
 
-C:/windriver/vxworks-6.3/target/h/WPILib/niVision.h:
+C:/windriver/workspace/Wiredcats2010/WiredCats2010/CAN2/CANJaguar.h:
 
-C:/windriver/vxworks-6.3/target/h/WPILib/Vision/ColorImage.h:
+C:/windriver/vxworks-6.3/target/h/WPILib/SpeedController.h:
 
-C:/windriver/vxworks-6.3/target/h/WPILib/Vision/ImageBase.h:
+C:/windriver/vxworks-6.3/target/h/WPILib/PIDOutput.h:
 
-C:/windriver/vxworks-6.3/target/h/stdio.h:
+C:/windriver/vxworks-6.3/target/h/WPILib/Base.h:
 
-C:/windriver/vxworks-6.3/target/h/types/vxANSI.h:
+C:/windriver/vxworks-6.3/target/h/vxWorks.h:
+
+C:/windriver/vxworks-6.3/target/h/vxWorksCommon.h:
 
 C:/windriver/vxworks-6.3/target/h/types/vxCpu.h:
 
@@ -151,14 +123,6 @@ C:/windriver/vxworks-6.3/target/h/types/vxParams.h:
 C:/windriver/vxworks-6.3/target/h/types/vxTypesBase.h:
 
 c:\windriver\gnu\3.4.4-vxworks-6.3\x86-win32\bin\../lib/gcc/powerpc-wrs-vxworks/3.4.4/include/stddef.h:
-
-C:/windriver/vxworks-6.3/target/h/errno.h:
-
-C:/windriver/vxworks-6.3/target/h/private/handleLibP.h:
-
-C:/windriver/vxworks-6.3/target/h/vxWorks.h:
-
-C:/windriver/vxworks-6.3/target/h/vxWorksCommon.h:
 
 C:/windriver/vxworks-6.3/target/h/types/vxTypes.h:
 
@@ -216,15 +180,17 @@ C:/windriver/vxworks-6.3/target/h/version.h:
 
 C:/windriver/vxworks-6.3/target/h/sys/vxLibCfgDefsP.h:
 
-c:\windriver\gnu\3.4.4-vxworks-6.3\x86-win32\bin\../lib/gcc/powerpc-wrs-vxworks/3.4.4/include/stdarg.h:
+C:/windriver/vxworks-6.3/target/h/WPILib/ChipObject/NiRioStatus.h:
 
-C:/windriver/vxworks-6.3/target/h/WPILib/nivision.h:
+C:/windriver/workspace/Wiredcats2010/WiredCats2010/CAN2/JaguarCANDriver.h:
+
+C:/windriver/vxworks-6.3/target/h/VxWorks.h:
+
+C:/windriver/workspace/Wiredcats2010/WiredCats2010/CAN2/can_proto.h:
 
 C:/windriver/vxworks-6.3/target/h/WPILib/Utility.h:
 
 C:/windriver/vxworks-6.3/target/h/taskLib.h:
-
-C:/windriver/vxworks-6.3/target/h/vxWorks.h:
 
 C:/windriver/vxworks-6.3/target/h/vwModNum.h:
 
@@ -257,6 +223,10 @@ C:/windriver/vxworks-6.3/target/h/semLibCommon.h:
 C:/windriver/vxworks-6.3/target/h/objLib.h:
 
 C:/windriver/vxworks-6.3/target/h/objLibCommon.h:
+
+C:/windriver/vxworks-6.3/target/h/errno.h:
+
+C:/windriver/vxworks-6.3/target/h/types/vxANSI.h:
 
 C:/windriver/vxworks-6.3/target/h/private/classLibP.h:
 
@@ -307,65 +277,3 @@ C:/windriver/vxworks-6.3/target/h/arch/ppc/coprocPpc.h:
 C:/windriver/vxworks-6.3/target/h/copyright_wrs.h:
 
 C:/windriver/vxworks-6.3/target/h/sys/taskDefs.h:
-
-C:/windriver/vxworks-6.3/target/h/WPILib/Vision/BinaryImage.h:
-
-C:/windriver/vxworks-6.3/target/h/WPILib/Vision/MonoImage.h:
-
-c:/windriver/gnu/3.4.4-vxworks-6.3/x86-win32/lib/gcc/../../../x86-win32/include/c++/3.4.4/vector:
-
-c:/windriver/gnu/3.4.4-vxworks-6.3/x86-win32/lib/gcc/../../../x86-win32/include/c++/3.4.4/memory:
-
-c:/windriver/gnu/3.4.4-vxworks-6.3/x86-win32/lib/gcc/../../../x86-win32/include/c++/3.4.4/xmemory:
-
-c:/windriver/gnu/3.4.4-vxworks-6.3/x86-win32/lib/gcc/../../../x86-win32/include/c++/3.4.4/cstdlib:
-
-c:/windriver/gnu/3.4.4-vxworks-6.3/x86-win32/lib/gcc/../../../x86-win32/include/c++/3.4.4/yvals.h:
-
-c:/windriver/gnu/3.4.4-vxworks-6.3/x86-win32/lib/gcc/../../../x86-win32/include/c++/3.4.4/new:
-
-c:/windriver/gnu/3.4.4-vxworks-6.3/x86-win32/lib/gcc/../../../x86-win32/include/c++/3.4.4/exception:
-
-c:/windriver/gnu/3.4.4-vxworks-6.3/x86-win32/lib/gcc/../../../x86-win32/include/c++/3.4.4/xstddef:
-
-c:/windriver/gnu/3.4.4-vxworks-6.3/x86-win32/lib/gcc/../../../x86-win32/include/c++/3.4.4/cstddef:
-
-c:/windriver/gnu/3.4.4-vxworks-6.3/x86-win32/lib/gcc/../../../x86-win32/include/c++/3.4.4/xutility:
-
-c:/windriver/gnu/3.4.4-vxworks-6.3/x86-win32/lib/gcc/../../../x86-win32/include/c++/3.4.4/climits:
-
-c:\windriver\gnu\3.4.4-vxworks-6.3\x86-win32\bin\../lib/gcc/powerpc-wrs-vxworks/3.4.4/include/limits.h:
-
-c:\windriver\gnu\3.4.4-vxworks-6.3\x86-win32\bin\../lib/gcc/powerpc-wrs-vxworks/3.4.4/include/syslimits.h:
-
-C:/windriver/vxworks-6.3/target/h/limits.h:
-
-C:/windriver/vxworks-6.3/target/h/tool/gnu/limits.h:
-
-c:/windriver/gnu/3.4.4-vxworks-6.3/x86-win32/lib/gcc/../../../x86-win32/include/c++/3.4.4/utility:
-
-c:/windriver/gnu/3.4.4-vxworks-6.3/x86-win32/lib/gcc/../../../x86-win32/include/c++/3.4.4/iosfwd:
-
-c:/windriver/gnu/3.4.4-vxworks-6.3/x86-win32/lib/gcc/../../../x86-win32/include/c++/3.4.4/cstdio:
-
-c:/windriver/gnu/3.4.4-vxworks-6.3/x86-win32/lib/gcc/../../../x86-win32/include/c++/3.4.4/cstring:
-
-C:/windriver/vxworks-6.3/target/h/string.h:
-
-c:/windriver/gnu/3.4.4-vxworks-6.3/x86-win32/lib/gcc/../../../x86-win32/include/c++/3.4.4/stdexcept:
-
-c:/windriver/gnu/3.4.4-vxworks-6.3/x86-win32/lib/gcc/../../../x86-win32/include/c++/3.4.4/xstring:
-
-C:/windriver/vxworks-6.3/target/h/WPILib/VisionAPI.h:
-
-C:/windriver/vxworks-6.3/target/h/WPILib/nivision.h:
-
-c:/windriver/gnu/3.4.4-vxworks-6.3/x86-win32/lib/gcc/../../../x86-win32/include/c++/3.4.4/algorithm:
-
-C:/windriver/vxworks-6.3/target/h/WPILib/Vision/Threshold.h:
-
-C:/windriver/vxworks-6.3/target/h/WPILib/Vision/MonoImage.h:
-
-C:/windriver/workspace/Wiredcats2010/Target.h:
-
-C:/windriver/vxworks-6.3/target/h/math.h:
