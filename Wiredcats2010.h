@@ -17,6 +17,7 @@
 
 // Can Junk
 # include "CAN/2CAN.h"
+# include "CAN2/CANJaguar.h"
 
 // 2415 classes
 #include "Log.h"

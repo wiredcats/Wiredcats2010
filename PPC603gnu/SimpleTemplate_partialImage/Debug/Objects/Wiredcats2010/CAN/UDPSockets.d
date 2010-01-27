@@ -1,6 +1,6 @@
-SimpleTemplate_partialImage/Debug/Objects/Wiredcats2010/CAN/UDPSockets.o:  \
- C:/windriver/workspace/Wiredcats2010/CAN/UDPSockets.cpp \
-  C:/windriver/workspace/Wiredcats2010/CAN/UDPSockets.h \
+SimpleTemplate_partialImage/Debug/Objects/WiredCats2010/CAN/UDPSockets.o:  \
+ C:/WindRiver/workspace/WiredCats2010/CAN/UDPSockets.cpp \
+  C:/WindRiver/workspace/WiredCats2010/CAN/UDPSockets.h \
   C:/WindRiver/vxworks-6.3/target/h/WPILib/Task.h \
   C:/WindRiver/vxworks-6.3/target/h/WPILib/Base.h \
   C:/WindRiver/vxworks-6.3/target/h/vxworks.h \
@@ -185,7 +185,7 @@ SimpleTemplate_partialImage/Debug/Objects/Wiredcats2010/CAN/UDPSockets.o:  \
   c:/windriver/gnu/3.4.4-vxworks-6.3/x86-win32/lib/gcc/../../../x86-win32/include/c++/3.4.4/xlocinfo.h \
   C:/WindRiver/vxworks-6.3/target/h/WPILib/Synchronized.h
 
-C:/windriver/workspace/Wiredcats2010/CAN/UDPSockets.h:
+C:/WindRiver/workspace/WiredCats2010/CAN/UDPSockets.h:
 
 C:/WindRiver/vxworks-6.3/target/h/WPILib/Task.h:
 

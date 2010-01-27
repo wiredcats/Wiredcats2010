@@ -1,7 +1,7 @@
-SimpleTemplate_partialImage/Debug/Objects/Wiredcats2010/CAN/2CAN.o:  \
- C:/windriver/workspace/Wiredcats2010/CAN/2CAN.cpp \
-  C:/windriver/workspace/Wiredcats2010/CAN/2CAN.H \
-  C:/windriver/workspace/Wiredcats2010/CAN/UDPSockets.h \
+SimpleTemplate_partialImage/Debug/Objects/WiredCats2010/CAN/2CAN.o:  \
+ C:/WindRiver/workspace/WiredCats2010/CAN/2CAN.cpp \
+  C:/WindRiver/workspace/WiredCats2010/CAN/2CAN.H \
+  C:/WindRiver/workspace/WiredCats2010/CAN/UDPSockets.h \
   C:/WindRiver/vxworks-6.3/target/h/WPILib/Task.h \
   C:/WindRiver/vxworks-6.3/target/h/WPILib/Base.h \
   C:/WindRiver/vxworks-6.3/target/h/vxworks.h \
@@ -184,15 +184,15 @@ SimpleTemplate_partialImage/Debug/Objects/Wiredcats2010/CAN/2CAN.o:  \
   C:/WindRiver/vxworks-6.3/target/h/locale.h \
   c:/windriver/gnu/3.4.4-vxworks-6.3/x86-win32/lib/gcc/../../../x86-win32/include/c++/3.4.4/ctime \
   c:/windriver/gnu/3.4.4-vxworks-6.3/x86-win32/lib/gcc/../../../x86-win32/include/c++/3.4.4/xlocinfo.h \
-  C:/windriver/workspace/Wiredcats2010/CAN/2CANDataObjects.h \
+  C:/WindRiver/workspace/WiredCats2010/CAN/2CANDataObjects.h \
   C:/WindRiver/vxworks-6.3/target/h/WPILib/SpeedController.h \
-  C:/windriver/workspace/Wiredcats2010/CAN/2CANDataObjects.H \
+  C:/WindRiver/workspace/WiredCats2010/CAN/2CANDataObjects.H \
   C:/WindRiver/vxworks-6.3/target/h/WPILib/Timer.h \
   C:/WindRiver/vxworks-6.3/target/h/WPILib/Synchronized.h
 
-C:/windriver/workspace/Wiredcats2010/CAN/2CAN.H:
+C:/WindRiver/workspace/WiredCats2010/CAN/2CAN.H:
 
-C:/windriver/workspace/Wiredcats2010/CAN/UDPSockets.h:
+C:/WindRiver/workspace/WiredCats2010/CAN/UDPSockets.h:
 
 C:/WindRiver/vxworks-6.3/target/h/WPILib/Task.h:
 
@@ -558,11 +558,11 @@ c:/windriver/gnu/3.4.4-vxworks-6.3/x86-win32/lib/gcc/../../../x86-win32/include/
 
 c:/windriver/gnu/3.4.4-vxworks-6.3/x86-win32/lib/gcc/../../../x86-win32/include/c++/3.4.4/xlocinfo.h:
 
-C:/windriver/workspace/Wiredcats2010/CAN/2CANDataObjects.h:
+C:/WindRiver/workspace/WiredCats2010/CAN/2CANDataObjects.h:
 
 C:/WindRiver/vxworks-6.3/target/h/WPILib/SpeedController.h:
 
-C:/windriver/workspace/Wiredcats2010/CAN/2CANDataObjects.H:
+C:/WindRiver/workspace/WiredCats2010/CAN/2CANDataObjects.H:
 
 C:/WindRiver/vxworks-6.3/target/h/WPILib/Timer.h:
 

@@ -1,6 +1,6 @@
-SimpleTemplate_partialImage/Debug/Objects/Wiredcats2010/CAN/CanLibrary.o:  \
- C:/windriver/workspace/Wiredcats2010/CAN/CanLibrary.cpp \
-  C:/windriver/workspace/Wiredcats2010/CAN/CanLibrary.h \
+SimpleTemplate_partialImage/Debug/Objects/WiredCats2010/CAN/CanLibrary.o:  \
+ C:/WindRiver/workspace/WiredCats2010/CAN/CanLibrary.cpp \
+  C:/WindRiver/workspace/WiredCats2010/CAN/CanLibrary.h \
   C:/WindRiver/vxworks-6.3/target/h/stdio.h \
   C:/WindRiver/vxworks-6.3/target/h/types/vxANSI.h \
   C:/WindRiver/vxworks-6.3/target/h/types/vxCpu.h \
@@ -178,7 +178,7 @@ SimpleTemplate_partialImage/Debug/Objects/Wiredcats2010/CAN/CanLibrary.o:  \
   C:/WindRiver/vxworks-6.3/target/h/sys/taskDefs.h \
   C:/WindRiver/vxworks-6.3/target/h/WPILib/WPIStatus.h
 
-C:/windriver/workspace/Wiredcats2010/CAN/CanLibrary.h:
+C:/WindRiver/workspace/WiredCats2010/CAN/CanLibrary.h:
 
 C:/WindRiver/vxworks-6.3/target/h/stdio.h:
 
