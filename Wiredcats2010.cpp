@@ -7,8 +7,22 @@
  * the driver station or the field controls.
  */
 
-bool WithinThreshold(float gyroAngle, float lowerBound, float upperBound) {
-	return (gyroAngle >= lowerBound) && (gyroAngle <= upperBound);
+class DrivePID : public PIDOutput
+{
+public:
+	DrivePID (RobotDrive *base) {
+		m_base = base;
+	}
+	
+	void PIDWrite(float output) {
+		m_base->ArcadeDrive(0.0, output);
+	}
+private:
+	RobotDrive *m_base;
+};
+
+bool PIDController::IsEnabled() {
+	return m_enabled;
 }
 
 class Wiredcats2010 : public SimpleRobot
@@ -16,53 +30,60 @@ class Wiredcats2010 : public SimpleRobot
 	ControlBoard board;
 	
 	HSLImage image;
-	Gyro gyro;
+	Gyro *gyro;
 	
 	Log rlog;
 	
-	CANJaguar rightFront;
-	CANJaguar rightBack;
-	CANJaguar leftFront;
-	CANJaguar leftBack;
+	CANJaguar jagFrontRight;
+	CANJaguar jagBackRight;
+	CANJaguar jagFrontLeft;
+	CANJaguar jagBackLeft;
 	
-	RobotDrive myRobot; // robot drive system
+	RobotDrive *drive;
+	PIDOutput *drivePIDOutput;
 
 public:
 	Wiredcats2010(void):
-		board(), gyro(1), rlog("stuff.log"),
-		rightFront(4), rightBack(5), leftFront(2), leftBack(3),
-        myRobot(rightFront, rightBack, leftFront, leftBack)
-        
+		board(), rlog("stuff.log"),
+		jagFrontRight(4), jagBackRight(5), jagFrontLeft(2), jagBackLeft(3)
 	{
-		rlog.addLine("Constructor");
+		// Constructor
+		gyro = new Gyro(1);
+		drive = new RobotDrive(jagFrontLeft, jagBackLeft, jagFrontRight, jagBackRight);
+		drivePIDOutput = new DrivePID(drive);
+		
 		GetWatchdog().SetExpiration(0.1);
 	}
 	
-	/**
-	 * Drive left & right motors for 2 seconds then stop
-	 * Woooooooooooooooooooooooooo!
-	 */
 	void Autonomous(void)
 	{
 		GetWatchdog().SetEnabled(false);
 		
-		rlog.addLine("Started Autonomous Mode");
-		
-		myRobot.Drive(0.5, 0.0); 	// drive forwards half speed
-		Wait(2.0); 				//    for 2 seconds
-		myRobot.Drive(0.0, 0.0); 	// stop robot
+		// Autonomous
+		myRobot.Drive(0.5, 0.0);
+		Wait(2.0);
+		myRobot.Drive(0.0, 0.0);
 	}
-
-	/**
-	 * Runs the motors with arcade steering. 
-	 */
+	
 	void OperatorControl(void)
 	{
 		GetWatchdog().SetEnabled(true);
 		
-		gyro.Reset();
+		frontRight.
 		
-		rlog.addLine("Started Teleop Mode");
+		// Set up PID
+		gyro->Reset();
+		PIDController turnController( P,
+								I,
+								D,
+								gyro,
+								drivePIDOutput,
+								0.02);
+		
+		turnController.SetInputRange(-360.0, 360.0);
+		turnController.SetOutputRange(-0.6, 0.6);
+		turnController.SetTolerance(1.0 / 90.0 * 100);
+		turnController.Disable();
 		
 		// Start up camera
 		AxisCamera &camera = AxisCamera::getInstance();
@@ -73,40 +94,28 @@ public:
 		{
 			GetWatchdog().Feed();
 			
-			printf("\n%g = angle",gyro.GetAngle());
-			
 			// Autotracking
-			if (camera.freshImage()) {
-				if (board.GetLeftJoy()->GetRawButton(1)) {
+			if (board.GetLeftJoy()->GetRawButton(1)) {
+				if (camera.freshImage()) {
 					ColorImage *image = camera.GetImage();
 					vector<Target> targets = Target::FindCircularTargets(image);
 					delete image;
-					
+				
 					if (targets.size() > 0 && targets[0].m_score > MINIMUM_SCORE){
-						printf(" %f = horizontal angle", targets[0].GetHorizontalAngle());
-						double angleTurn = targets[0].GetHorizontalAngle() + gyro.GetAngle();
-						double upperBound = angleTurn + AUTO_THRESHOLD;
-						double lowerBound = angleTurn - AUTO_THRESHOLD;
-
-						if (!WithinThreshold(gyro.GetAngle(), lowerBound, upperBound)) {
-							while (!WithinThreshold(gyro.GetAngle(), lowerBound, upperBound)) {
-								GetWatchdog().Feed();
-								
-								printf("\ntracking gyro = %f", gyro.GetAngle());
-								if (gyro.GetAngle() > angleTurn){
-									myRobot.TankDrive(0.6, -0.6);
-								} else {
-									myRobot.TankDrive(-0.6, 0.6);
-								}
-							} 
-							myRobot.TankDrive(0.0,0.0);
-						}
+						turnController.Enable();
+						double angleTurn = targets[0].GetHorizontalAngle() + gyro->GetAngle();
+						turnController.SetSetpoint(angleTurn)
+					} else {
+						turnController.Disable();
 					}
 				}
 			}
 			
-			myRobot.TankDrive(board.GetLeftJoy()->GetY(),
-							  board.GetRightJoy()->GetY());
+			// Drive
+			if (turnController.IsEnabled()) {
+				myRobot.TankDrive(board.GetLeftJoy()->GetY(),
+								  board.GetRightJoy()->GetY());
+			}
 			
 			Wait(0.005);
 		}
