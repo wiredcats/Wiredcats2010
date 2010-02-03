@@ -21,10 +21,6 @@ private:
 	RobotDrive *m_base;
 };
 
-bool PIDController::IsEnabled() {
-	return m_enabled;
-}
-
 class Wiredcats2010 : public SimpleRobot
 {
 	ControlBoard board;
@@ -60,22 +56,20 @@ public:
 		GetWatchdog().SetEnabled(false);
 		
 		// Autonomous
-		myRobot.Drive(0.5, 0.0);
+		drive->Drive(0.5, 0.0);
 		Wait(2.0);
-		myRobot.Drive(0.0, 0.0);
+		drive->Drive(0.0, 0.0);
 	}
 	
 	void OperatorControl(void)
 	{
 		GetWatchdog().SetEnabled(true);
 		
-		frontRight.
-		
 		// Set up PID
 		gyro->Reset();
-		PIDController turnController( P,
-								I,
-								D,
+		PIDController turnController( PROPORTION,
+								INTEGRAL,
+								DERIVATIVE,
 								gyro,
 								drivePIDOutput,
 								0.02);
@@ -94,6 +88,8 @@ public:
 		{
 			GetWatchdog().Feed();
 			
+			jagFrontRight.GetOutputVoltage();
+			
 			// Autotracking
 			if (board.GetLeftJoy()->GetRawButton(1)) {
 				if (camera.freshImage()) {
@@ -104,7 +100,7 @@ public:
 					if (targets.size() > 0 && targets[0].m_score > MINIMUM_SCORE){
 						turnController.Enable();
 						double angleTurn = targets[0].GetHorizontalAngle() + gyro->GetAngle();
-						turnController.SetSetpoint(angleTurn)
+						turnController.SetSetpoint(angleTurn);
 					} else {
 						turnController.Disable();
 					}
@@ -112,8 +108,8 @@ public:
 			}
 			
 			// Drive
-			if (turnController.IsEnabled()) {
-				myRobot.TankDrive(board.GetLeftJoy()->GetY(),
+			if (false) {
+				drive->TankDrive(board.GetLeftJoy()->GetY(),
 								  board.GetRightJoy()->GetY());
 			}
 			
