@@ -222,7 +222,10 @@ SimpleTemplate_partialImage/Debug/Objects/WiredCats2010/Kicker.o:  \
   C:/windriver/vxworks-6.3/target/h/copyright_wrs.h \
   C:/windriver/vxworks-6.3/target/h/sys/taskDefs.h \
   C:/windriver/vxworks-6.3/target/h/WPILib/Victor.h \
-  C:/windriver/vxworks-6.3/target/h/WPILib/WPIStatus.h
+  C:/windriver/vxworks-6.3/target/h/WPILib/WPIStatus.h \
+  C:/windriver/workspace/WiredCats2010/CAN/CANJaguar.h \
+  C:/windriver/vxworks-6.3/target/h/WPILib/SpeedController.h \
+  C:/windriver/vxworks-6.3/target/h/WPILib/PIDOutput.h
 
 C:/windriver/workspace/WiredCats2010/Kicker.h:
 
@@ -669,3 +672,9 @@ C:/windriver/vxworks-6.3/target/h/sys/taskDefs.h:
 C:/windriver/vxworks-6.3/target/h/WPILib/Victor.h:
 
 C:/windriver/vxworks-6.3/target/h/WPILib/WPIStatus.h:
+
+C:/windriver/workspace/WiredCats2010/CAN/CANJaguar.h:
+
+C:/windriver/vxworks-6.3/target/h/WPILib/SpeedController.h:
+
+C:/windriver/vxworks-6.3/target/h/WPILib/PIDOutput.h:

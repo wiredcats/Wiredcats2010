@@ -19,6 +19,8 @@ void Kicker::SetDistance(int newd) {
 }
 
 void Kicker::WinchBack() {
-	// do winch code
+	winch->Set(-0.6);
+	Wait(3.0);
+	winch->Set(0.0);
 }
 
