@@ -3,7 +3,7 @@
 Kicker::Kicker() {
 	distanceSetting = 2;
 	servo = new Servo(SERVO_PORT);
-	winch = new CANJaguar(WINCH_PORT);
+	winch = new Jaguar(WINCH_PORT);
 }
 
 void Kicker::DisengageServo() {

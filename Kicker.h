@@ -10,7 +10,7 @@ const UINT32 WINCH_PORT = 5;
 class Kicker {
 public:
 	Servo* servo;
-	CANJaguar* winch;
+	Jaguar* winch;
 	
 	int distanceSetting;
 	bool winched;
@@ -20,6 +20,7 @@ public:
 	void EngageServo();
 	void SetDistance(int newd);
 	void WinchBack();
+	bool IsWinched();
 }; 
 
 #endif
