@@ -108,9 +108,12 @@ public:
 					}
 				}
 			}
-			if (board.GetRightJoy()->GetRawButton(1)){
+			
+			// Kicker
+			if (board.GetRightJoy()->GetRawButton(1)) {
 				kicker.DisengageServo();
 			}
+			
 			// Drive
 			if (false) {
 				drive->TankDrive(board.GetLeftJoy()->GetY(),
