@@ -113,6 +113,7 @@ public:
 			if (board.GetRightJoy()->GetRawButton(1) && kicker.IsWinched()) {
 				kicker.DisengageServo();
 			} else if (board.GetRightJoy()->GetRawButton(1) && !kicker.IsWinched()) {
+				kicker.EngageServo();
 				kicker.WinchBack();
 			}
 			

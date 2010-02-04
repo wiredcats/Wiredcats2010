@@ -4,13 +4,13 @@
 #include "WPILib.h"
 #include "CAN/CANJaguar.h"
 
-const UINT_32 SERVO_PORT = 4
-const UINT_32 WINCH_PORT = 5
+const UINT32 SERVO_PORT = 4;
+const UINT32 WINCH_PORT = 5;
 
 class Kicker {
 public:
 	Servo* servo;
-	CANJaguar winch;
+	CANJaguar* winch;
 	
 	int distanceSetting;
 	bool winched;
