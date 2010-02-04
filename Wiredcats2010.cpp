@@ -24,6 +24,8 @@ private:
 class Wiredcats2010 : public SimpleRobot
 {
 	ControlBoard board;
+	Kicker kicker;
+	
 	
 	HSLImage image;
 	Gyro *gyro;
@@ -40,7 +42,7 @@ class Wiredcats2010 : public SimpleRobot
 
 public:
 	Wiredcats2010(void):
-		board(), rlog("stuff.log"),
+		board(),kicker(), rlog("stuff.log"),
 		jagFrontRight(4), jagBackRight(5), jagFrontLeft(2), jagBackLeft(3)
 	{
 		// Constructor
@@ -106,7 +108,9 @@ public:
 					}
 				}
 			}
-			
+			if (board.GetRightJoy()->GetRawButton(1)){
+				kicker.DisengageServo();
+			}
 			// Drive
 			if (false) {
 				drive->TankDrive(board.GetLeftJoy()->GetY(),

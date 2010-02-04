@@ -27,4 +27,6 @@
 #include "Log.h"
 #include "ControlBoard.h"
 
+#include "Kicker.h"
+
 #endif
