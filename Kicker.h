@@ -6,8 +6,13 @@
 class Kicker {
 public:
 	Servo* servo;
+	int distanceSetting;
+	
 	Kicker();
-	void disengageServo();
-	void EngageServo ();
+	void DisengageServo();
+	void EngageServo();
+	void SetDistance(int newd);
+	void WinchBack();
 }; 
+
 #endif
