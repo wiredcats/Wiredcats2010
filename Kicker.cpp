@@ -8,6 +8,7 @@ Kicker::Kicker() {
 
 void Kicker::DisengageServo() {
 	servo->SetAngle(0.8);
+	winched = false;
 }
 
 void Kicker::EngageServo() {
@@ -20,5 +21,9 @@ void Kicker::SetDistance(int newd) {
 
 void Kicker::WinchBack() {
 	// do winch code
+	winched = true;
 }
 
+bool Kicker::IsWinched() {
+	return winched;
+}

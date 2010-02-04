@@ -13,6 +13,7 @@ public:
 	CANJaguar winch;
 	
 	int distanceSetting;
+	bool winched;
 	
 	Kicker();
 	void DisengageServo();
