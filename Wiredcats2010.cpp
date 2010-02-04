@@ -109,7 +109,7 @@ public:
 				}
 			}
 			if (board.GetRightJoy()->GetRawButton(1)){
-				kicker.disengageServo();
+				kicker.DisengageServo();
 			}
 			// Drive
 			if (false) {
