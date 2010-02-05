@@ -23,14 +23,13 @@ private:
 
 class Wiredcats2010 : public SimpleRobot
 {
+	Log rlog;
+	
 	ControlBoard board;
 	Kicker kicker;
 	
-	
 	HSLImage image;
 	Gyro *gyro;
-	
-	Log rlog;
 	
 	CANJaguar jagFrontRight;
 	CANJaguar jagBackRight;
@@ -39,16 +38,22 @@ class Wiredcats2010 : public SimpleRobot
 	
 	RobotDrive *drive;
 	PIDOutput *drivePIDOutput;
+	
+	bool loopingPid;
 
 public:
 	Wiredcats2010(void):
-		board(),kicker(), rlog("stuff.log"),
+		rlog("testlog.txt"), board(), kicker(),
 		jagFrontRight(4), jagBackRight(5), jagFrontLeft(2), jagBackLeft(3)
 	{
 		// Constructor
+		rlog.addLine("Opening constructor...")
+		
 		gyro = new Gyro(1);
 		drive = new RobotDrive(jagFrontLeft, jagBackLeft, jagFrontRight, jagBackRight);
 		drivePIDOutput = new DrivePID(drive);
+		
+		rlog.addLine("Sucessfully started constructor, running program...")
 		
 		GetWatchdog().SetExpiration(0.1);
 	}
@@ -56,6 +61,8 @@ public:
 	void Autonomous(void)
 	{
 		GetWatchdog().SetEnabled(false);
+		
+		rlog.addLine("Entered autonomous!")
 		
 		// Autonomous
 		drive->Drive(0.5, 0.0);
@@ -66,6 +73,8 @@ public:
 	void OperatorControl(void)
 	{
 		GetWatchdog().SetEnabled(true);
+		
+		rlog.addLine("Entered teleop!")
 		
 		// Set up PID
 		gyro->Reset();
@@ -80,6 +89,8 @@ public:
 		turnController.SetOutputRange(-0.6, 0.6);
 		turnController.SetTolerance(1.0 / 90.0 * 100);
 		turnController.Disable();
+		
+		loopingPid = false;
 		
 		// Start up camera
 		AxisCamera &camera = AxisCamera::getInstance();
@@ -98,13 +109,22 @@ public:
 					ColorImage *image = camera.GetImage();
 					vector<Target> targets = Target::FindCircularTargets(image);
 					delete image;
-				
+					
+					rlog("Attempting to autotrack...");
+					
 					if (targets.size() > 0 && targets[0].m_score > MINIMUM_SCORE){
 						turnController.Enable();
+						loopingPid = true;
+						
+						rlog("Found target, entering PID loop");
+						
 						double angleTurn = targets[0].GetHorizontalAngle() + gyro->GetAngle();
 						turnController.SetSetpoint(angleTurn);
 					} else {
+						rlog("Found no targets");
+						
 						turnController.Disable();
+						loopingPid = false;
 					}
 				}
 			}
@@ -118,9 +138,9 @@ public:
 			}
 			
 			// Drive
-			if (false) {
+			if (!loopingPid) {
 				drive->TankDrive(board.GetLeftJoy()->GetY(),
-								  board.GetRightJoy()->GetY());
+								 board.GetRightJoy()->GetY());
 			}
 			
 			Wait(0.005);
