@@ -147,45 +147,13 @@ public:
 			
 			// Drive or Control PID
 			if (loopingPid) {
-				if (angleWithinThreshold(gyro->GetAngle())) {
-					rlog.addLine("Hopefully targeted, checking...");
-					
-					if (camera.freshImage()) {
-						ColorImage *image = camera.GetImage();
-						vector<Target> targets = Target::FindCircularTargets(image);
-						delete image;
-						
-						double freshAngle = targets[0].GetHorizontalAngle();
-						
-						if (targets.size() > 0) {
-							if (angleWithinThreshold(freshAngle)) {
-								rlog.addLine("Sucessfully tracked on target");
-								turnController.Disable();
-								
-								// Light up LED
-								
-								turnController.Disable();
-								loopingPid = false;
-							} else {
-								rlog.addLine("Off target, tracking again");
-								
-								double angleTurn = freshAngle + gyro->GetAngle();
-								turnController.SetSetpoint(angleTurn);
-							}
-						} else {
-							rlog.addLine("Lost target, disabling PID");
-							turnController.Disable();
-							loopingPid = false;
-						}
-					}
-				}
 				
-				// Cancel autotracking
+				// Cancel autotracking if joystick movement is detected
 				if (board.GetLeftJoy()->GetY() > AUTO_CANCEL_THRESH || 
 						board.GetLeftJoy()->GetY() < -AUTO_CANCEL_THRESH ||
 						board.GetRightJoy()->GetY() > AUTO_CANCEL_THRESH || 
 						board.GetRightJoy()->GetY() < -AUTO_CANCEL_THRESH) {
-					rlog.addLine("CANCELED AUTOTRACKING");
+					rlog.addLine("User drive detected, leaving PID");
 					turnController.Disable();
 					loopingPid = false;
 				}

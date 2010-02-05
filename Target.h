@@ -4,7 +4,7 @@
 #include <vector>
 #include "Vision/ColorImage.h"
 
-#define THRESHOLD 0.5
+#define THRESHOLD 5
 
 bool angleWithinThreshold(double horAngle);
 
