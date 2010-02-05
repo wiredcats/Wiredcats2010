@@ -40,6 +40,7 @@ double Target::GetHorizontalAngle()
 	x = x * 9.0 / m_xMax;
 	x = atan2(x, 20.0);
 	x = x * 180.0 / 3.14159;
+	m_horAngle = x;
 	return x;
 }
 
@@ -146,6 +147,14 @@ vector<Target> Target::FindCircularTargets(ColorImage *image)
 	sort(combinedTargets.begin(), combinedTargets.end(), compareTargets);
 
 	return combinedTargets;
+}
+
+/**
+ * Return whether the target is within the center.
+ * Uses the horizontal angle to determine the center of the image.
+ */
+bool angleWithinThreshold(double horAngle) {
+	return (horAngle < THRESHOLD) && (horAngle > -THRESHOLD);
 }
 
 /**

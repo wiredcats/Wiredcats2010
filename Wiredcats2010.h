@@ -5,6 +5,8 @@
 #define MINIMUM_SCORE 0.01
 #define AUTO_THRESHOLD 4
 
+#define AUTO_CANCEL_THRESH 0.2
+
 #define PROPORTION 0.1
 #define INTEGRAL 0.0
 #define DERIVATIVE 0.5

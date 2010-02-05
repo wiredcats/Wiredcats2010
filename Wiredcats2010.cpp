@@ -47,13 +47,13 @@ public:
 		jagFrontRight(4), jagBackRight(5), jagFrontLeft(2), jagBackLeft(3)
 	{
 		// Constructor
-		rlog.addLine("Opening constructor...")
+		rlog.addLine("Opening constructor...");
 		
 		gyro = new Gyro(1);
 		drive = new RobotDrive(jagFrontLeft, jagBackLeft, jagFrontRight, jagBackRight);
 		drivePIDOutput = new DrivePID(drive);
 		
-		rlog.addLine("Sucessfully started constructor, running program...")
+		rlog.addLine("Sucessfully started constructor, running program...");
 		
 		GetWatchdog().SetExpiration(0.1);
 	}
@@ -62,7 +62,7 @@ public:
 	{
 		GetWatchdog().SetEnabled(false);
 		
-		rlog.addLine("Entered autonomous!")
+		rlog.addLine("Entered autonomous!");
 		
 		// Autonomous
 		drive->Drive(0.5, 0.0);
@@ -74,7 +74,7 @@ public:
 	{
 		GetWatchdog().SetEnabled(true);
 		
-		rlog.addLine("Entered teleop!")
+		rlog.addLine("Entered teleop!");
 		
 		// Set up PID
 		gyro->Reset();
@@ -110,18 +110,25 @@ public:
 					vector<Target> targets = Target::FindCircularTargets(image);
 					delete image;
 					
-					rlog("Attempting to autotrack...");
+					rlog.addLine("Attempting to autotrack target...");
 					
-					if (targets.size() > 0 && targets[0].m_score > MINIMUM_SCORE){
-						turnController.Enable();
-						loopingPid = true;
+					if (targets.size() > 0 && targets[0].m_score > MINIMUM_SCORE) {
+						double initHorizontalAngle = targets[0].GetHorizontalAngle();
 						
-						rlog("Found target, entering PID loop");
-						
-						double angleTurn = targets[0].GetHorizontalAngle() + gyro->GetAngle();
-						turnController.SetSetpoint(angleTurn);
+						if (angleWithinThreshold(initHorizontalAngle)) {
+							rlog.addLine("Found target, tracked (without PID)");
+							// Light up LED
+						} else {
+							turnController.Enable();
+							loopingPid = true;
+							
+							rlog.addLine("Found target, entering PID loop");
+							
+							double angleTurn = initHorizontalAngle + gyro->GetAngle();
+							turnController.SetSetpoint(angleTurn);
+						}
 					} else {
-						rlog("Found no targets");
+						rlog.addLine("Found no targets");
 						
 						turnController.Disable();
 						loopingPid = false;
@@ -130,15 +137,59 @@ public:
 			}
 			
 			// Kicker
-			if (board.GetRightJoy()->GetRawButton(1) && kicker.IsWinched()) {
-				kicker.DisengageServo();
-			} else if (board.GetRightJoy()->GetRawButton(1) && !kicker.IsWinched()) {
-				kicker.EngageServo();
-				kicker.WinchBack();
+			if (board.GetRightJoy()->GetRawButton(1)) {
+				kicker.disengageServo();
 			}
 			
-			// Drive
-			if (!loopingPid) {
+			if (board.GetRightJoy()->GetRawButton(2)) {
+				kicker.engageServo();
+			}
+			
+			// Drive or Control PID
+			if (loopingPid) {
+				if (angleWithinThreshold(gyro->GetAngle())) {
+					rlog.addLine("Hopefully targeted, checking...");
+					
+					if (camera.freshImage()) {
+						ColorImage *image = camera.GetImage();
+						vector<Target> targets = Target::FindCircularTargets(image);
+						delete image;
+						
+						double freshAngle = targets[0].GetHorizontalAngle();
+						
+						if (targets.size() > 0) {
+							if (angleWithinThreshold(freshAngle)) {
+								rlog.addLine("Sucessfully tracked on target");
+								turnController.Disable();
+								
+								// Light up LED
+								
+								turnController.Disable();
+								loopingPid = false;
+							} else {
+								rlog.addLine("Off target, tracking again");
+								
+								double angleTurn = freshAngle + gyro->GetAngle();
+								turnController.SetSetpoint(angleTurn);
+							}
+						} else {
+							rlog.addLine("Lost target, disabling PID");
+							turnController.Disable();
+							loopingPid = false;
+						}
+					}
+				}
+				
+				// Cancel autotracking
+				if (board.GetLeftJoy()->GetY() > AUTO_CANCEL_THRESH || 
+						board.GetLeftJoy()->GetY() < -AUTO_CANCEL_THRESH ||
+						board.GetRightJoy()->GetY() > AUTO_CANCEL_THRESH || 
+						board.GetRightJoy()->GetY() < -AUTO_CANCEL_THRESH) {
+					rlog.addLine("CANCELED AUTOTRACKING");
+					turnController.Disable();
+					loopingPid = false;
+				}
+			} else {
 				drive->TankDrive(board.GetLeftJoy()->GetY(),
 								 board.GetRightJoy()->GetY());
 			}

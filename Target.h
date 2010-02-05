@@ -4,6 +4,10 @@
 #include <vector>
 #include "Vision/ColorImage.h"
 
+#define THRESHOLD 0.5
+
+bool angleWithinThreshold(double horAngle);
+
 class Target
 {
 public:
@@ -15,6 +19,7 @@ public:
     double m_score;
     double m_rotation;
     double m_xMax;
+    double m_horAngle;
     bool m_bothFound;
     
     static vector<Target> FindCircularTargets(ColorImage *image);
