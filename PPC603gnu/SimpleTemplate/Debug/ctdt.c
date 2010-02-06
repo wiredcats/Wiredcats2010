@@ -21,8 +21,6 @@ void _GLOBAL__I__ZN9RobotBase10m_instanceE();
 
 void _GLOBAL__I__ZN10Ultrasonic6m_taskE();
 
-void _GLOBAL__I__ZN10AxisCamera10m_instanceE();
-
 void _GLOBAL__I_AxisCamera_debugFlag();
 
 extern void (*_ctors[])();
@@ -35,7 +33,6 @@ void (*_ctors[])() =
     _GLOBAL__I__ZN9ErrorBase16globalErrorMutexE,
     _GLOBAL__I__ZN9RobotBase10m_instanceE,
     _GLOBAL__I__ZN10Ultrasonic6m_taskE,
-    _GLOBAL__I__ZN10AxisCamera10m_instanceE,
     _GLOBAL__I_AxisCamera_debugFlag,
     0
     };

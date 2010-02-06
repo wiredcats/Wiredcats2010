@@ -1,5 +1,5 @@
-SimpleTemplate_partialImage/Debug/Objects/Wiredcats2010/Target.o:  \
- C:/windriver/workspace/Wiredcats2010/Target.cpp \
+SimpleTemplate_partialImage/Debug/Objects/WiredCats2010/Target.o:  \
+ C:/WindRiver/workspace/WiredCats2010/Target.cpp \
   C:/WindRiver/vxworks-6.3/target/h/WPILib/niVision.h \
   C:/WindRiver/vxworks-6.3/target/h/WPILib/Vision/ColorImage.h \
   C:/WindRiver/vxworks-6.3/target/h/WPILib/Vision/ImageBase.h \
@@ -116,12 +116,12 @@ SimpleTemplate_partialImage/Debug/Objects/Wiredcats2010/Target.o:  \
   C:/WindRiver/vxworks-6.3/target/h/string.h \
   c:/windriver/gnu/3.4.4-vxworks-6.3/x86-win32/lib/gcc/../../../x86-win32/include/c++/3.4.4/stdexcept \
   c:/windriver/gnu/3.4.4-vxworks-6.3/x86-win32/lib/gcc/../../../x86-win32/include/c++/3.4.4/xstring \
-  C:/WindRiver/vxworks-6.3/target/h/WPILib/VisionAPI.h \
+  C:/WindRiver/vxworks-6.3/target/h/WPILib/Vision2009/VisionAPI.h \
   C:/WindRiver/vxworks-6.3/target/h/WPILib/nivision.h \
   c:/windriver/gnu/3.4.4-vxworks-6.3/x86-win32/lib/gcc/../../../x86-win32/include/c++/3.4.4/algorithm \
   C:/WindRiver/vxworks-6.3/target/h/WPILib/Vision/Threshold.h \
   C:/WindRiver/vxworks-6.3/target/h/WPILib/Vision/MonoImage.h \
-  C:/windriver/workspace/Wiredcats2010/Target.h \
+  C:/WindRiver/workspace/WiredCats2010/Target.h \
   C:/WindRiver/vxworks-6.3/target/h/math.h
 
 C:/WindRiver/vxworks-6.3/target/h/WPILib/niVision.h:
@@ -356,7 +356,7 @@ c:/windriver/gnu/3.4.4-vxworks-6.3/x86-win32/lib/gcc/../../../x86-win32/include/
 
 c:/windriver/gnu/3.4.4-vxworks-6.3/x86-win32/lib/gcc/../../../x86-win32/include/c++/3.4.4/xstring:
 
-C:/WindRiver/vxworks-6.3/target/h/WPILib/VisionAPI.h:
+C:/WindRiver/vxworks-6.3/target/h/WPILib/Vision2009/VisionAPI.h:
 
 C:/WindRiver/vxworks-6.3/target/h/WPILib/nivision.h:
 
@@ -366,6 +366,6 @@ C:/WindRiver/vxworks-6.3/target/h/WPILib/Vision/Threshold.h:
 
 C:/WindRiver/vxworks-6.3/target/h/WPILib/Vision/MonoImage.h:
 
-C:/windriver/workspace/Wiredcats2010/Target.h:
+C:/WindRiver/workspace/WiredCats2010/Target.h:
 
 C:/WindRiver/vxworks-6.3/target/h/math.h:

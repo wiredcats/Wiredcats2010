@@ -93,9 +93,9 @@ public:
 		loopingPid = false;
 		
 		// Start up camera
-		AxisCamera &camera = AxisCamera::getInstance();
-		camera.writeResolution(k320x240);
-		camera.writeBrightness(0);
+		AxisCamera &camera = AxisCamera::GetInstance();
+		camera.WriteResolution(AxisCamera::kResolution_320x240);
+		camera.WriteBrightness(0);
 		
 		while (IsOperatorControl())
 		{
@@ -105,7 +105,7 @@ public:
 			
 			// Autotracking
 			if (board.GetLeftJoy()->GetRawButton(1)) {
-				if (camera.freshImage()) {
+				if (camera.IsFreshImage()) {
 					ColorImage *image = camera.GetImage();
 					vector<Target> targets = Target::FindCircularTargets(image);
 					delete image;
@@ -116,7 +116,7 @@ public:
 						double initHorizontalAngle = targets[0].GetHorizontalAngle();
 						
 						if (angleWithinThreshold(initHorizontalAngle)) {
-							rlog.addLine("Found target, tracked (without PID)");
+							rlog.addLine("Found target, tracked (without  PID)");
 							// Light up LED
 						} else {
 							turnController.Enable();

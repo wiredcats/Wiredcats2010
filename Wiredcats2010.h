@@ -15,7 +15,7 @@
 #include "WPILib.h"
 
 // Extra libraries
-#include "Vision/AxisCamera2010.h"
+#include "Vision/AxisCamera.h"
 #include "Vision/HSLImage.h"
 #include "PIDController.h"
 
@@ -28,7 +28,6 @@
 // 2415 classes
 #include "Log.h"
 #include "ControlBoard.h"
-
 #include "Kicker.h"
 
 #endif
