@@ -1,10 +1,8 @@
 #include "Wiredcats2010.h"
 
 /**
- * This is a demo program showing the use of the RobotBase class.
- * The SimpleRobot class is the base of a robot application that will automatically call your
- * Autonomous and OperatorControl methods at the right time as controlled by the switches on
- * the driver station or the field controls.
+ * This is the FRC Team #2415 - The WiredCats awesome fancy-schmancy code. 
+ * Enjoy!
  */
 
 class DrivePID : public PIDOutput
@@ -64,10 +62,22 @@ public:
 		
 		rlog.addLine("Entered autonomous!");
 		
-		// Autonomous
-		drive->Drive(0.5, 0.0);
-		Wait(2.0);
-		drive->Drive(0.0, 0.0);
+		// Set up PID
+		gyro->Reset();
+		PIDController turnController( PROPORTION,
+								INTEGRAL,
+								DERIVATIVE,
+								gyro,
+								drivePIDOutput,
+								0.02);
+		
+		turnController.SetInputRange(-360.0, 360.0);
+		turnController.SetOutputRange(-0.6, 0.6);
+		turnController.SetTolerance(1.0 / 90.0 * 100);
+		turnController.Disable();
+		
+		GoToBallOne(drive, gyro, turnController);
+
 	}
 	
 	void OperatorControl(void)
@@ -116,7 +126,7 @@ public:
 						double initHorizontalAngle = targets[0].GetHorizontalAngle();
 						
 						if (angleWithinThreshold(initHorizontalAngle)) {
-							rlog.addLine("Found target, tracked (without  PID)");
+							rlog.addLine("Found target, tracked (without PID)");
 							// Light up LED
 						} else {
 							turnController.Enable();

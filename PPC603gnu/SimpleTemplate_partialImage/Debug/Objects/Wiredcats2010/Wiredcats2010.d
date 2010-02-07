@@ -276,7 +276,8 @@ SimpleTemplate_partialImage/Debug/Objects/WiredCats2010/Wiredcats2010.o:  \
   C:/WindRiver/workspace/WiredCats2010/Log.h \
   c:/windriver/gnu/3.4.4-vxworks-6.3/x86-win32/lib/gcc/../../../x86-win32/include/c++/3.4.4/fstream \
   C:/WindRiver/workspace/WiredCats2010/ControlBoard.h \
-  C:/WindRiver/workspace/WiredCats2010/Kicker.h
+  C:/WindRiver/workspace/WiredCats2010/Kicker.h \
+  C:/WindRiver/workspace/WiredCats2010/Autonomous.h
 
 C:/WindRiver/workspace/WiredCats2010/Wiredcats2010.h:
 
@@ -831,3 +832,5 @@ c:/windriver/gnu/3.4.4-vxworks-6.3/x86-win32/lib/gcc/../../../x86-win32/include/
 C:/WindRiver/workspace/WiredCats2010/ControlBoard.h:
 
 C:/WindRiver/workspace/WiredCats2010/Kicker.h:
+
+C:/WindRiver/workspace/WiredCats2010/Autonomous.h:
