@@ -23,7 +23,7 @@ bool ControlBoard::GetButton2() {
 }
 
 bool ControlBoard::GetButton3() {
-	return fakeButtonsStick->GetRawButton(4);
+	return fakeButtonsStick->GetRawButton(1);
 }
 
 bool ControlBoard::GetLever1Up() {
