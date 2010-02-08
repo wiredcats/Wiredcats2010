@@ -11,27 +11,45 @@
  * 		 East, regardless of where magnetic East actually is.
  */
 
-void GoToBallOne(RobotDrive *drive,Gyro *gyro, PIDController &turnController)
+AutoController::AutoController(RobotDrive *drive, Gyro *gyro)
+{
+	a_base = drive;
+	a_gyro = gyro;
+	a_PIDOutput = new DrivePID(a_base);
+	a_turnController = new PIDController(PROPORTION,
+							INTEGRAL,
+							DERIVATIVE,
+							a_gyro,
+							a_PIDOutput,
+							0.02);
+}
+
+void AutoController::GoToBallOne()
 {	
-	TurnNorth(drive,gyro,turnController);
-	drive->Drive(1,0);
+	a_gyro->Reset();
+	a_turnController->SetInputRange(-360.0, 360.0);
+	a_turnController->SetOutputRange(-0.6, 0.6);
+	a_turnController->SetTolerance(1.0 / 90.0 * 100);
+	a_turnController->Disable();
+	
+	TurnNorth();
+	a_base->Drive(1,0);
 	Wait(BALL_SPACING_WAIT_TIME);
-	TurnEast(drive,gyro,turnController);
+	TurnEast();
 	while(!HasBall()) {
-		drive->Drive(1,0);
+		a_base->Drive(1,0);
 	}
-	TurnToOurTarget(drive,gyro,turnController);
+	TurnToOurTarget();
 	//Kick Ball
 }
 
-void TurnNorth(RobotDrive *drive, Gyro *gyro, PIDController &turnController)
-{
-	double angle = gyro->GetAngle();
+void AutoController::TurnNorth()
+{		
+	double angle = a_gyro->GetAngle();
 	if(angle < 90+ANGLE_THRESHOLD && angle > 90-ANGLE_THRESHOLD){
 		//Filler, most likely print something
 	} else {
-		turnController.Enable();
-		turnController.SetSetpoint(90);
-		turnController.Disable();
+		a_turnController->Enable();
+		a_turnController->SetSetpoint(90);
 	}
 }
