@@ -37,7 +37,7 @@ public:
 		gyro = new Gyro(1);
 		drive = new RobotDrive(jagFrontLeft, jagBackLeft, jagFrontRight, jagBackRight);
 		drivePIDOutput = new DrivePID(drive);
-		autonomous = new AutoController(drive, gyro);
+		autonomous = new AutoController(drive, gyro, &jagFrontRight);
 		
 		rlog.addLine("Sucessfully started constructor, running program...");
 		
