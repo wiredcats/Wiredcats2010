@@ -3,9 +3,13 @@
 ControlBoard::ControlBoard() {
 	leftStick = new Joystick(RIGHT_JOY_PORT);
 	rightStick = new Joystick(LEFT_JOY_PORT);
-	fakeButtonsStick = new Joystick(ALL_BUTTONS_PORT);
+	fakeStick = new Joystick(FAKE_JOY_PORT);
+	
+	ds = DriverStation::GetInstance();
 }
 
+
+// Joysticks
 Joystick* ControlBoard::GetLeftJoy() {
 	return leftStick;
 }
@@ -14,38 +18,79 @@ Joystick* ControlBoard::GetRightJoy() {
 	return rightStick;
 }
 
-bool ControlBoard::GetButton1() {
-	return fakeButtonsStick->GetRawButton(5);
+Joystick* ControlBoard::GetFakeJoy() {
+	return fakeStick;
 }
 
-bool ControlBoard::GetButton2() {
-	return fakeButtonsStick->GetRawButton(3);
+
+// Levers
+bool LeftLeverUp() {
+	return fakeStick->GetRawButton(LEFT_LEV_UP_PORT);
 }
 
-bool ControlBoard::GetButton3() {
-	return fakeButtonsStick->GetRawButton(1);
+bool LeftLeverDown() {
+	return fakeStick->GetRawButton(LEFT_LEV_DOWN_PORT);
 }
 
-bool ControlBoard::GetLever1Up() {
-	return fakeButtonsStick->GetRawButton(10);
+bool MiddleLeverUp() {
+	return fakeStick->GetRawButton(MID_LEV_UP_PORT);
 }
 
-bool ControlBoard::GetLever1Down() {
-	return fakeButtonsStick->GetRawButton(11);
+bool MiddleLeverDown() {
+	return fakeStick->GetRawButton(MID_LEV_DOWN_PORT);
 }
 
-bool ControlBoard::GetLever2Up() {
-	return fakeButtonsStick->GetRawButton(9);
+bool RightLeverUp() {
+	return fakeStick->GetRawButton(RIGHT_LEV_UP_PORT);
 }
 
-bool ControlBoard::GetLever2Down() {
-	return fakeButtonsStick->GetRawButton(8);
+bool RightLeverDown() {
+	return fakeStick->GetRawButton(RIGHT_LEV_DOWN_PORT);
 }
 
-bool ControlBoard::GetLever3Up() {
-	return fakeButtonsStick->GetRawButton(7);
+
+// Buttons
+bool LowWinchDown() {
+	return fakeStick->GetRawButton(LOW_WINCH_BUTTON_PORT);
 }
 
-bool ControlBoard::GetLever3Down() {
-	return fakeButtonsStick->GetRawButton(6);
+bool MidWinchDown() {
+	return fakeStick->GetRawButton(MID_WINCH_BUTTON_PORT);
 }
+
+bool HighWinchDown() {
+	return fakeStick->GetRawButton(HIGH_WINCH_BUTTON_PORT);
+}
+
+bool ServeBallDown() {
+	return fakeStick->GetRawButton(SERVE_BALL_BUTTON_PORT);
+}
+
+
+// Light LEDs
+void LightLowWinchLED() {
+	ds->SetDigitalOut(LOW_WINCH_LED_PORT);
+}
+
+void LightMidWinchLED() {
+	ds->SetDigitalOut(MID_WINCH_LED_PORT);
+}
+
+void LightHighWinchLED() {
+	ds->SetDigitalOut(HIGH_WINCH_LED_PORT);
+}
+
+
+// Are LEDs lit?
+bool LowWinchLEDLit() {
+	return ds->GetDigitalOut(LOW_WINCH_LED_PORT);
+}
+
+bool MidWinchLEDLit() {
+	return ds->GetDigitalOut(MID_WINCH_LED_PORT);
+}
+
+bool HighWinchLEDLit() {
+	return ds->GetDigitalOut(HIGH_WINCH_LED_PORT);
+}
+
