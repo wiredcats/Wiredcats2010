@@ -24,73 +24,85 @@ Joystick* ControlBoard::GetFakeJoy() {
 
 
 // Levers
-bool LeftLeverUp() {
+bool ControlBoard::LeftLeverUp() {
 	return fakeStick->GetRawButton(LEFT_LEV_UP_PORT);
 }
 
-bool LeftLeverDown() {
+bool ControlBoard::LeftLeverDown() {
 	return fakeStick->GetRawButton(LEFT_LEV_DOWN_PORT);
 }
 
-bool MiddleLeverUp() {
+bool ControlBoard::MiddleLeverUp() {
 	return fakeStick->GetRawButton(MID_LEV_UP_PORT);
 }
 
-bool MiddleLeverDown() {
+bool ControlBoard::MiddleLeverDown() {
 	return fakeStick->GetRawButton(MID_LEV_DOWN_PORT);
 }
 
-bool RightLeverUp() {
+bool ControlBoard::RightLeverUp() {
 	return fakeStick->GetRawButton(RIGHT_LEV_UP_PORT);
 }
 
-bool RightLeverDown() {
+bool ControlBoard::RightLeverDown() {
 	return fakeStick->GetRawButton(RIGHT_LEV_DOWN_PORT);
 }
 
 
 // Buttons
-bool LowWinchDown() {
+bool ControlBoard::LowWinchDown() {
 	return fakeStick->GetRawButton(LOW_WINCH_BUTTON_PORT);
 }
 
-bool MidWinchDown() {
+bool ControlBoard::MidWinchDown() {
 	return fakeStick->GetRawButton(MID_WINCH_BUTTON_PORT);
 }
 
-bool HighWinchDown() {
+bool ControlBoard::HighWinchDown() {
 	return fakeStick->GetRawButton(HIGH_WINCH_BUTTON_PORT);
 }
 
-bool ServeBallDown() {
+bool ControlBoard::ServeBallDown() {
 	return fakeStick->GetRawButton(SERVE_BALL_BUTTON_PORT);
 }
 
 
 // Light LEDs
-void LightLowWinchLED() {
-	ds->SetDigitalOut(LOW_WINCH_LED_PORT);
+void ControlBoard::LightLowWinchLED() {
+	ds->SetDigitalOut(LOW_WINCH_LED_PORT,true);
 }
 
-void LightMidWinchLED() {
-	ds->SetDigitalOut(MID_WINCH_LED_PORT);
+void ControlBoard::LightMidWinchLED() {
+	ds->SetDigitalOut(MID_WINCH_LED_PORT,true);
 }
 
-void LightHighWinchLED() {
-	ds->SetDigitalOut(HIGH_WINCH_LED_PORT);
+void ControlBoard::LightHighWinchLED() {
+	ds->SetDigitalOut(HIGH_WINCH_LED_PORT,true);
 }
 
+//Turn Off LEDs
+void ControlBoard::TurnOffLowWinchLED() {
+	ds->SetDigitalOut(LOW_WINCH_LED_PORT,false);
+}
+
+void ControlBoard::TurnOffMidWinchLED() {
+	ds->SetDigitalOut(MID_WINCH_LED_PORT,false);
+}
+
+void ControlBoard::TurnOffHighWinchLED() {
+	ds->SetDigitalOut(HIGH_WINCH_LED_PORT,false);
+}
 
 // Are LEDs lit?
-bool LowWinchLEDLit() {
+bool ControlBoard::LowWinchLEDLit() {
 	return ds->GetDigitalOut(LOW_WINCH_LED_PORT);
 }
 
-bool MidWinchLEDLit() {
+bool ControlBoard::MidWinchLEDLit() {
 	return ds->GetDigitalOut(MID_WINCH_LED_PORT);
 }
 
-bool HighWinchLEDLit() {
+bool ControlBoard::HighWinchLEDLit() {
 	return ds->GetDigitalOut(HIGH_WINCH_LED_PORT);
 }
 

@@ -33,7 +33,6 @@ class AutoController {
 public:
 	AutoController (RobotDrive *drive, Gyro *gyro);
 	
-	void InitPID();
 	void GoToBallOne();
 	void TurnNorth();
 	void TurnEast();

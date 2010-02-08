@@ -54,6 +54,11 @@ public:
 	void LightMidWinchLED();
 	void LightHighWinchLED();
 	
+	//Turn Off LEds
+	void TurnOffLowWinchLED();
+	void TurnOffMidWinchLED();
+	void TurnOffHighWinchLED();
+	
 	// Are LEDs lit?
 	bool LowWinchLEDLit();
 	bool MidWinchLEDLit();
