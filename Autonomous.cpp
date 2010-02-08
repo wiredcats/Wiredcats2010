@@ -9,6 +9,7 @@
  * 7 8 9
  * NOTE: The initial facing direction of the robot is called
  * 		 East, regardless of where magnetic East actually is.
+ * 
  */
 
 AutoController::AutoController(RobotDrive *drive, Gyro *gyro, CANJaguar *jaguar)

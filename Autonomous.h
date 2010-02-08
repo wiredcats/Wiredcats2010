@@ -10,7 +10,7 @@
 #include "Target.h"
 
 // Constants
-const float VOLTAGE_DROP = 1.5;
+const float VOLTAGE_DROP = 1.4;
 const float BALL_SPACING_WAIT_TIME = 1.0;
 const double ANGLE_THRESHOLD = 5.0;
 
