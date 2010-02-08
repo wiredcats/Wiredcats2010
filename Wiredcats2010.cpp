@@ -5,20 +5,6 @@
  * Enjoy!
  */
 
-class DrivePID : public PIDOutput
-{
-public:
-	DrivePID (RobotDrive *base) {
-		m_base = base;
-	}
-	
-	void PIDWrite(float output) {
-		m_base->ArcadeDrive(0.0, output);
-	}
-private:
-	RobotDrive *m_base;
-};
-
 class Wiredcats2010 : public SimpleRobot
 {
 	Log rlog;
@@ -36,6 +22,7 @@ class Wiredcats2010 : public SimpleRobot
 	
 	RobotDrive *drive;
 	PIDOutput *drivePIDOutput;
+	AutoController *autonomous;
 	
 	bool loopingPid;
 
@@ -50,6 +37,7 @@ public:
 		gyro = new Gyro(1);
 		drive = new RobotDrive(jagFrontLeft, jagBackLeft, jagFrontRight, jagBackRight);
 		drivePIDOutput = new DrivePID(drive);
+		autonomous = new AutoController(drive, gyro);
 		
 		rlog.addLine("Sucessfully started constructor, running program...");
 		
@@ -61,23 +49,7 @@ public:
 		GetWatchdog().SetEnabled(false);
 		
 		rlog.addLine("Entered autonomous!");
-		
-		// Set up PID
-		gyro->Reset();
-		PIDController turnController( PROPORTION,
-								INTEGRAL,
-								DERIVATIVE,
-								gyro,
-								drivePIDOutput,
-								0.02);
-		
-		turnController.SetInputRange(-360.0, 360.0);
-		turnController.SetOutputRange(-0.6, 0.6);
-		turnController.SetTolerance(1.0 / 90.0 * 100);
-		turnController.Disable();
-		
-		GoToBallOne(drive, gyro, turnController);
-
+		autonomous->GoToBallOne();
 	}
 	
 	void OperatorControl(void)
