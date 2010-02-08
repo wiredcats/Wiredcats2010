@@ -40,7 +40,7 @@ public:
 		autonomous = new AutoController(drive, gyro, &jagFrontRight);
 		
 		rlog.addLine("Sucessfully started constructor, running program...");
-		
+		 
 		GetWatchdog().SetExpiration(0.1);
 	}
 	
