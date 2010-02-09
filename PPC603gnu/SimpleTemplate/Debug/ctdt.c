@@ -7,13 +7,13 @@
 /*       -fdollars-in-identifiers flag.                   */
 
 
+void _GLOBAL__I__Z11formatTimerd();
+
 void _GLOBAL__I__Z20FRC_userClassFactoryv();
 
 void _GLOBAL__I__ZN12ControlBoardC2Ev();
 
 void _GLOBAL__I__ZN14AutoControllerC2EP10RobotDriveP4GyroP9CANJaguar();
-
-void _GLOBAL__I__ZN3LogC2EPc();
 
 void _GLOBAL__I__ZN6KickerC2Ev();
 
@@ -28,10 +28,10 @@ void _GLOBAL__I_AxisCamera_debugFlag();
 extern void (*_ctors[])();
 void (*_ctors[])() =
     {
+    _GLOBAL__I__Z11formatTimerd,
     _GLOBAL__I__Z20FRC_userClassFactoryv,
     _GLOBAL__I__ZN12ControlBoardC2Ev,
     _GLOBAL__I__ZN14AutoControllerC2EP10RobotDriveP4GyroP9CANJaguar,
-    _GLOBAL__I__ZN3LogC2EPc,
     _GLOBAL__I__ZN6KickerC2Ev,
     _GLOBAL__I__ZN9ErrorBase16globalErrorMutexE,
     _GLOBAL__I__ZN9RobotBase10m_instanceE,

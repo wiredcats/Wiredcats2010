@@ -1,6 +1,6 @@
-SimpleTemplate_partialImage/Debug/Objects/WiredCats2010/Wiredcats2010.o:  \
- C:/WindRiver/workspace/WiredCats2010/Wiredcats2010.cpp \
-  C:/WindRiver/workspace/WiredCats2010/Wiredcats2010.h \
+SimpleTemplate_partialImage/Debug/Objects/Wiredcats2010/Wiredcats2010.o:  \
+ C:/windriver/workspace/Wiredcats2010/Wiredcats2010.cpp \
+  C:/windriver/workspace/Wiredcats2010/Wiredcats2010.h \
   C:/WindRiver/vxworks-6.3/target/h/WPILib/WPILib.h \
   C:/WindRiver/vxworks-6.3/target/h/string.h \
   C:/WindRiver/vxworks-6.3/target/h/types/vxANSI.h \
@@ -268,18 +268,20 @@ SimpleTemplate_partialImage/Debug/Objects/WiredCats2010/Wiredcats2010.o:  \
   C:/WindRiver/vxworks-6.3/target/h/WPILib/Vision/AxisCamera.h \
   C:/WindRiver/vxworks-6.3/target/h/WPILib/Vision/HSLImage.h \
   C:/WindRiver/vxworks-6.3/target/h/WPILib/PIDController.h \
-  C:/WindRiver/workspace/WiredCats2010/Target.h \
+  C:/windriver/workspace/Wiredcats2010/Target.h \
   C:/WindRiver/vxworks-6.3/target/h/WPILib/Vision/ColorImage.h \
-  C:/WindRiver/workspace/WiredCats2010/CAN/CANJaguar.h \
+  C:/windriver/workspace/Wiredcats2010/CAN/CANJaguar.h \
   C:/WindRiver/vxworks-6.3/target/h/WPILib/SpeedController.h \
   C:/WindRiver/vxworks-6.3/target/h/WPILib/PIDOutput.h \
-  C:/WindRiver/workspace/WiredCats2010/Log.h \
+  C:/windriver/workspace/Wiredcats2010/Log.h \
   c:/windriver/gnu/3.4.4-vxworks-6.3/x86-win32/lib/gcc/../../../x86-win32/include/c++/3.4.4/fstream \
-  C:/WindRiver/workspace/WiredCats2010/ControlBoard.h \
-  C:/WindRiver/workspace/WiredCats2010/Kicker.h \
-  C:/WindRiver/workspace/WiredCats2010/Autonomous.h
+  c:/windriver/gnu/3.4.4-vxworks-6.3/x86-win32/lib/gcc/../../../x86-win32/include/c++/3.4.4/sstream \
+  C:/WindRiver/vxworks-6.3/target/h/WPILib/Timer.h \
+  C:/windriver/workspace/Wiredcats2010/ControlBoard.h \
+  C:/windriver/workspace/Wiredcats2010/Kicker.h \
+  C:/windriver/workspace/Wiredcats2010/Autonomous.h
 
-C:/WindRiver/workspace/WiredCats2010/Wiredcats2010.h:
+C:/windriver/workspace/Wiredcats2010/Wiredcats2010.h:
 
 C:/WindRiver/vxworks-6.3/target/h/WPILib/WPILib.h:
 
@@ -815,22 +817,26 @@ C:/WindRiver/vxworks-6.3/target/h/WPILib/Vision/HSLImage.h:
 
 C:/WindRiver/vxworks-6.3/target/h/WPILib/PIDController.h:
 
-C:/WindRiver/workspace/WiredCats2010/Target.h:
+C:/windriver/workspace/Wiredcats2010/Target.h:
 
 C:/WindRiver/vxworks-6.3/target/h/WPILib/Vision/ColorImage.h:
 
-C:/WindRiver/workspace/WiredCats2010/CAN/CANJaguar.h:
+C:/windriver/workspace/Wiredcats2010/CAN/CANJaguar.h:
 
 C:/WindRiver/vxworks-6.3/target/h/WPILib/SpeedController.h:
 
 C:/WindRiver/vxworks-6.3/target/h/WPILib/PIDOutput.h:
 
-C:/WindRiver/workspace/WiredCats2010/Log.h:
+C:/windriver/workspace/Wiredcats2010/Log.h:
 
 c:/windriver/gnu/3.4.4-vxworks-6.3/x86-win32/lib/gcc/../../../x86-win32/include/c++/3.4.4/fstream:
 
-C:/WindRiver/workspace/WiredCats2010/ControlBoard.h:
+c:/windriver/gnu/3.4.4-vxworks-6.3/x86-win32/lib/gcc/../../../x86-win32/include/c++/3.4.4/sstream:
 
-C:/WindRiver/workspace/WiredCats2010/Kicker.h:
+C:/WindRiver/vxworks-6.3/target/h/WPILib/Timer.h:
 
-C:/WindRiver/workspace/WiredCats2010/Autonomous.h:
+C:/windriver/workspace/Wiredcats2010/ControlBoard.h:
+
+C:/windriver/workspace/Wiredcats2010/Kicker.h:
+
+C:/windriver/workspace/Wiredcats2010/Autonomous.h:

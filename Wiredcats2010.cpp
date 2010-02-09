@@ -32,6 +32,7 @@ public:
 		jagFrontRight(4), jagBackRight(5), jagFrontLeft(2), jagBackLeft(3)
 	{
 		// Constructor
+		rlog.setMode("CNST");
 		rlog.addLine("Opening constructor...");
 		
 		gyro = new Gyro(1);
@@ -48,6 +49,9 @@ public:
 	{
 		GetWatchdog().SetEnabled(false);
 		
+		rlog.setMode("AUTO");
+		rlog.startTimer();
+		
 		rlog.addLine("Entered autonomous!");
 		autonomous->GoToBallOne();
 	}
@@ -55,6 +59,9 @@ public:
 	void OperatorControl(void)
 	{
 		GetWatchdog().SetEnabled(true);
+		
+		rlog.resetTimer();
+		rlog.setMode("TELE");
 		
 		rlog.addLine("Entered teleop!");
 		
@@ -78,6 +85,8 @@ public:
 		AxisCamera &camera = AxisCamera::GetInstance();
 		camera.WriteResolution(AxisCamera::kResolution_320x240);
 		camera.WriteBrightness(0);
+		
+		rlog.startTimer();
 		
 		while (IsOperatorControl())
 		{
