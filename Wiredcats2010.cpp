@@ -15,11 +15,6 @@ private:
 	RobotDrive *m_base;
 };
 
-/**
- * This is the FRC Team #2415 - The WiredCats awesome fancy-schmancy code. 
- * Enjoy!
- */
-
 class Wiredcats2010 : public SimpleRobot
 {
 	Log rlog;
@@ -36,6 +31,7 @@ class Wiredcats2010 : public SimpleRobot
 	CANJaguar jagBackLeft;
 	
 	AxisCamera *camera;
+	PIDController *turnController;
 	
 	RobotDrive *drive;
 	PIDOutput *drivePIDOutput;
@@ -56,6 +52,12 @@ public:
 		drivePIDOutput = new DrivePID(drive);
 		camera->WriteResolution(AxisCamera::kResolution_320x240);
 		camera->WriteBrightness(0);
+		turnController= new PIDController(PROPORTION,
+							INTEGRAL,
+							DERIVATIVE,
+							gyro,
+							drivePIDOutput,
+							0.02);
 		rlog.addLine("Sucessfully started constructor, running program...");
 		 
 		GetWatchdog().SetExpiration(0.1);
@@ -71,19 +73,13 @@ public:
 		rlog.startTimer();
 		
 		rlog.addLine("Entered autonomous!");
+		
 		// Set up PID
 		gyro->Reset();
-		PIDController turnController( PROPORTION,
-								INTEGRAL,
-								DERIVATIVE,
-								gyro,
-								drivePIDOutput,
-								0.02);
-		
-		turnController.SetInputRange(-360.0, 360.0);
-		turnController.SetOutputRange(-0.6, 0.6);
-		turnController.SetTolerance(1.0 / 90.0 * 100);
-		turnController.Disable();
+		turnController->SetInputRange(-360.0, 360.0);
+		turnController->SetOutputRange(-0.6, 0.6);
+		turnController->SetTolerance(1.0 / 90.0 * 100);
+		turnController->Disable();
 		
 		//First block of code: Go to Ball #
 		rlog.addLine("Entering first block of auto code...");
@@ -91,13 +87,48 @@ public:
 		switch (ballNumber) {
 		case 7:
 			//Use PID + drive to turn
-			//Autotarget
-			//Kick!
+			turnController->Enable();
+			while(jagFrontRight.GetOutputVoltage()){
+				turnController->SetSetpoint(-BALL_ANGLE_1);
+			}
+			drive->Drive(1,0);
+			Wait(BALL_WAIT_1);
+			turnController->Disable();
 			break;
 		default:
 			//OH NOEZ!
+			//Panic();
 			break;
 		}
+		//Autotarget, just Copy Pasta
+		if (camera->IsFreshImage()) {
+			ColorImage *image = camera->GetImage();
+			vector<Target> targets = Target::FindCircularTargets(image); //Possible memory leak?
+			delete image;
+			
+			rlog.addLine("Attempting to autotrack target...");
+			
+			if (targets.size() > 0 && targets[0].m_score > MINIMUM_SCORE) {
+				double initHorizontalAngle = targets[0].GetHorizontalAngle(); //Possible memory leak?
+				
+				if (angleWithinThreshold(initHorizontalAngle)) {
+					rlog.addLine("Found target, tracked (without PID)");
+					// Light up LED
+				} else {
+					turnController->Enable();
+					
+					rlog.addLine("Found target, entering PID loop");
+					
+					double angleTurn = initHorizontalAngle + gyro->GetAngle();
+					turnController->SetSetpoint(angleTurn);
+				}
+			} else {
+				rlog.addLine("Found no targets");
+				
+				turnController->Disable();
+			}
+		}
+		//Kick!
 		
 		//Second block of code: Go to another ball using text directions
 		/*
@@ -111,12 +142,47 @@ public:
 		switch (directions) { //This switch statment uses numbers for compass directions for now.
 		case 1:
 			//Use PID + drive to turn
+			turnController->Enable();
+			while(jagFrontRight.GetOutputVoltage()){
+				turnController->SetSetpoint(NORTH_1); //Dunno how to implement the difference factor
+			}
+			drive->Drive(1,0);
+			Wait(BALL_WAIT_1);
+			turnController->Disable();
 			break;
 		default:
 			//OH NOEZ!
 			break;
 		}
-		//Autotarget
+		//Autotarget, just Copy Pasta
+		if (camera->IsFreshImage()) {
+			ColorImage *image = camera->GetImage();
+			vector<Target> targets = Target::FindCircularTargets(image); //Possible memory leak?
+			delete image;
+			
+			rlog.addLine("Attempting to autotrack target...");
+			
+			if (targets.size() > 0 && targets[0].m_score > MINIMUM_SCORE) {
+				double initHorizontalAngle = targets[0].GetHorizontalAngle(); //Possible memory leak?
+				
+				if (angleWithinThreshold(initHorizontalAngle)) {
+					rlog.addLine("Found target, tracked (without PID)");
+					// Light up LED
+				} else {
+					turnController->Enable();
+					
+					rlog.addLine("Found target, entering PID loop");
+					
+					double angleTurn = initHorizontalAngle + gyro->GetAngle();
+					turnController->SetSetpoint(angleTurn);
+				}
+			} else {
+				rlog.addLine("Found no targets");
+				
+				turnController->Disable();
+			}
+		}
+		
 		//Kickers away!
 		
 		//Third block of code: Get away.
@@ -134,17 +200,6 @@ public:
 		
 		// Set up PID
 		gyro->Reset();
-		PIDController turnController( PROPORTION,
-								INTEGRAL,
-								DERIVATIVE,
-								gyro,
-								drivePIDOutput,
-								0.02);
-		
-		turnController.SetInputRange(-360.0, 360.0);
-		turnController.SetOutputRange(-0.6, 0.6);
-		turnController.SetTolerance(1.0 / 90.0 * 100);
-		turnController.Disable();
 		
 		loopingPid = false;
 		
@@ -175,18 +230,18 @@ public:
 							rlog.addLine("Found target, tracked (without PID)");
 							// Light up LED
 						} else {
-							turnController.Enable();
+							turnController->Enable();
 							loopingPid = true;
 							
 							rlog.addLine("Found target, entering PID loop");
 							
 							double angleTurn = initHorizontalAngle + gyro->GetAngle();
-							turnController.SetSetpoint(angleTurn);
+							turnController->SetSetpoint(angleTurn);
 						}
 					} else {
 						rlog.addLine("Found no targets");
 						
-						turnController.Disable();
+						turnController->Disable();
 						loopingPid = false;
 					}
 				}
@@ -210,7 +265,7 @@ public:
 						board.GetRightJoy()->GetY() > AUTO_CANCEL_THRESH || 
 						board.GetRightJoy()->GetY() < -AUTO_CANCEL_THRESH) {
 					rlog.addLine("User drive detected, leaving PID");
-					turnController.Disable();
+					turnController->Disable();
 					loopingPid = false;
 				}
 			} else {

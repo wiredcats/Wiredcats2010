@@ -11,14 +11,16 @@
 #define INTEGRAL 0.0
 #define DERIVATIVE 0.5
 
-#define NORTH 1
-#define EAST 2
-#define SOUTH 3
-#define WEST 4
-#define NORTHEAST 12
-#define NORTHWEST 14
-#define SOUTHEAST 32
-#define SOUTHWEST 34
+#define VOLTAGE_DROP 1.5
+
+#define NORTH_1 270
+#define NORTH_2 -90
+#define EAST_1 0
+#define EAST_2 360
+#define SOUTH_1 90
+#define SOUTH_2 -270
+#define WEST_1 180
+#define WEST_2 -180
 
 #define BALL_ANGLE_1 45
 #define BALL_ANGLE_2 35
