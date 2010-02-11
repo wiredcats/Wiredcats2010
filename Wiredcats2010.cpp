@@ -73,6 +73,10 @@ public:
 		AxisCamera &camera = AxisCamera::GetInstance();
 		camera.WriteResolution(AxisCamera::kResolution_320x240);
 		camera.WriteBrightness(0);
+		
+		while(jagFrontRight.GetOutputVoltage()){
+			turnController->SetSetpoint(EAST_1); //Dunno how to implement the difference factor
+		}
 				
 		if (camera.IsFreshImage()) {
 			ColorImage *image = camera.GetImage();
