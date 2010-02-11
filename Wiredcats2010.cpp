@@ -57,6 +57,10 @@ public:
 							gyro,
 							drivePIDOutput,
 							0.02);
+		turnController->SetInputRange(-360.0, 360.0);
+		turnController->SetOutputRange(-0.6, 0.6);
+		turnController->SetTolerance(1.0 / 90.0 * 100);
+		turnController->Disable();
 		compressor = new Compressor(1,1);
 		compressor->Start();
 		rlog.addLine("Sucessfully started constructor, running program...");
@@ -64,13 +68,47 @@ public:
 		GetWatchdog().SetExpiration(0.1);
 	}
 	
-	void Autonomous(void)
+	void TurnToOurTarget(void)
 	{
-		GetWatchdog().SetEnabled(false);
-		// Start up camera
 		AxisCamera &camera = AxisCamera::GetInstance();
 		camera.WriteResolution(AxisCamera::kResolution_320x240);
 		camera.WriteBrightness(0);
+				
+		if (camera.IsFreshImage()) {
+			ColorImage *image = camera.GetImage();
+			vector<Target> targets = Target::FindCircularTargets(image);
+			delete image;
+	
+			rlog.addLine("Attempting to autotrack target...");
+	
+			if (targets.size() > 0 && targets[0].m_score > MINIMUM_SCORE) {
+				double initHorizontalAngle = targets[0].GetHorizontalAngle();
+	
+				if (angleWithinThreshold(initHorizontalAngle)) {
+					rlog.addLine("Found target, tracked (without PID)");
+					// Light up LED
+				} else {
+					turnController->Enable();
+					loopingPid = true;
+	
+					rlog.addLine("Found target, entering PID loop");
+	
+					double angleTurn = initHorizontalAngle + gyro->GetAngle();
+					turnController->SetSetpoint(angleTurn);
+				}
+			} else {
+				rlog.addLine("Found no targets");
+	 
+						turnController->Disable();
+						loopingPid = false;
+			}
+		}
+		camera.DeleteInstance();
+	}
+	
+	void Autonomous(void)
+	{
+		GetWatchdog().SetEnabled(false);
 		
 		rlog.setMode("AUTO");
 		rlog.startTimer();
@@ -79,10 +117,7 @@ public:
 		
 		// Set up PID
 		gyro->Reset();
-		turnController->SetInputRange(-360.0, 360.0);
-		turnController->SetOutputRange(-0.6, 0.6);
-		turnController->SetTolerance(1.0 / 90.0 * 100);
-		turnController->Disable();
+		turnController->Enable();
 		
 		//First block of code: Go to Ball #
 		rlog.addLine("Entering first block of auto code...");
@@ -90,7 +125,6 @@ public:
 		switch (ballNumber) {
 		case 7:
 			//Use PID + drive to turn
-			turnController->Enable();
 			while(jagFrontRight.GetOutputVoltage()){
 				turnController->SetSetpoint(-BALL_ANGLE_1);
 			}
@@ -103,34 +137,9 @@ public:
 			//Panic();
 			break;
 		}
-		//Autotarget, just Copy Pasta
-		if (camera.IsFreshImage()) {
-			ColorImage *image = camera.GetImage();
-			vector<Target> targets = Target::FindCircularTargets(image); //Possible memory leak?
-			delete image;
-			
-			rlog.addLine("Attempting to autotrack target...");
-			
-			if (targets.size() > 0 && targets[0].m_score > MINIMUM_SCORE) {
-				double initHorizontalAngle = targets[0].GetHorizontalAngle(); //Possible memory leak?
-				
-				if (angleWithinThreshold(initHorizontalAngle)) {
-					rlog.addLine("Found target, tracked (without PID)");
-					// Light up LED
-				} else {
-					turnController->Enable();
-					
-					rlog.addLine("Found target, entering PID loop");
-					
-					double angleTurn = initHorizontalAngle + gyro->GetAngle();
-					turnController->SetSetpoint(angleTurn);
-				}
-			} else {
-				rlog.addLine("Found no targets");
-				
-				turnController->Disable();
-			}
-		}
+		//AutoTarget!
+		TurnToOurTarget();
+		
 		//Kick!
 		
 		//Second block of code: Go to another ball using text directions
@@ -158,49 +167,17 @@ public:
 			break;
 		}
 		//Autotarget, just Copy Pasta
-		if (camera.IsFreshImage()) {
-			ColorImage *image = camera.GetImage();
-			vector<Target> targets = Target::FindCircularTargets(image); //Possible memory leak?
-			delete image;
-			
-			rlog.addLine("Attempting to autotrack target...");
-			
-			if (targets.size() > 0 && targets[0].m_score > MINIMUM_SCORE) {
-				double initHorizontalAngle = targets[0].GetHorizontalAngle(); //Possible memory leak?
-				
-				if (angleWithinThreshold(initHorizontalAngle)) {
-					rlog.addLine("Found target, tracked (without PID)");
-					// Light up LED
-				} else {
-					turnController->Enable();
-					
-					rlog.addLine("Found target, entering PID loop");
-					
-					double angleTurn = initHorizontalAngle + gyro->GetAngle();
-					turnController->SetSetpoint(angleTurn);
-				}
-			} else {
-				rlog.addLine("Found no targets");
-				
-				turnController->Disable();
-			}
-		}
+		TurnToOurTarget();
 		
 		//Kickers away!
 		
 		//Third block of code: Get away.
 		//Strategy/driver dependent, so we'll worry later.
-		
-		camera.DeleteInstance();
 	}
 	
 	void OperatorControl(void)
 	{
 		GetWatchdog().SetEnabled(true);
-		// Start up camera
-		AxisCamera &camera = AxisCamera::GetInstance();
-		camera.WriteResolution(AxisCamera::kResolution_320x240);
-		camera.WriteBrightness(0);
 		
 		rlog.resetTimer();
 		rlog.setMode("TELE");
@@ -211,49 +188,18 @@ public:
 		gyro->Reset();
 		loopingPid = false;
 		
-		// Start up camera
-		//camera = &(AxisCamera::GetInstance());
-		
 		rlog.startTimer();
 		
 		while (IsOperatorControl())
 		{
 			GetWatchdog().Feed();
 			
-			
+			//CAN Voodoo...
 			jagFrontRight.GetOutputVoltage();
 			
 			// Autotracking
 			if (board.GetLeftJoy()->GetRawButton(1)) {
-				if (camera.IsFreshImage()) {
-					ColorImage *image = camera.GetImage();
-					vector<Target> targets = Target::FindCircularTargets(image);
-					delete image;
-					
-					rlog.addLine("Attempting to autotrack target...");
-					
-					if (targets.size() > 0 && targets[0].m_score > MINIMUM_SCORE) {
-						double initHorizontalAngle = targets[0].GetHorizontalAngle();
-						
-						if (angleWithinThreshold(initHorizontalAngle)) {
-							rlog.addLine("Found target, tracked (without PID)");
-							// Light up LED
-						} else {
-							turnController->Enable();
-							loopingPid = true;
-							
-							rlog.addLine("Found target, entering PID loop");
-							
-							double angleTurn = initHorizontalAngle + gyro->GetAngle();
-							turnController->SetSetpoint(angleTurn);
-						}
-					} else {
-						rlog.addLine("Found no targets");
-						
-						turnController->Disable();
-						loopingPid = false;
-					}
-				}
+				TurnToOurTarget();
 			}
 			
 			// Kicker
