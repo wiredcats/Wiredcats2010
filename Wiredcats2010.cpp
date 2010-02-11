@@ -29,14 +29,13 @@ class Wiredcats2010 : public SimpleRobot
 	CANJaguar jagBackRight;
 	CANJaguar jagFrontLeft;
 	CANJaguar jagBackLeft;
-	
-	AxisCamera *camera;
+
 	PIDController *turnController;
-	
-	Compressor *compressor;
 	
 	RobotDrive *drive;
 	PIDOutput *drivePIDOutput;
+	
+	Compressor *compressor;
 	
 	bool loopingPid;
 
@@ -52,7 +51,6 @@ public:
 		gyro = new Gyro(1);
 		drive = new RobotDrive(jagFrontLeft, jagBackLeft, jagFrontRight, jagBackRight);
 		drivePIDOutput = new DrivePID(drive);
-		camera = &(AxisCamera::GetInstance());
 		turnController= new PIDController(PROPORTION,
 							INTEGRAL,
 							DERIVATIVE,
@@ -70,10 +68,10 @@ public:
 	{
 		GetWatchdog().SetEnabled(false);
 		// Start up camera
-		camera = &(AxisCamera::GetInstance());
-		camera->WriteResolution(AxisCamera::kResolution_320x240);
-		camera->WriteBrightness(0);
-		/*
+		AxisCamera &camera = AxisCamera::GetInstance();
+		camera.WriteResolution(AxisCamera::kResolution_320x240);
+		camera.WriteBrightness(0);
+		
 		rlog.setMode("AUTO");
 		rlog.startTimer();
 		
@@ -106,8 +104,8 @@ public:
 			break;
 		}
 		//Autotarget, just Copy Pasta
-		if (camera->IsFreshImage()) {
-			ColorImage *image = camera->GetImage();
+		if (camera.IsFreshImage()) {
+			ColorImage *image = camera.GetImage();
 			vector<Target> targets = Target::FindCircularTargets(image); //Possible memory leak?
 			delete image;
 			
@@ -141,7 +139,7 @@ public:
 		 * N - 1, E - 2, S - 3, W - 4
 		 * NW - 14, NE - 12, SW - 34, SE - 32
 		 */
-	/*	
+
 		//Fancy for loop reading every line after the first (really necessary?)
 		int directions = 1; //Filler: for loop goes through each line, stopping at . and reading off value?
 		switch (directions) { //This switch statment uses numbers for compass directions for now.
@@ -160,8 +158,8 @@ public:
 			break;
 		}
 		//Autotarget, just Copy Pasta
-		if (camera->IsFreshImage()) {
-			ColorImage *image = camera->GetImage();
+		if (camera.IsFreshImage()) {
+			ColorImage *image = camera.GetImage();
 			vector<Target> targets = Target::FindCircularTargets(image); //Possible memory leak?
 			delete image;
 			
@@ -187,16 +185,22 @@ public:
 				turnController->Disable();
 			}
 		}
-		*/
+		
 		//Kickers away!
 		
 		//Third block of code: Get away.
 		//Strategy/driver dependent, so we'll worry later.
+		
+		camera.DeleteInstance();
 	}
 	
 	void OperatorControl(void)
 	{
 		GetWatchdog().SetEnabled(true);
+		// Start up camera
+		AxisCamera &camera = AxisCamera::GetInstance();
+		camera.WriteResolution(AxisCamera::kResolution_320x240);
+		camera.WriteBrightness(0);
 		
 		rlog.resetTimer();
 		rlog.setMode("TELE");
@@ -205,7 +209,6 @@ public:
 		
 		// Set up PID
 		gyro->Reset();
-		
 		loopingPid = false;
 		
 		// Start up camera
@@ -217,12 +220,13 @@ public:
 		{
 			GetWatchdog().Feed();
 			
+			
 			jagFrontRight.GetOutputVoltage();
-			/*
+			
 			// Autotracking
 			if (board.GetLeftJoy()->GetRawButton(1)) {
-				if (camera->IsFreshImage()) {
-					ColorImage *image = camera->GetImage();
+				if (camera.IsFreshImage()) {
+					ColorImage *image = camera.GetImage();
 					vector<Target> targets = Target::FindCircularTargets(image);
 					delete image;
 					
@@ -273,10 +277,10 @@ public:
 					turnController->Disable();
 					loopingPid = false;
 				}
-			} else {*/
+			} else {
 				drive->TankDrive(board.GetLeftJoy()->GetY(),
 								 board.GetRightJoy()->GetY());
-			//}
+			}
 			
 			Wait(0.005);
 		}
