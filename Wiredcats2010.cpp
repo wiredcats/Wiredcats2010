@@ -33,6 +33,8 @@ class Wiredcats2010 : public SimpleRobot
 	AxisCamera *camera;
 	PIDController *turnController;
 	
+	Compressor *compressor;
+	
 	RobotDrive *drive;
 	PIDOutput *drivePIDOutput;
 	
@@ -50,14 +52,15 @@ public:
 		gyro = new Gyro(1);
 		drive = new RobotDrive(jagFrontLeft, jagBackLeft, jagFrontRight, jagBackRight);
 		drivePIDOutput = new DrivePID(drive);
-		camera->WriteResolution(AxisCamera::kResolution_320x240);
-		camera->WriteBrightness(0);
+		camera = &(AxisCamera::GetInstance());
 		turnController= new PIDController(PROPORTION,
 							INTEGRAL,
 							DERIVATIVE,
 							gyro,
 							drivePIDOutput,
 							0.02);
+		compressor = new Compressor(1,1);
+		compressor->Start();
 		rlog.addLine("Sucessfully started constructor, running program...");
 		 
 		GetWatchdog().SetExpiration(0.1);
@@ -68,7 +71,9 @@ public:
 		GetWatchdog().SetEnabled(false);
 		// Start up camera
 		camera = &(AxisCamera::GetInstance());
-		
+		camera->WriteResolution(AxisCamera::kResolution_320x240);
+		camera->WriteBrightness(0);
+		/*
 		rlog.setMode("AUTO");
 		rlog.startTimer();
 		
@@ -92,7 +97,7 @@ public:
 				turnController->SetSetpoint(-BALL_ANGLE_1);
 			}
 			drive->Drive(1,0);
-			Wait(BALL_WAIT_1);
+			Wait(BALL_WAIT_1);//Filler for timer...
 			turnController->Disable();
 			break;
 		default:
@@ -136,7 +141,7 @@ public:
 		 * N - 1, E - 2, S - 3, W - 4
 		 * NW - 14, NE - 12, SW - 34, SE - 32
 		 */
-		
+	/*	
 		//Fancy for loop reading every line after the first (really necessary?)
 		int directions = 1; //Filler: for loop goes through each line, stopping at . and reading off value?
 		switch (directions) { //This switch statment uses numbers for compass directions for now.
@@ -182,7 +187,7 @@ public:
 				turnController->Disable();
 			}
 		}
-		
+		*/
 		//Kickers away!
 		
 		//Third block of code: Get away.
@@ -204,7 +209,7 @@ public:
 		loopingPid = false;
 		
 		// Start up camera
-		camera = &(AxisCamera::GetInstance());
+		//camera = &(AxisCamera::GetInstance());
 		
 		rlog.startTimer();
 		
@@ -213,7 +218,7 @@ public:
 			GetWatchdog().Feed();
 			
 			jagFrontRight.GetOutputVoltage();
-			
+			/*
 			// Autotracking
 			if (board.GetLeftJoy()->GetRawButton(1)) {
 				if (camera->IsFreshImage()) {
@@ -268,10 +273,10 @@ public:
 					turnController->Disable();
 					loopingPid = false;
 				}
-			} else {
+			} else {*/
 				drive->TankDrive(board.GetLeftJoy()->GetY(),
 								 board.GetRightJoy()->GetY());
-			}
+			//}
 			
 			Wait(0.005);
 		}
