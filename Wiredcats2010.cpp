@@ -151,8 +151,30 @@ public:
 		int direction;
 		
 		switch(direction) {
-		case 1:
-			
+		case 1:				// North
+			GotoNewBall(POSITIVE_NORTH_ANGLE, NEGATIVE_NORTH_ANGLE, STRAIGHT_WAIT);
+			break;
+		case 2:
+			GotoNewBall(POSITIVE_EAST_ANGLE, NEGATIVE_EAST_ANGLE, STRAIGHT_WAIT);
+			break;
+		case 3:
+			GotoNewBall(POSITIVE_SOUTH_ANGLE, NEGATIVE_SOUTH_ANGLE, STRAIGHT_WAIT);
+			break;
+		case 4:
+			GotoNewBall(POSITIVE_WEST_ANGLE, NEGATIVE_WEST_ANGLE, STRAIGHT_WAIT);
+			break;
+		
+		case 12:
+			GotoNewBall(POSITIVE_NORTHEAST_ANGLE, NEGATIVE_NORTHEAST_ANGLE, DIAG_WAIT);
+			break;
+		case 14:
+			GotoNewBall(POSITIVE_NORTHWEST_ANGLE, NEGATIVE_NORTHWEST_ANGLE, DIAG_WAIT);
+			break;
+		case 32:
+			GotoNewBall(POSITIVE_SOUTHEAST_ANGLE, NEGATIVE_SOUTHEAST_ANGLE, DIAG_WAIT);
+			break;
+		case 34:
+			GotoNewBall(POSITIVE_SOUTHWEST_ANGLE, NEGATIVE_SOUTHWEST_ANGLE, DIAG_WAIT);
 			break;
 		}
 	}
@@ -245,6 +267,23 @@ public:
 	
 	void KickBallInAuto() {
 		// Kick ball :-)
+	}
+	
+	void GotoNewBall(int posAngle, int negAngle, float wait) {
+		turnController->Enable();
+		if((abs(abs(posAngle) - (int)gyro->GetAngle())) < abs(abs(negAngle - (int)gyro->GetAngle()))) {
+			turnController->SetSetpoint(posAngle);
+		} else {
+			turnController->SetSetpoint(negAngle);
+		}
+		
+		while(DriveIsMoving()) {
+			Wait(0.02);
+		}
+		
+		drive->Drive(AUTO_DRIVE_SPEED, 0);
+		Wait(wait);
+		drive->Drive(0, 0);
 	}
 	
 	void TurnTowardsOffsetBall(float angle, float wait) {

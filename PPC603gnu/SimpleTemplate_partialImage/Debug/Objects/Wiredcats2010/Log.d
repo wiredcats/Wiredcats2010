@@ -1,6 +1,6 @@
-SimpleTemplate_partialImage/Debug/Objects/WiredCats2010/Log.o:  \
- C:/WindRiver/workspace/WiredCats2010/Log.cpp \
-  C:/WindRiver/workspace/WiredCats2010/Log.h \
+SimpleTemplate_partialImage/Debug/Objects/Wiredcats2010/Log.o:  \
+ C:/windriver/workspace/Wiredcats2010/Log.cpp \
+  C:/windriver/workspace/Wiredcats2010/Log.h \
   c:/windriver/gnu/3.4.4-vxworks-6.3/x86-win32/lib/gcc/../../../x86-win32/include/c++/3.4.4/fstream \
   c:/windriver/gnu/3.4.4-vxworks-6.3/x86-win32/lib/gcc/../../../x86-win32/include/c++/3.4.4/istream \
   c:/windriver/gnu/3.4.4-vxworks-6.3/x86-win32/lib/gcc/../../../x86-win32/include/c++/3.4.4/ostream \
@@ -93,9 +93,16 @@ SimpleTemplate_partialImage/Debug/Objects/WiredCats2010/Log.o:  \
   C:/WindRiver/vxworks-6.3/target/h/objLibCommon.h \
   C:/WindRiver/vxworks-6.3/target/h/vwModNum.h \
   C:/WindRiver/vxworks-6.3/target/h/base/b_struct_timespec.h \
-  c:/windriver/gnu/3.4.4-vxworks-6.3/x86-win32/lib/gcc/../../../x86-win32/include/c++/3.4.4/xlocinfo.h
+  c:/windriver/gnu/3.4.4-vxworks-6.3/x86-win32/lib/gcc/../../../x86-win32/include/c++/3.4.4/xlocinfo.h \
+  c:/windriver/gnu/3.4.4-vxworks-6.3/x86-win32/lib/gcc/../../../x86-win32/include/c++/3.4.4/sstream \
+  c:/windriver/gnu/3.4.4-vxworks-6.3/x86-win32/lib/gcc/../../../x86-win32/include/c++/3.4.4/string \
+  C:/WindRiver/vxworks-6.3/target/h/WPILib/Timer.h \
+  C:/WindRiver/vxworks-6.3/target/h/semLib.h \
+  C:/WindRiver/vxworks-6.3/target/h/vwModNum.h \
+  C:/WindRiver/vxworks-6.3/target/h/semLibCommon.h \
+  C:/WindRiver/vxworks-6.3/target/h/WPILib/Base.h
 
-C:/WindRiver/workspace/WiredCats2010/Log.h:
+C:/windriver/workspace/Wiredcats2010/Log.h:
 
 c:/windriver/gnu/3.4.4-vxworks-6.3/x86-win32/lib/gcc/../../../x86-win32/include/c++/3.4.4/fstream:
 
@@ -282,3 +289,17 @@ C:/WindRiver/vxworks-6.3/target/h/vwModNum.h:
 C:/WindRiver/vxworks-6.3/target/h/base/b_struct_timespec.h:
 
 c:/windriver/gnu/3.4.4-vxworks-6.3/x86-win32/lib/gcc/../../../x86-win32/include/c++/3.4.4/xlocinfo.h:
+
+c:/windriver/gnu/3.4.4-vxworks-6.3/x86-win32/lib/gcc/../../../x86-win32/include/c++/3.4.4/sstream:
+
+c:/windriver/gnu/3.4.4-vxworks-6.3/x86-win32/lib/gcc/../../../x86-win32/include/c++/3.4.4/string:
+
+C:/WindRiver/vxworks-6.3/target/h/WPILib/Timer.h:
+
+C:/WindRiver/vxworks-6.3/target/h/semLib.h:
+
+C:/WindRiver/vxworks-6.3/target/h/vwModNum.h:
+
+C:/WindRiver/vxworks-6.3/target/h/semLibCommon.h:
+
+C:/WindRiver/vxworks-6.3/target/h/WPILib/Base.h:
