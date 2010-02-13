@@ -29,13 +29,13 @@ class Wiredcats2010 : public SimpleRobot
 	CANJaguar jagBackRight;
 	CANJaguar jagFrontLeft;
 	CANJaguar jagBackLeft;
-
-	PIDController *turnController;
 	
 	RobotDrive *drive;
 	PIDOutput *drivePIDOutput;
+
+	PIDController *turnController;
 	
-	Compressor *compressor;
+	AxisCamera *camera;
 	
 	bool loopingPid;
 
@@ -51,63 +51,26 @@ public:
 		gyro = new Gyro(1);
 		drive = new RobotDrive(jagFrontLeft, jagBackLeft, jagFrontRight, jagBackRight);
 		drivePIDOutput = new DrivePID(drive);
-		turnController= new PIDController(PROPORTION,
-							INTEGRAL,
-							DERIVATIVE,
-							gyro,
-							drivePIDOutput,
-							0.02);
+		
+		camera = &(AxisCamera::GetInstance());
+		camera->WriteResolution(AxisCamera::kResolution_320x240);
+		camera->WriteBrightness(0);
+		
+		turnController = new PIDController( PROPORTION,
+								INTEGRAL,
+								DERIVATIVE,
+								gyro,
+								drivePIDOutput,
+								0.02);
+
 		turnController->SetInputRange(-360.0, 360.0);
 		turnController->SetOutputRange(-0.6, 0.6);
 		turnController->SetTolerance(1.0 / 90.0 * 100);
 		turnController->Disable();
-		compressor = new Compressor(1,1);
-		compressor->Start();
+
 		rlog.addLine("Sucessfully started constructor, running program...");
 		 
 		GetWatchdog().SetExpiration(0.1);
-	}
-	
-	void TurnToOurTarget(void)
-	{
-		AxisCamera &camera = AxisCamera::GetInstance();
-		camera.WriteResolution(AxisCamera::kResolution_320x240);
-		camera.WriteBrightness(0);
-		
-		while(jagFrontRight.GetOutputVoltage()){
-			turnController->SetSetpoint(EAST_1); //Dunno how to implement the difference factor
-		}
-				
-		if (camera.IsFreshImage()) {
-			ColorImage *image = camera.GetImage();
-			vector<Target> targets = Target::FindCircularTargets(image);
-			delete image;
-	
-			rlog.addLine("Attempting to autotrack target...");
-	
-			if (targets.size() > 0 && targets[0].m_score > MINIMUM_SCORE) {
-				double initHorizontalAngle = targets[0].GetHorizontalAngle();
-	
-				if (angleWithinThreshold(initHorizontalAngle)) {
-					rlog.addLine("Found target, tracked (without PID)");
-					// Light up LED
-				} else {
-					turnController->Enable();
-					loopingPid = true;
-	
-					rlog.addLine("Found target, entering PID loop");
-	
-					double angleTurn = initHorizontalAngle + gyro->GetAngle();
-					turnController->SetSetpoint(angleTurn);
-				}
-			} else {
-				rlog.addLine("Found no targets");
-	 
-						turnController->Disable();
-						loopingPid = false;
-			}
-		}
-		camera.DeleteInstance();
 	}
 	
 	void Autonomous(void)
@@ -119,64 +82,99 @@ public:
 		
 		rlog.addLine("Entered autonomous!");
 		
-		// Set up PID
 		gyro->Reset();
-		turnController->Enable();
 		
-		//First block of code: Go to Ball #
-		rlog.addLine("Entering first block of auto code...");
-		int ballNumber = 7; //Filler for read text file number
+		// double initRollerVoltage = jagRoller.GetOutputVoltage();
+		
+		rlog.addLine("Entering Phase One of autonomous (going towards initial ball)");
+		
+		int ballNumber;
+		
 		switch (ballNumber) {
-		case 7:
-			//Use PID + drive to turn
-			while(jagFrontRight.GetOutputVoltage()){
-				turnController->SetSetpoint(-BALL_ANGLE_1);
-			}
-			drive->Drive(1,0);
-			Wait(BALL_WAIT_1);//Filler for timer...
-			turnController->Disable();
-			break;
-		default:
-			//OH NOEZ!
-			//Panic();
-			break;
-		}
-		//AutoTarget!
-		TurnToOurTarget();
-		
-		//Kick!
-		
-		//Second block of code: Go to another ball using text directions
-		/*
-		 * Idea for numbering: 
-		 * N - 1, E - 2, S - 3, W - 4
-		 * NW - 14, NE - 12, SW - 34, SE - 32
-		 */
-
-		//Fancy for loop reading every line after the first (really necessary?)
-		int directions = 1; //Filler: for loop goes through each line, stopping at . and reading off value?
-		switch (directions) { //This switch statment uses numbers for compass directions for now.
 		case 1:
-			//Use PID + drive to turn
-			turnController->Enable();
-			while(jagFrontRight.GetOutputVoltage()){
-				turnController->SetSetpoint(NORTH_1); //Dunno how to implement the difference factor
-			}
-			drive->Drive(1,0);
-			Wait(BALL_WAIT_1);
-			turnController->Disable();
+			TurnTowardsOffsetBall(CLOSE_OFFSET_ANGLE, CLOSE_OFFSET_BALL_WAIT);
 			break;
+		case 2:
+			TurnTowardsOffsetBall(MID_OFFSET_ANGLE, MID_OFFSET_BALL_WAIT);
+			break;
+		case 3:
+			TurnTowardsOffsetBall(FAR_OFFSET_ANGLE, FAR_OFFSET_BALL_WAIT);
+			break;
+		
+		case 4:
+			TurnTowardsStraightBall(BALL_4_WAIT);
+			break;
+		case 5:
+			TurnTowardsStraightBall(BALL_5_WAIT);
+			break;
+		case 6:
+			TurnTowardsStraightBall(BALL_6_WAIT);
+			break;
+		
+		case 7:
+			TurnTowardsOffsetBall(-CLOSE_OFFSET_ANGLE, CLOSE_OFFSET_BALL_WAIT);
+			break;
+		case 8:
+			TurnTowardsOffsetBall(-MID_OFFSET_ANGLE, MID_OFFSET_BALL_WAIT);
+			break;
+		case 9:
+			TurnTowardsOffsetBall(-FAR_OFFSET_ANGLE, FAR_OFFSET_BALL_WAIT);
+			break;
+		
 		default:
-			//OH NOEZ!
+			rlog.addLine("EXTREME ERROR: COULD NOT FIND VALUE TO MOVE TO NEXT BALL! MOVING TO POSITION 4 AND DISABLING");
+			drive->Drive(AUTO_DRIVE_SPEED, 0);
+			Wait(BALL_4_WAIT);
+			drive->Drive(0, 0);
+		}
+		
+		// if (jagRoller.GetOutputVoltage() < initRollerVoltage - ROLL_VOLT_THRESH) {
+			rlog.addLine("Ball found! Tracking towards target...");
+			if (TurnTowardsOurTarget()) {
+				rlog.addLine("Successfully tracked target! Kicking ball...");
+				KickBallInAuto();
+			} else {
+				rlog.addLine("Could not find our target!");
+			}
+		// } else {
+			// rlog.addLine("Ball 9 not found, aborting! Attempting to track next ball");
+		// }
+		
+		////////////////////////
+		////////////////////////
+		////////////////////////
+		
+		rlog.addLine("Entering Phase Two of autonomous (go to second ball from initial)");
+		
+		int direction;
+		
+		switch(direction) {
+		case 1:				// North
+			GotoNewBall(POSITIVE_NORTH_ANGLE, NEGATIVE_NORTH_ANGLE, STRAIGHT_WAIT);
+			break;
+		case 2:
+			GotoNewBall(POSITIVE_EAST_ANGLE, NEGATIVE_EAST_ANGLE, STRAIGHT_WAIT);
+			break;
+		case 3:
+			GotoNewBall(POSITIVE_SOUTH_ANGLE, NEGATIVE_SOUTH_ANGLE, STRAIGHT_WAIT);
+			break;
+		case 4:
+			GotoNewBall(POSITIVE_WEST_ANGLE, NEGATIVE_WEST_ANGLE, STRAIGHT_WAIT);
+			break;
+		
+		case 12:
+			GotoNewBall(POSITIVE_NORTHEAST_ANGLE, NEGATIVE_NORTHEAST_ANGLE, DIAG_WAIT);
+			break;
+		case 14:
+			GotoNewBall(POSITIVE_NORTHWEST_ANGLE, NEGATIVE_NORTHWEST_ANGLE, DIAG_WAIT);
+			break;
+		case 32:
+			GotoNewBall(POSITIVE_SOUTHEAST_ANGLE, NEGATIVE_SOUTHEAST_ANGLE, DIAG_WAIT);
+			break;
+		case 34:
+			GotoNewBall(POSITIVE_SOUTHWEST_ANGLE, NEGATIVE_SOUTHWEST_ANGLE, DIAG_WAIT);
 			break;
 		}
-		//Autotarget, just Copy Pasta
-		TurnToOurTarget();
-		
-		//Kickers away!
-		
-		//Third block of code: Get away.
-		//Strategy/driver dependent, so we'll worry later.
 	}
 	
 	void OperatorControl(void)
@@ -193,7 +191,6 @@ public:
 		loopingPid = false;
 		
 		rlog.startTimer();
-		
 		while (IsOperatorControl())
 		{
 			GetWatchdog().Feed();
@@ -203,7 +200,35 @@ public:
 			
 			// Autotracking
 			if (board.GetLeftJoy()->GetRawButton(1)) {
-				TurnToOurTarget();
+				if (camera->IsFreshImage()) {
+					ColorImage *image = camera->GetImage();
+					vector<Target> targets = Target::FindCircularTargets(image);
+					delete image;
+					
+					rlog.addLine("Attempting to autotrack target...");
+					
+					if (targets.size() > 0 && targets[0].m_score > MINIMUM_SCORE) {
+						double initHorizontalAngle = targets[0].GetHorizontalAngle();
+						
+						if (angleWithinThreshold(initHorizontalAngle)) {
+							rlog.addLine("Found target, tracked (without  PID)");
+							// Light up LED
+						} else {
+							turnController->Enable();
+							loopingPid = true;
+							
+							rlog.addLine("Found target, entering PID loop");
+							
+							double angleTurn = initHorizontalAngle + gyro->GetAngle();
+							turnController->SetSetpoint(angleTurn);
+						}
+					} else {
+						rlog.addLine("Found no targets");
+						
+						turnController->Disable();
+						loopingPid = false;
+					}
+				}
 			}
 			
 			// Kicker
@@ -217,6 +242,12 @@ public:
 			
 			// Drive or Control PID
 			if (loopingPid) {
+				// No motors moving, must be tracked
+				if (!DriveIsMoving()) {
+					rlog.addLine("Motors not moving, assuming tracked. Leaving PID");
+					turnController->Disable();
+					loopingPid = false;
+				}
 				
 				// Cancel autotracking if joystick movement is detected
 				if (board.GetLeftJoy()->GetY() > AUTO_CANCEL_THRESH || 
@@ -235,7 +266,78 @@ public:
 			Wait(0.005);
 		}
 	}
+	
+	void KickBallInAuto() {
+		// Kick ball :-)
+	}
+	
+	void GotoNewBall(int posAngle, int negAngle, float wait) {
+		turnController->Enable();
+		if((abs(abs(posAngle) - (int)gyro->GetAngle())) < abs(abs(negAngle - (int)gyro->GetAngle()))) {
+			turnController->SetSetpoint(posAngle);
+		} else {
+			turnController->SetSetpoint(negAngle);
+		}
+		
+		while(DriveIsMoving()) {
+			Wait(0.02);
+		}
+		
+		drive->Drive(AUTO_DRIVE_SPEED, 0);
+		Wait(wait);
+		drive->Drive(0, 0);
+	}
+	
+	void TurnTowardsOffsetBall(float angle, float wait) {
+		rlog.addLine("Turning towards ball...");
+		turnController->Enable();
+		turnController->SetSetpoint(angle);
+		
+		while (DriveIsMoving()) {
+			Wait(0.02);
+		}
+		
+		rlog.addLine("Turned towards Ball 9, approaching");
+		drive->Drive(AUTO_DRIVE_SPEED, 0);
+		Wait(wait);
+		drive->Drive(0, 0);
+	}
+	
+	void TurnTowardsStraightBall(float wait) {
+		rlog.addLine("Approaching Ball 4");
+		drive->Drive(AUTO_DRIVE_SPEED, 0);
+		Wait(wait);
+		drive->Drive(0, 0);
+	}
+	
+	bool TurnTowardsOurTarget() {
+		if (camera->IsFreshImage()) {
+			ColorImage *image = camera->GetImage();
+			vector<Target> targets = Target::FindCircularTargets(image);
+			delete image;
+			
+			if (targets.size() > 0 && targets[0].m_score > MINIMUM_SCORE) {
+				turnController->Enable();
+				turnController->SetSetpoint(gyro->GetAngle() + targets[0].GetHorizontalAngle());
+				
+				while (DriveIsMoving()) {
+					Wait(0.02);
+				}
+				
+				turnController->Disable();
+				return true;
+			}
+		}
+		
+		return false;
+	}
+	
+	bool DriveIsMoving() {
+		return jagFrontRight.Get() < MOTOR_MOVE_THRESH && jagFrontRight.Get() > -MOTOR_MOVE_THRESH ||
+				jagFrontLeft.Get() < MOTOR_MOVE_THRESH && jagFrontLeft.Get() > -MOTOR_MOVE_THRESH ||
+				jagBackRight.Get() < MOTOR_MOVE_THRESH && jagBackRight.Get() > -MOTOR_MOVE_THRESH ||
+				jagBackLeft.Get() < MOTOR_MOVE_THRESH && jagBackLeft.Get() > -MOTOR_MOVE_THRESH;
+	}
 };
 
 START_ROBOT_CLASS(Wiredcats2010);
-

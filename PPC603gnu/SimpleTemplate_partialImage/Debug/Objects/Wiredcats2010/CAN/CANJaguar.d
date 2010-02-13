@@ -1,6 +1,6 @@
-SimpleTemplate_partialImage/Debug/Objects/WiredCats2010/CAN/CANJaguar.o:  \
- C:/WindRiver/workspace/WiredCats2010/CAN/CANJaguar.cpp \
-  C:/WindRiver/workspace/WiredCats2010/CAN/CANJaguar.h \
+SimpleTemplate_partialImage/Debug/Objects/Wiredcats2010/CAN/CANJaguar.o:  \
+ C:/windriver/workspace/Wiredcats2010/CAN/CANJaguar.cpp \
+  C:/windriver/workspace/Wiredcats2010/CAN/CANJaguar.h \
   C:/WindRiver/vxworks-6.3/target/h/WPILib/SpeedController.h \
   C:/WindRiver/vxworks-6.3/target/h/WPILib/PIDOutput.h \
   C:/WindRiver/vxworks-6.3/target/h/WPILib/Base.h \
@@ -53,9 +53,9 @@ SimpleTemplate_partialImage/Debug/Objects/WiredCats2010/CAN/CANJaguar.o:  \
   C:/WindRiver/vxworks-6.3/target/h/errno.h \
   C:/WindRiver/vxworks-6.3/target/h/types/vxANSI.h \
   C:/WindRiver/vxworks-6.3/target/h/WPILib/ChipObject/NiRioStatus.h \
-  C:/WindRiver/workspace/WiredCats2010/CAN/JaguarCANDriver.h \
+  C:/windriver/workspace/Wiredcats2010/CAN/JaguarCANDriver.h \
   C:/WindRiver/vxworks-6.3/target/h/VxWorks.h \
-  C:/WindRiver/workspace/WiredCats2010/CAN/can_proto.h \
+  C:/windriver/workspace/Wiredcats2010/CAN/can_proto.h \
   C:/WindRiver/vxworks-6.3/target/h/WPILib/Utility.h \
   C:/WindRiver/vxworks-6.3/target/h/taskLib.h \
   C:/WindRiver/vxworks-6.3/target/h/classLib.h \
@@ -95,7 +95,7 @@ SimpleTemplate_partialImage/Debug/Objects/WiredCats2010/CAN/CANJaguar.o:  \
   C:/WindRiver/vxworks-6.3/target/h/stdio.h \
   C:/WindRiver/vxworks-6.3/target/h/private/handleLibP.h
 
-C:/WindRiver/workspace/WiredCats2010/CAN/CANJaguar.h:
+C:/windriver/workspace/Wiredcats2010/CAN/CANJaguar.h:
 
 C:/WindRiver/vxworks-6.3/target/h/WPILib/SpeedController.h:
 
@@ -201,11 +201,11 @@ C:/WindRiver/vxworks-6.3/target/h/types/vxANSI.h:
 
 C:/WindRiver/vxworks-6.3/target/h/WPILib/ChipObject/NiRioStatus.h:
 
-C:/WindRiver/workspace/WiredCats2010/CAN/JaguarCANDriver.h:
+C:/windriver/workspace/Wiredcats2010/CAN/JaguarCANDriver.h:
 
 C:/WindRiver/vxworks-6.3/target/h/VxWorks.h:
 
-C:/WindRiver/workspace/WiredCats2010/CAN/can_proto.h:
+C:/windriver/workspace/Wiredcats2010/CAN/can_proto.h:
 
 C:/WindRiver/vxworks-6.3/target/h/WPILib/Utility.h:
 
