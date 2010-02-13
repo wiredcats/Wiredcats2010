@@ -88,254 +88,72 @@ public:
 		
 		// double initRollerVoltage = jagRoller.GetOutputVoltage();
 		
+		rlog.addLine("Entering Phase One of autonomous (going towards initial ball)");
+		
 		int ballNumber;
 		
 		switch (ballNumber) {
 		case 1:
-			rlog.addLine("Turning towards Ball 1");
-			turnController->Enable();
-			turnController->SetSetpoint(CLOSE_OFFSET_ANGLE);
-			
-			while (DriveIsMoving()) {
-				Wait(0.02);
-			}
-			
-			rlog.addLine("Turned towards Ball 1, approaching");
-			drive->Drive(AUTO_DRIVE_SPEED, 0);
-			Wait(CLOSE_OFFSET_BALL_WAIT);
-			drive->Drive(0, 0);
-			
-			// if (jagRoller.GetOutputVoltage() < initRollerVoltage - ROLL_VOLT_THRESH) {
-				rlog.addLine("Ball 1 found! Tracking towards target...");
-				if (TurnTowardsOurTarget()) {
-					rlog.addLine("Successfully tracked target! Kicking Ball 1...");
-					KickBallInAuto();
-				} else {
-					rlog.addLine("Could not find our target!");
-				}
-			// } else {
-				// rlog.addLine("Ball 1 not found, aborting! Attempting to track next ball");
-				// break;
-			// }
-			
-			rlog.addLine("Kicked Ball 1, moving to next ball...");
+			TurnTowardsOffsetBall(CLOSE_OFFSET_ANGLE, CLOSE_OFFSET_BALL_WAIT);
 			break;
 		case 2:
-			rlog.addLine("Turning towards Ball 2");
-			turnController->Enable();
-			turnController->SetSetpoint(MID_OFFSET_ANGLE);
-			
-			while (DriveIsMoving()) {
-				Wait(0.02);
-			}
-			
-			rlog.addLine("Turned towards Ball 2, approaching");
-			drive->Drive(AUTO_DRIVE_SPEED, 0);
-			Wait(MID_OFFSET_BALL_WAIT);
-			drive->Drive(0, 0);
-			
-			// if (jagRoller.GetOutputVoltage() < initRollerVoltage - ROLL_VOLT_THRESH) {
-				rlog.addLine("Ball 2 found! Tracking towards target...");
-				if (TurnTowardsOurTarget()) {
-					rlog.addLine("Successfully tracked target! Kicking Ball 2...");
-					KickBallInAuto();
-				} else {
-					rlog.addLine("Could not find our target!");
-				}
-			// } else {
-				// rlog.addLine("Ball 2 not found, aborting! Attempting to track next ball");
-				// break;
-			// }
-			
-			rlog.addLine("Kicked Ball 2, moving to next ball...");
+			TurnTowardsOffsetBall(MID_OFFSET_ANGLE, MID_OFFSET_BALL_WAIT);
 			break;
 		case 3:
-			rlog.addLine("Turning towards Ball 3");
-			turnController->Enable();
-			turnController->SetSetpoint(FAR_OFFSET_ANGLE);
-			
-			while (DriveIsMoving()) {
-				Wait(0.02);
-			}
-			
-			rlog.addLine("Turned towards Ball 3, approaching");
-			drive->Drive(AUTO_DRIVE_SPEED, 0);
-			Wait(FAR_OFFSET_BALL_WAIT);
-			drive->Drive(0, 0);
-			
-			// if (jagRoller.GetOutputVoltage() < initRollerVoltage - ROLL_VOLT_THRESH) {
-				rlog.addLine("Ball 3 found! Tracking towards target...");
-				if (TurnTowardsOurTarget()) {
-					rlog.addLine("Successfully tracked target! Kicking Ball 3...");
-					KickBallInAuto();
-				} else {
-					rlog.addLine("Could not find our target!");
-				}
-			// } else {
-				// rlog.addLine("Ball 3 not found, aborting! Attempting to track next ball");
-				// break;
-			// }
-			
-			rlog.addLine("Kicked Ball 3, moving to next ball...");
+			TurnTowardsOffsetBall(FAR_OFFSET_ANGLE, FAR_OFFSET_BALL_WAIT);
 			break;
 		
 		case 4:
-			rlog.addLine("Approaching Ball 4");
-			drive->Drive(AUTO_DRIVE_SPEED, 0);
-			Wait(BALL_4_WAIT);
-			drive->Drive(0, 0);
-			
-			// if (jagRoller.GetOutputVoltage() < initRollerVoltage - ROLL_VOLT_THRESH) {
-				rlog.addLine("Ball 4 found! Tracking towards target...");
-				if (TurnTowardsOurTarget()) {
-					rlog.addLine("Successfully tracked target! Kicking Ball 4...");
-					KickBallInAuto();
-				} else {
-					rlog.addLine("Could not find our target!");
-				}
-			// } else {
-				// rlog.addLine("Ball 4 not found, aborting! Attempting to track next ball");
-				// break;
-			// }
-			
-			rlog.addLine("Kicked Ball 4, moving to next ball...");
+			TurnTowardsStraightBall(BALL_4_WAIT);
 			break;
 		case 5:
-			rlog.addLine("Approaching Ball 5");
-			drive->Drive(AUTO_DRIVE_SPEED, 0);
-			Wait(BALL_5_WAIT);
-			drive->Drive(0, 0);
-			
-			// if (jagRoller.GetOutputVoltage() < initRollerVoltage - ROLL_VOLT_THRESH) {
-				rlog.addLine("Ball 5 found! Tracking towards target...");
-				if (TurnTowardsOurTarget()) {
-					rlog.addLine("Successfully tracked target! Kicking Ball 5...");
-					KickBallInAuto();
-				} else {
-					rlog.addLine("Could not find our target!");
-				}
-			// } else {
-				// rlog.addLine("Ball 5 not found, aborting! Attempting to track next ball");
-				// break;
-			// }
-			
-			rlog.addLine("Kicked Ball 5, moving to next ball...");
+			TurnTowardsStraightBall(BALL_5_WAIT);
 			break;
 		case 6:
-			rlog.addLine("Approaching Ball 6");
-			drive->Drive(AUTO_DRIVE_SPEED, 0);
-			Wait(BALL_6_WAIT);
-			drive->Drive(0, 0);
-			
-			// if (jagRoller.GetOutputVoltage() < initRollerVoltage - ROLL_VOLT_THRESH) {
-				rlog.addLine("Ball 6 found! Tracking towards target...");
-				if (TurnTowardsOurTarget()) {
-					rlog.addLine("Successfully tracked target! Kicking Ball 6...");
-					KickBallInAuto();
-				} else {
-					rlog.addLine("Could not find our target!");
-				}
-			// } else {
-				// rlog.addLine("Ball 6 not found, aborting! Attempting to track next ball");
-				// break;
-			// }
-			
-			rlog.addLine("Kicked Ball 6, moving to next ball...");
+			TurnTowardsStraightBall(BALL_6_WAIT);
 			break;
 		
 		case 7:
-			rlog.addLine("Turning towards Ball 7");
-			turnController->Enable();
-			turnController->SetSetpoint(-CLOSE_OFFSET_ANGLE);
-			
-			while (DriveIsMoving()) {
-				Wait(0.02);
-			}
-			
-			rlog.addLine("Turned towards Ball 7, approaching");
-			drive->Drive(AUTO_DRIVE_SPEED, 0);
-			Wait(-CLOSE_OFFSET_BALL_WAIT);
-			drive->Drive(0, 0);
-			
-			// if (jagRoller.GetOutputVoltage() < initRollerVoltage - ROLL_VOLT_THRESH) {
-				rlog.addLine("Ball 7 found! Tracking towards target...");
-				if (TurnTowardsOurTarget()) {
-					rlog.addLine("Successfully tracked target! Kicking Ball 7...");
-					KickBallInAuto();
-				} else {
-					rlog.addLine("Could not find our target!");
-				}
-			// } else {
-				// rlog.addLine("Ball 7 not found, aborting! Attempting to track next ball");
-				// break;
-			// }
-			
-			rlog.addLine("Kicked Ball 7, moving to next ball...");
+			TurnTowardsOffsetBall(-CLOSE_OFFSET_ANGLE, CLOSE_OFFSET_BALL_WAIT);
 			break;
 		case 8:
-			rlog.addLine("Turning towards Ball 8");
-			turnController->Enable();
-			turnController->SetSetpoint(-MID_OFFSET_ANGLE);
-			
-			while (DriveIsMoving()) {
-				Wait(0.02);
-			}
-			
-			rlog.addLine("Turned towards Ball 8, approaching");
-			drive->Drive(AUTO_DRIVE_SPEED, 0);
-			Wait(MID_OFFSET_BALL_WAIT);
-			drive->Drive(0, 0);
-			
-			// if (jagRoller.GetOutputVoltage() < initRollerVoltage - ROLL_VOLT_THRESH) {
-				rlog.addLine("Ball 8 found! Tracking towards target...");
-				if (TurnTowardsOurTarget()) {
-					rlog.addLine("Successfully tracked target! Kicking Ball 8...");
-					KickBallInAuto();
-				} else {
-					rlog.addLine("Could not find our target!");
-				}
-			// } else {
-				// rlog.addLine("Ball 8 not found, aborting! Attempting to track next ball");
-				// break;
-			// }
-			
-			rlog.addLine("Kicked Ball 8, moving to next ball...");
+			TurnTowardsOffsetBall(-MID_OFFSET_ANGLE, MID_OFFSET_BALL_WAIT);
 			break;
 		case 9:
-			rlog.addLine("Turning towards Ball 9");
-			turnController->Enable();
-			turnController->SetSetpoint(FAR_OFFSET_ANGLE);
-			
-			while (DriveIsMoving()) {
-				Wait(0.02);
-			}
-			
-			rlog.addLine("Turned towards Ball 9, approaching");
-			drive->Drive(AUTO_DRIVE_SPEED, 0);
-			Wait(-FAR_OFFSET_BALL_WAIT);
-			drive->Drive(0, 0);
-			
-			// if (jagRoller.GetOutputVoltage() < initRollerVoltage - ROLL_VOLT_THRESH) {
-				rlog.addLine("Ball 9 found! Tracking towards target...");
-				if (TurnTowardsOurTarget()) {
-					rlog.addLine("Successfully tracked target! Kicking Ball 9...");
-					KickBallInAuto();
-				} else {
-					rlog.addLine("Could not find our target!");
-				}
-			// } else {
-				// rlog.addLine("Ball 9 not found, aborting! Attempting to track next ball");
-				// break;
-			// }
-			
-			rlog.addLine("Kicked Ball 9, moving to next ball...");
-			break;	
+			TurnTowardsOffsetBall(-FAR_OFFSET_ANGLE, FAR_OFFSET_BALL_WAIT);
+			break;
 		
 		default:
 			rlog.addLine("EXTREME ERROR: COULD NOT FIND VALUE TO MOVE TO NEXT BALL! MOVING TO POSITION 4 AND DISABLING");
 			drive->Drive(AUTO_DRIVE_SPEED, 0);
 			Wait(BALL_4_WAIT);
 			drive->Drive(0, 0);
+		}
+		
+		// if (jagRoller.GetOutputVoltage() < initRollerVoltage - ROLL_VOLT_THRESH) {
+			rlog.addLine("Ball found! Tracking towards target...");
+			if (TurnTowardsOurTarget()) {
+				rlog.addLine("Successfully tracked target! Kicking ball...");
+				KickBallInAuto();
+			} else {
+				rlog.addLine("Could not find our target!");
+			}
+		// } else {
+			// rlog.addLine("Ball 9 not found, aborting! Attempting to track next ball");
+		// }
+		
+		////////////////////////
+		////////////////////////
+		////////////////////////
+		
+		rlog.addLine("Entering Phase Two of autonomous (go to second ball from initial)");
+		
+		int direction;
+		
+		switch(direction) {
+		case 1:
+			
+			break;
 		}
 	}
 	
@@ -429,6 +247,28 @@ public:
 		// Kick ball :-)
 	}
 	
+	void TurnTowardsOffsetBall(float angle, float wait) {
+		rlog.addLine("Turning towards ball...");
+		turnController->Enable();
+		turnController->SetSetpoint(angle);
+		
+		while (DriveIsMoving()) {
+			Wait(0.02);
+		}
+		
+		rlog.addLine("Turned towards Ball 9, approaching");
+		drive->Drive(AUTO_DRIVE_SPEED, 0);
+		Wait(wait);
+		drive->Drive(0, 0);
+	}
+	
+	void TurnTowardsStraightBall(float wait) {
+		rlog.addLine("Approaching Ball 4");
+		drive->Drive(AUTO_DRIVE_SPEED, 0);
+		Wait(wait);
+		drive->Drive(0, 0);
+	}
+	
 	bool TurnTowardsOurTarget() {
 		if (camera->IsFreshImage()) {
 			ColorImage *image = camera->GetImage();
@@ -460,4 +300,3 @@ public:
 };
 
 START_ROBOT_CLASS(Wiredcats2010);
-
