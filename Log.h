@@ -23,6 +23,7 @@ public:
 	void setMode(char* newMode);
 	
 	int readTextNumber(char* path);
+	bool isTextLeft(char* path);
 };
 
 #endif

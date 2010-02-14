@@ -44,7 +44,6 @@ int Log::readTextNumber(char* path){
 	
 	infile.open(path);
 	getline(infile,line);
-	
 	stringstream ssNum(line);
 	ssNum >> number;
 
@@ -58,6 +57,11 @@ int Log::readTextNumber(char* path){
 	remove(path);
 	rename("temp.txt",path);
 	remove("temp.txt");
-	
 	return number;
+}
+
+bool Log::isTextLeft(char* path){
+	infile.open(path);
+	string line;
+	return(getline(infile,line));
 }

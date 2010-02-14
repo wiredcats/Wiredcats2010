@@ -152,34 +152,40 @@ public:
 		
 		rlog.addLine("Entering Phase Two of autonomous (go to second ball from initial)");
 		
-		int direction = rlog.readTextNumber("instructions.txt");
-		
-		switch(direction) {
-		case 1:				// North
-			GotoNewBall(POSITIVE_NORTH_ANGLE, NEGATIVE_NORTH_ANGLE, STRAIGHT_WAIT);
-			break;
-		case 2:
-			GotoNewBall(POSITIVE_EAST_ANGLE, NEGATIVE_EAST_ANGLE, STRAIGHT_WAIT);
-			break;
-		case 3:
-			GotoNewBall(POSITIVE_SOUTH_ANGLE, NEGATIVE_SOUTH_ANGLE, STRAIGHT_WAIT);
-			break;
-		case 4:
-			GotoNewBall(POSITIVE_WEST_ANGLE, NEGATIVE_WEST_ANGLE, STRAIGHT_WAIT);
-			break;
-		
-		case 12:
-			GotoNewBall(POSITIVE_NORTHEAST_ANGLE, NEGATIVE_NORTHEAST_ANGLE, DIAG_WAIT);
-			break;
-		case 14:
-			GotoNewBall(POSITIVE_NORTHWEST_ANGLE, NEGATIVE_NORTHWEST_ANGLE, DIAG_WAIT);
-			break;
-		case 32:
-			GotoNewBall(POSITIVE_SOUTHEAST_ANGLE, NEGATIVE_SOUTHEAST_ANGLE, DIAG_WAIT);
-			break;
-		case 34:
-			GotoNewBall(POSITIVE_SOUTHWEST_ANGLE, NEGATIVE_SOUTHWEST_ANGLE, DIAG_WAIT);
-			break;
+		while(rlog.isTextLeft("instructions.txt")){
+			int direction = rlog.readTextNumber("instructions.txt");
+			
+			switch(direction) {
+			case 1:				//North
+				GotoNewBall(POSITIVE_NORTH_ANGLE, NEGATIVE_NORTH_ANGLE, STRAIGHT_WAIT);
+				break;
+			case 2:		
+				GotoNewBall(POSITIVE_EAST_ANGLE, NEGATIVE_EAST_ANGLE, STRAIGHT_WAIT);
+				break;
+			case 3:	
+				GotoNewBall(POSITIVE_SOUTH_ANGLE, NEGATIVE_SOUTH_ANGLE, STRAIGHT_WAIT);
+				break;
+			case 4:
+				GotoNewBall(POSITIVE_WEST_ANGLE, NEGATIVE_WEST_ANGLE, STRAIGHT_WAIT);
+				break;
+			
+			case 12:
+				GotoNewBall(POSITIVE_NORTHEAST_ANGLE, NEGATIVE_NORTHEAST_ANGLE, DIAG_WAIT);
+				break;
+			case 14:
+				GotoNewBall(POSITIVE_NORTHWEST_ANGLE, NEGATIVE_NORTHWEST_ANGLE, DIAG_WAIT);
+				break;
+			case 32:
+				GotoNewBall(POSITIVE_SOUTHEAST_ANGLE, NEGATIVE_SOUTHEAST_ANGLE, DIAG_WAIT);
+				break;
+			case 34:
+				GotoNewBall(POSITIVE_SOUTHWEST_ANGLE, NEGATIVE_SOUTHWEST_ANGLE, DIAG_WAIT);
+				break;
+			
+			case 0: //The Kicking Number
+				KickBallInAuto();
+				break;
+			}
 		}
 		//Third Phase: Strategy dependent.
 	}
@@ -203,18 +209,7 @@ public:
 			GetWatchdog().Feed();
 			
 			//CAN Voodoo...
-			if(board.GetLeftJoy()->GetRawButton(1)){
-				if(jagFrontRight.Get()<1.5 && jagFrontRight.Get()>-1.5){
-					jagFrontRight.Set(jagFrontRight.Get()+0.1);
-					printf("\n%f",jagFrontRight.Get());
-				}
-				else{
-					jagFrontRight.Set(jagFrontRight.Get()-0.1);
-				}
-			}
-			if(board.GetRightJoy()->GetRawButton(1)){
-				jagFrontRight.Set(0);
-			}
+			jagFrontRight.GetOutputVoltage();
 			
 			// Autotracking
 			
