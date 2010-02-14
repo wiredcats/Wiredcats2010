@@ -37,3 +37,27 @@ void Log::resetTimer() {
 void Log::setMode(char* newMode) {
 	mode = newMode;
 }
+
+int Log::readTextNumber(char* path){
+	string line;
+	int number;
+	
+	infile.open(path);
+	getline(infile,line);
+	
+	stringstream ssNum(line);
+	ssNum >> number;
+
+	temp.open("temp.txt");
+	while(getline(infile,line)){
+			temp << line << "\n";
+		}
+	temp.close();
+	infile.close();
+	
+	remove(path);
+	rename("temp.txt",path);
+	remove("temp.txt");
+	
+	return number;
+}

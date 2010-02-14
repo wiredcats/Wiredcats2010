@@ -29,6 +29,7 @@ class Wiredcats2010 : public SimpleRobot
 	CANJaguar jagBackRight;
 	CANJaguar jagFrontLeft;
 	CANJaguar jagBackLeft;
+	//CANJaguar jagRoller;
 	
 	RobotDrive *drive;
 	PIDOutput *drivePIDOutput;
@@ -37,12 +38,14 @@ class Wiredcats2010 : public SimpleRobot
 	
 	AxisCamera *camera;
 	
+	Compressor *compressor;
+	
 	bool loopingPid;
 
 public:
 	Wiredcats2010(void):
 		rlog("testlog.txt"), board(), kicker(),
-		jagFrontRight(4), jagBackRight(5), jagFrontLeft(2), jagBackLeft(3)
+		jagFrontRight(4), jagBackRight(5), jagFrontLeft(2), jagBackLeft(3) //,jagRoller(6)
 	{
 		// Constructor
 		rlog.setMode("CNST");
@@ -68,6 +71,8 @@ public:
 		turnController->SetTolerance(1.0 / 90.0 * 100);
 		turnController->Disable();
 
+		compressor->Start();
+		
 		rlog.addLine("Sucessfully started constructor, running program...");
 		 
 		GetWatchdog().SetExpiration(0.1);
@@ -88,7 +93,7 @@ public:
 		
 		rlog.addLine("Entering Phase One of autonomous (going towards initial ball)");
 		
-		int ballNumber;
+		int ballNumber=rlog.readTextNumber("instructions.txt");
 		
 		switch (ballNumber) {
 		case 1:
@@ -126,6 +131,7 @@ public:
 			drive->Drive(AUTO_DRIVE_SPEED, 0);
 			Wait(BALL_4_WAIT);
 			drive->Drive(0, 0);
+			break;
 		}
 		
 		// if (jagRoller.GetOutputVoltage() < initRollerVoltage - ROLL_VOLT_THRESH) {
@@ -137,7 +143,7 @@ public:
 				rlog.addLine("Could not find our target!");
 			}
 		// } else {
-			// rlog.addLine("Ball 9 not found, aborting! Attempting to track next ball");
+			// rlog.addLine("Ball not found, aborting! Attempting to track next ball");
 		// }
 		
 		////////////////////////
@@ -146,7 +152,7 @@ public:
 		
 		rlog.addLine("Entering Phase Two of autonomous (go to second ball from initial)");
 		
-		int direction;
+		int direction = rlog.readTextNumber("instructions.txt");
 		
 		switch(direction) {
 		case 1:				// North
@@ -175,6 +181,7 @@ public:
 			GotoNewBall(POSITIVE_SOUTHWEST_ANGLE, NEGATIVE_SOUTHWEST_ANGLE, DIAG_WAIT);
 			break;
 		}
+		//Third Phase: Strategy dependent.
 	}
 	
 	void OperatorControl(void)
@@ -196,9 +203,21 @@ public:
 			GetWatchdog().Feed();
 			
 			//CAN Voodoo...
-			jagFrontRight.GetOutputVoltage();
+			if(board.GetLeftJoy()->GetRawButton(1)){
+				if(jagFrontRight.Get()<1.5 && jagFrontRight.Get()>-1.5){
+					jagFrontRight.Set(jagFrontRight.Get()+0.1);
+					printf("\n%f",jagFrontRight.Get());
+				}
+				else{
+					jagFrontRight.Set(jagFrontRight.Get()-0.1);
+				}
+			}
+			if(board.GetRightJoy()->GetRawButton(1)){
+				jagFrontRight.Set(0);
+			}
 			
 			// Autotracking
+			
 			if (board.GetLeftJoy()->GetRawButton(1)) {
 				if (camera->IsFreshImage()) {
 					ColorImage *image = camera->GetImage();
@@ -273,6 +292,7 @@ public:
 	
 	void GotoNewBall(int posAngle, int negAngle, float wait) {
 		turnController->Enable();
+		//Choose which direction is a smaller turn angle
 		if((abs(abs(posAngle) - (int)gyro->GetAngle())) < abs(abs(negAngle - (int)gyro->GetAngle()))) {
 			turnController->SetSetpoint(posAngle);
 		} else {
@@ -297,20 +317,22 @@ public:
 			Wait(0.02);
 		}
 		
-		rlog.addLine("Turned towards Ball 9, approaching");
+		rlog.addLine("Turned towards Offset Ball, approaching");
 		drive->Drive(AUTO_DRIVE_SPEED, 0);
 		Wait(wait);
 		drive->Drive(0, 0);
 	}
 	
 	void TurnTowardsStraightBall(float wait) {
-		rlog.addLine("Approaching Ball 4");
+		rlog.addLine("Approaching Straight Ball");
 		drive->Drive(AUTO_DRIVE_SPEED, 0);
 		Wait(wait);
 		drive->Drive(0, 0);
 	}
 	
-	bool TurnTowardsOurTarget() {
+	bool TurnTowardsOurTarget() { 
+		//Question: How do we know we're facing our target over the opponent's target?
+		//Can we just put in a gyro command to turn in the general easterly direction?
 		if (camera->IsFreshImage()) {
 			ColorImage *image = camera->GetImage();
 			vector<Target> targets = Target::FindCircularTargets(image);

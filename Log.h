@@ -3,11 +3,13 @@
 
 #include <fstream>
 #include <sstream>
+#include <string>
 #include "Timer.h"
 
 class Log {
 public:
-	ofstream lfr;
+	ofstream lfr, temp;
+	ifstream infile;
 	char* mode;
 	Timer *timer;
 	
@@ -19,6 +21,8 @@ public:
 	void resetTimer();
 	
 	void setMode(char* newMode);
+	
+	int readTextNumber(char* path);
 };
 
 #endif
