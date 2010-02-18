@@ -25,11 +25,15 @@ class Wiredcats2010 : public SimpleRobot
 	HSLImage image;
 	Gyro *gyro;
 	
-	CANJaguar jagFrontRight;
-	CANJaguar jagBackRight;
-	CANJaguar jagFrontLeft;
-	CANJaguar jagBackLeft;
-	//CANJaguar jagRoller;
+	CANJaguar jagDriveRightCenter;
+	CANJaguar jagDriveRightOuter;
+	CANJaguar jagDriveLeftCenter;
+	CANJaguar jagDriveLeftOuter;
+	
+	CANJaguar jagRoller;
+	CANJaguar jagWinchRight;
+	CANJaguar jagWinchLeft;
+	CANJaguar jagArmRaise;
 	
 	RobotDrive *drive;
 	PIDOutput *drivePIDOutput;
@@ -45,14 +49,15 @@ class Wiredcats2010 : public SimpleRobot
 public:
 	Wiredcats2010(void):
 		rlog("testlog.txt"), board(), kicker(),
-		jagFrontRight(4), jagBackRight(5), jagFrontLeft(2), jagBackLeft(3) //,jagRoller(6)
+		jagDriveLeftCenter(4), jagDriveLeftOuter(5), jagDriveRightOuter(2),  jagDriveRightCenter(3), 
+		jagRoller(7), jagWinchRight(6), jagWinchLeft(8), jagArmRaise(9)
 	{
 		// Constructor
 		rlog.setMode("CNST");
 		rlog.addLine("Opening constructor...");
 		
 		gyro = new Gyro(1);
-		drive = new RobotDrive(jagFrontLeft, jagBackLeft, jagFrontRight, jagBackRight);
+		drive = new RobotDrive(jagDriveRightOuter,  jagDriveRightCenter, jagDriveLeftCenter, jagDriveLeftOuter);
 		drivePIDOutput = new DrivePID(drive);
 		
 		camera = &(AxisCamera::GetInstance());
@@ -71,6 +76,7 @@ public:
 		turnController->SetTolerance(1.0 / 90.0 * 100);
 		turnController->Disable();
 
+		compressor = new Compressor(1,1);
 		compressor->Start();
 		
 		rlog.addLine("Sucessfully started constructor, running program...");
@@ -89,7 +95,7 @@ public:
 		
 		gyro->Reset();
 		
-		// double initRollerVoltage = jagRoller.GetOutputVoltage();
+		double initRollerVoltage = jagRoller.GetOutputVoltage();
 		
 		rlog.addLine("Entering Phase One of autonomous (going towards initial ball)");
 		
@@ -134,7 +140,7 @@ public:
 			break;
 		}
 		
-		// if (jagRoller.GetOutputVoltage() < initRollerVoltage - ROLL_VOLT_THRESH) {
+		if (jagRoller.GetOutputVoltage() < initRollerVoltage - ROLL_VOLT_THRESH) {
 			rlog.addLine("Ball found! Tracking towards target...");
 			if (TurnTowardsOurTarget()) {
 				rlog.addLine("Successfully tracked target! Kicking ball...");
@@ -142,17 +148,18 @@ public:
 			} else {
 				rlog.addLine("Could not find our target!");
 			}
-		// } else {
-			// rlog.addLine("Ball not found, aborting! Attempting to track next ball");
-		// }
+		} else {
+			rlog.addLine("Ball not found, aborting! Attempting to track next ball");
+		}
 		
 		////////////////////////
 		////////////////////////
 		////////////////////////
 		
 		rlog.addLine("Entering Phase Two of autonomous (go to second ball from initial)");
+		bool IsSecondPhase = true;
 		
-		while(rlog.isTextLeft("instructions.txt")){
+		while(IsSecondPhase){
 			int direction = rlog.readTextNumber("instructions.txt");
 			
 			switch(direction) {
@@ -185,6 +192,9 @@ public:
 			case 0: //The Kicking Number
 				KickBallInAuto();
 				break;
+			case 55: //The signal that 2nd Phase is done
+				IsSecondPhase = false;
+				break;
 			}
 		}
 		//Third Phase: Strategy dependent.
@@ -204,15 +214,31 @@ public:
 		loopingPid = false;
 		
 		rlog.startTimer();
+		
+		//float jagRollerSpeed = 0.0;
+		
 		while (IsOperatorControl())
 		{
 			GetWatchdog().Feed();
 			
 			//CAN Voodoo...
-			jagFrontRight.GetOutputVoltage();
+			
+			jagDriveLeftCenter.GetOutputVoltage();
+			
+			/*
+			if(board.GetLeftJoy()->GetRawButton(1)){
+				jagRollerSpeed+=0.05;
+				Wait(0.5);
+			} else if(board.GetRightJoy()->GetRawButton(1)){
+				jagRollerSpeed-=0.05;
+				Wait(0.5);
+			} else if(board.GetLeftJoy()->GetRawButton(2)){
+				jagRollerSpeed = 0.0;
+				Wait(0.5);
+				//jagRoller.Set(jagRollerSpeed);
+			}*/
 			
 			// Autotracking
-			
 			if (board.GetLeftJoy()->GetRawButton(1)) {
 				if (camera->IsFreshImage()) {
 					ColorImage *image = camera->GetImage();
@@ -262,7 +288,7 @@ public:
 					turnController->Disable();
 					loopingPid = false;
 				}
-				
+
 				// Cancel autotracking if joystick movement is detected
 				if (board.GetLeftJoy()->GetY() > AUTO_CANCEL_THRESH || 
 						board.GetLeftJoy()->GetY() < -AUTO_CANCEL_THRESH ||
@@ -350,10 +376,10 @@ public:
 	}
 	
 	bool DriveIsMoving() {
-		return jagFrontRight.Get() < MOTOR_MOVE_THRESH && jagFrontRight.Get() > -MOTOR_MOVE_THRESH ||
-				jagFrontLeft.Get() < MOTOR_MOVE_THRESH && jagFrontLeft.Get() > -MOTOR_MOVE_THRESH ||
-				jagBackRight.Get() < MOTOR_MOVE_THRESH && jagBackRight.Get() > -MOTOR_MOVE_THRESH ||
-				jagBackLeft.Get() < MOTOR_MOVE_THRESH && jagBackLeft.Get() > -MOTOR_MOVE_THRESH;
+		return jagDriveLeftCenter.Get() < MOTOR_MOVE_THRESH && jagDriveLeftCenter.Get() > -MOTOR_MOVE_THRESH ||
+				jagDriveRightOuter.Get() < MOTOR_MOVE_THRESH && jagDriveRightOuter.Get() > -MOTOR_MOVE_THRESH ||
+				jagDriveLeftOuter.Get() < MOTOR_MOVE_THRESH && jagDriveLeftOuter.Get() > -MOTOR_MOVE_THRESH ||
+				jagDriveRightCenter.Get() < MOTOR_MOVE_THRESH &&  jagDriveRightCenter.Get() > -MOTOR_MOVE_THRESH;
 	}
 };
 
