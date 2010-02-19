@@ -48,9 +48,6 @@ class Wiredcats2010 : public SimpleRobot
 	
 	AxisCamera *camera;
 	
-	Compressor *compressor;
-	
-	
 	bool loopingPid;
 
 public:
@@ -83,9 +80,6 @@ public:
 		turnController->SetOutputRange(-0.6, 0.6);
 		turnController->SetTolerance(1.0 / 90.0 * 100);
 		turnController->Disable();
-
-		compressor = new Compressor(1,1);
-		compressor->Start();
 		
 		rlog.addLine("Sucessfully started constructor, running program...");
 		 

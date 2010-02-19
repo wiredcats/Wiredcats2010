@@ -5,6 +5,7 @@ Kicker::Kicker() {
 	spike = new Relay(SPIKE_NUM);
 	compressor = new Compressor(1,1);
 	compressor -> Start();
+	solenoid = new Solenoid(1);
 }
 
 void Kicker::ResetEncoder() {
@@ -33,4 +34,10 @@ void Kicker::GoToHighGear() {
 	} else {
 		spike->Set((Relay::Value)kOff);
 	}
+}
+
+void Kicker::KickBall(){
+	solenoid->Set(true);
+	Wait(0.005);
+	solenoid->Set(false);
 }

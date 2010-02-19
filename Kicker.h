@@ -21,6 +21,7 @@ public:
 	Encoder* encoder;
 	Relay* spike;
 	Compressor* compressor;
+	Solenoid* solenoid;
 	
 	Kicker();
 	void ResetEncoder();
@@ -30,8 +31,6 @@ public:
 	void GoToHighGear();
 	
 	void KickBall();
-	
-	
 }; 
 
 #endif
