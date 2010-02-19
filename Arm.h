@@ -10,16 +10,25 @@ class Arm {
 public:
 	typedef enum { wUp, wDown, wStop } WinchFunction;
 	typedef enum { sRelease, sLock } ServoSetting;
+	typedef enum { aRaise, aLower } ArmSetting;
+	typedef enum { aExtend, aRetract, aStop} TelescopeSetting;
+	
+	
 	
 	CANJaguar *rWinch;
 	CANJaguar *lWinch;
 	Servo *dogServo;
+	CANJaguar *runArm;
+	Relay *extendArm;
 	
 	Arm();
 	
 	// Winch functions
 	void RunWinch(WinchFunction wf);
 	void SetServo(ServoSetting ss);
+	void MoveArm(ArmSetting as);
+    void ArmExtension(TelescopeSetting ts);
 };
+
 
 #endif

@@ -54,7 +54,7 @@ LIBS =
 
 IDE_INCLUDES = -I$(WIND_BASE)/target/h -I$(WIND_BASE)/target/h/WPILib -I$(WIND_BASE)/target/h/wrn/coreip 
 
-IDE_LIBRARIES = C:/windriver/vxworks-6.3/target/lib/WPILib.a 
+IDE_LIBRARIES = $(WIND_BASE)/target/lib/WPILib.a 
 
 
 
@@ -100,7 +100,7 @@ SimpleTemplate/$(MODE_DIR)/% : DEBUGFLAGS_Librarian =
 SimpleTemplate/$(MODE_DIR)/% : DEBUGFLAGS_Assembler = -O2 -fstrength-reduce -fno-builtin
 endif
 SimpleTemplate/$(MODE_DIR)/% : IDE_INCLUDES = -I$(WIND_BASE)/target/h -I$(WIND_BASE)/target/h/WPILib -I$(WIND_BASE)/target/h/wrn/coreip 
-SimpleTemplate/$(MODE_DIR)/% : IDE_LIBRARIES = C:/windriver/vxworks-6.3/target/lib/WPILib.a 
+SimpleTemplate/$(MODE_DIR)/% : IDE_LIBRARIES = $(WIND_BASE)/target/lib/WPILib.a 
 SimpleTemplate/$(MODE_DIR)/% : PROJECT_TYPE = DKM
 SimpleTemplate/$(MODE_DIR)/% : DEFINES = 
 SimpleTemplate/$(MODE_DIR)/% : EXPAND_DBG = 0
@@ -144,7 +144,7 @@ SimpleTemplate_partialImage/$(MODE_DIR)/% : DEBUGFLAGS_Librarian =
 SimpleTemplate_partialImage/$(MODE_DIR)/% : DEBUGFLAGS_Assembler = -O2 -fstrength-reduce -fno-builtin
 endif
 SimpleTemplate_partialImage/$(MODE_DIR)/% : IDE_INCLUDES = -I$(WIND_BASE)/target/h -I$(WIND_BASE)/target/h/WPILib -I$(WIND_BASE)/target/h/wrn/coreip 
-SimpleTemplate_partialImage/$(MODE_DIR)/% : IDE_LIBRARIES = C:/windriver/vxworks-6.3/target/lib/WPILib.a 
+SimpleTemplate_partialImage/$(MODE_DIR)/% : IDE_LIBRARIES = $(WIND_BASE)/target/lib/WPILib.a 
 SimpleTemplate_partialImage/$(MODE_DIR)/% : PROJECT_TYPE = DKM
 SimpleTemplate_partialImage/$(MODE_DIR)/% : DEFINES = 
 SimpleTemplate_partialImage/$(MODE_DIR)/% : EXPAND_DBG = 0

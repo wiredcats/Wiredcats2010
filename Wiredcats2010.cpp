@@ -40,6 +40,7 @@ class Wiredcats2010 : public SimpleRobot
 	
 	Arm arm;
 	
+	
 	RobotDrive *drive;
 	PIDOutput *drivePIDOutput;
 
@@ -48,6 +49,7 @@ class Wiredcats2010 : public SimpleRobot
 	AxisCamera *camera;
 	
 	Compressor *compressor;
+	
 	
 	bool loopingPid;
 
