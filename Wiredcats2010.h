@@ -66,5 +66,6 @@ const float DIAG_WAIT = 2.2;
 #include "Log.h"
 #include "ControlBoard.h"
 #include "Kicker.h"
+#include "Arm.h"
 
 #endif

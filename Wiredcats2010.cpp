@@ -25,15 +25,20 @@ class Wiredcats2010 : public SimpleRobot
 	HSLImage image;
 	Gyro *gyro;
 	
-	CANJaguar jagDriveRightCenter;
-	CANJaguar jagDriveRightOuter;
 	CANJaguar jagDriveLeftCenter;
 	CANJaguar jagDriveLeftOuter;
+	CANJaguar jagDriveRightOuter;
+	CANJaguar jagDriveRightCenter;
 	
 	CANJaguar jagRoller;
-	CANJaguar jagWinchRight;
-	CANJaguar jagWinchLeft;
 	CANJaguar jagArmRaise;
+	
+	/*
+	Relay spikeArmTelescope;
+	Relay spikeWindowMotor;
+	*/
+	
+	Arm arm;
 	
 	RobotDrive *drive;
 	PIDOutput *drivePIDOutput;
@@ -49,8 +54,9 @@ class Wiredcats2010 : public SimpleRobot
 public:
 	Wiredcats2010(void):
 		rlog("testlog.txt"), board(), kicker(),
-		jagDriveLeftCenter(4), jagDriveLeftOuter(5), jagDriveRightOuter(2),  jagDriveRightCenter(3), 
-		jagRoller(7), jagWinchRight(6), jagWinchLeft(8), jagArmRaise(9)
+		jagDriveLeftCenter(4), jagDriveLeftOuter(5), jagDriveRightOuter(2), jagDriveRightCenter(3),
+		jagRoller(7), jagArmRaise(9),
+		arm()
 	{
 		// Constructor
 		rlog.setMode("CNST");
@@ -213,6 +219,8 @@ public:
 		gyro->Reset();
 		loopingPid = false;
 		
+		bool servoEnabled = false;
+		
 		rlog.startTimer();
 		
 		//float jagRollerSpeed = 0.0;
@@ -224,19 +232,6 @@ public:
 			//CAN Voodoo...
 			
 			jagDriveLeftCenter.GetOutputVoltage();
-			
-			/*
-			if(board.GetLeftJoy()->GetRawButton(1)){
-				jagRollerSpeed+=0.05;
-				Wait(0.5);
-			} else if(board.GetRightJoy()->GetRawButton(1)){
-				jagRollerSpeed-=0.05;
-				Wait(0.5);
-			} else if(board.GetLeftJoy()->GetRawButton(2)){
-				jagRollerSpeed = 0.0;
-				Wait(0.5);
-				//jagRoller.Set(jagRollerSpeed);
-			}*/
 			
 			// Autotracking
 			if (board.GetLeftJoy()->GetRawButton(1)) {
@@ -271,13 +266,28 @@ public:
 				}
 			}
 			
-			// Kicker
-			if (board.GetRightJoy()->GetRawButton(1)) {
-				kicker.disengageServo();
-			}
-			
-			if (board.GetRightJoy()->GetRawButton(2)) {
-				kicker.engageServo();
+			// Arm
+			if (board.GetFakeJoy()->GetRawButton(9)) {
+				if (!servoEnabled) {
+					arm.SetServo(Arm::sRelease);
+					Wait(0.5);
+					servoEnabled = true;
+				}
+				arm.RunWinch(Arm::wUp);
+			} else if (board.GetFakeJoy()->GetRawButton(11)){
+				if (!servoEnabled) {
+					arm.SetServo(Arm::sRelease);
+					Wait(0.5);
+					servoEnabled = true;
+				}
+				arm.RunWinch(Arm::wDown);
+			} else {
+				arm.RunWinch(Arm::wStop);
+				if (servoEnabled) {
+					Wait(0.2);
+					arm.SetServo(Arm::sLock);
+					servoEnabled = false;
+				}
 			}
 			
 			// Drive or Control PID
@@ -371,7 +381,7 @@ public:
 				return true;
 			}
 		}
-		
+	
 		return false;
 	}
 	
