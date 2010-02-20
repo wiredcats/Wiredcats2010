@@ -1,12 +1,12 @@
 #include "Arm.h"
 
-Arm::Arm() {
+Arm::Arm():
+extendArm(2) {
 	rWinch = new CANJaguar(6);
 	lWinch = new CANJaguar(8);
-	dogServo = new Servo(1);
 	runArm = new CANJaguar(9);
+	dogServo = new Servo(1);
 }
-
 
 void Arm::RunWinch(Arm::WinchFunction wf) {
 	switch (wf) {
@@ -37,7 +37,6 @@ void Arm::SetServo(Arm::ServoSetting ss) {
 		break;
 	default:
 		// Uh oh...
-		
 		break;
 	}
 }
@@ -49,21 +48,23 @@ void Arm::MoveArm(Arm::ArmSetting as) {
 	case aLower:
 		runArm->Set(-0.6);
 		break;
+	case aStill:
+		runArm->Set(0.0);
 	default:
 		// Uh oh...
 		break;
 	}
 }
-void Arm::ArmExtension(Arm::TelescopeSetting ts){
+void Arm::ExtendArm(Arm::TelescopeSetting ts){
 	switch (ts){
 	case aExtend:
-		extendArm->Set(Relay::kForward);
+		extendArm.Set(Relay::kForward);
 		break;
 	case aRetract:
-	     extendArm->Set(Relay::kReverse);
-	     break;
+		extendArm.Set(Relay::kReverse);
+	    break;
 	case aStop:
-		extendArm->Set(Relay::kOff);
+		extendArm.Set(Relay::kOff);
 	default:
 		//Uh oh...
 		break;

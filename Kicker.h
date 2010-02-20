@@ -14,17 +14,30 @@ const int LOW_GEAR_DIST = 100;
 const int MID_GEAR_DIST = 200;
 const int HIGH_GEAR_DIST = 300;
 
-typedef enum {kOff, kOn, kForward, kReverse} Value;
-
 class Kicker {
 public:
-	Encoder* encoder;
-	Relay* spike;
-	Compressor* compressor;
-	Solenoid* solenoid;
+	Encoder *encoder;
+	Relay spike;
+	Compressor *compressor;
+	Solenoid *solenoid;
+	Servo *servo;
+	
+	typedef enum { kWinchUp, kWinchStop } KickerSetting;
 	
 	Kicker();
 	void ResetEncoder();
+	float GetEncoder();
+	
+	void StartCompressor();
+	
+	void LockServo();
+	void UnlockServo();
+	
+	void ReleaseSolenoid();
+	
+	void RunBackdrive();
+	
+	void MoveKicker(KickerSetting ks);
 	
 	void GoToLowGear();
 	void GoToMidGear();

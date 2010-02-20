@@ -13,6 +13,8 @@
 
 #define AUTO_DRIVE_SPEED 0.6
 
+const float ROLLER_SPEED = -1.0;
+
 const float ROLL_VOLT_THRESH = 1.5;
 const float MOTOR_MOVE_THRESH = 0.05;
 

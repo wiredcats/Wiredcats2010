@@ -33,11 +33,6 @@ class Wiredcats2010 : public SimpleRobot
 	CANJaguar jagRoller;
 	CANJaguar jagArmRaise;
 	
-	/*
-	Relay spikeArmTelescope;
-	Relay spikeWindowMotor;
-	*/
-	
 	Arm arm;
 	
 	
@@ -219,6 +214,8 @@ public:
 		
 		rlog.startTimer();
 		
+		kicker.StartCompressor();
+		
 		//float jagRollerSpeed = 0.0;
 		
 		while (IsOperatorControl())
@@ -226,11 +223,17 @@ public:
 			GetWatchdog().Feed();
 			
 			//CAN Voodoo...
-			
 			jagDriveLeftCenter.GetOutputVoltage();
 			
+			//Roller
+			if(board.GetLeftJoy()->GetRawButton(1)){
+				jagRoller.Set(ROLLER_SPEED);
+			} else if (board.GetRightJoy()->GetRawButton(1)){
+				jagRoller.Set(0.0);
+			}
+			
 			// Autotracking
-			if (board.GetLeftJoy()->GetRawButton(1)) {
+			if (board.GetLeftJoy()->GetRawButton(2)) {
 				if (camera->IsFreshImage()) {
 					ColorImage *image = camera->GetImage();
 					vector<Target> targets = Target::FindCircularTargets(image);
@@ -263,7 +266,7 @@ public:
 			}
 			
 			// Arm
-			if (board.GetFakeJoy()->GetRawButton(9)) {
+			if (board.GetFakeJoy()->GetRawButton(10)) {
 				if (!servoEnabled) {
 					arm.SetServo(Arm::sRelease);
 					Wait(0.5);
@@ -286,6 +289,50 @@ public:
 				}
 			}
 			
+			if (board.GetFakeJoy()->GetRawButton(6)) {
+				arm.MoveArm(Arm::aRaise);
+			} else if (board.GetFakeJoy()->GetRawButton(7)){
+				arm.MoveArm(Arm::aLower);
+			} else {
+				arm.MoveArm(Arm::aStill);
+			}
+			
+			if (board.GetFakeJoy()->GetRawButton(8)) {
+				arm.ExtendArm(Arm::aExtend);
+			} else if (board.GetFakeJoy()->GetRawButton(9)) {
+				arm.ExtendArm(Arm::aRetract);
+			} else {
+				arm.ExtendArm(Arm::aStop);
+			}
+			
+			// Kicker
+			if (board.GetLeftJoy()->GetRawButton(3)) {
+				kicker.MoveKicker(Kicker::kWinchUp);
+			} else {
+				kicker.MoveKicker(Kicker::kWinchStop);
+			}
+			
+			/*if (board.GetFakeJoy()->GetRawButton(2)) {
+				kicker.BackdriveAndRelease();
+				kicker.KickBall();
+			}*/
+			
+			if (board.GetLeftJoy()->GetRawButton(6)) {
+				kicker.RunBackdrive();
+			}
+			
+			if (board.GetLeftJoy()->GetRawButton(7)) {
+				kicker.UnlockServo();
+			}
+			
+			if (board.GetLeftJoy()->GetRawButton(8)) {
+				kicker.KickBall();
+			}
+			
+			if (board.GetLeftJoy()->GetRawButton(9)) {
+				kicker.ReleaseSolenoid();
+			}
+			
 			// Drive or Control PID
 			if (loopingPid) {
 				// No motors moving, must be tracked
@@ -294,7 +341,7 @@ public:
 					turnController->Disable();
 					loopingPid = false;
 				}
-
+				
 				// Cancel autotracking if joystick movement is detected
 				if (board.GetLeftJoy()->GetY() > AUTO_CANCEL_THRESH || 
 						board.GetLeftJoy()->GetY() < -AUTO_CANCEL_THRESH ||
