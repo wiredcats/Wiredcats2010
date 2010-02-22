@@ -207,7 +207,7 @@ public:
 		rlog.addLine("Entered teleop!");
 		
 		// Set up PID
-		gyro->Reset();
+		//gyro->Reset();
 		loopingPid = false;
 		
 		bool servoEnabled = false;
@@ -322,7 +322,7 @@ public:
 			}
 			
 			if (board.GetLeftJoy()->GetRawButton(7)) {
-				kicker.UnlockServo();
+				kicker.DisengageFireSolenoid();
 			}
 			
 			if (board.GetLeftJoy()->GetRawButton(8)) {
@@ -330,7 +330,7 @@ public:
 			}
 			
 			if (board.GetLeftJoy()->GetRawButton(9)) {
-				kicker.ReleaseSolenoid();
+				kicker.ReleaseFireSolenoid();
 			}
 			
 			// Drive or Control PID

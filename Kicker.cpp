@@ -1,11 +1,14 @@
 #include "Kicker.h" 
 
 Kicker::Kicker():
-spike(SPIKE_NUM) {
+winch(SPIKE_NUM) {
 	encoder = new Encoder(ENCODER_CHANNEL_1,ENCODER_CHANNEL_2);
-	servo = new Servo(2);
+	servo = new Servo(1,1);
 	compressor = new Compressor(1,1);
-	solenoid = new Solenoid(8, 1);
+	firesolenoid = new Solenoid(8,1);
+	//dogsolenoid = new Solenoid(8, 1);
+	
+	backdriveEnabled = false;
 }
 
 void Kicker::StartCompressor() {
@@ -16,10 +19,11 @@ void Kicker::MoveKicker(KickerSetting ks) {
 	switch(ks) {
 	case kWinchUp:
 		servo->Set(0.2);
-		spike.Set(Relay::kReverse);
+		winch.Set(Relay::kReverse);
 		break;
 	case kWinchStop:
-		spike.Set(Relay::kOff);
+		if (!backdriveEnabled)
+			winch.Set(Relay::kOff);
 		break;
 	default:
 		// Oh nose
@@ -27,12 +31,12 @@ void Kicker::MoveKicker(KickerSetting ks) {
 	}
 }
 
-void Kicker::LockServo() {
-	servo->Set(0.1);
+void Kicker::EngageFireSolenoid() {
+	firesolenoid->Set(true);
 }
 
-void Kicker::UnlockServo() {
-	servo->Set(0.9);
+void Kicker::DisengageFireSolenoid() {
+	firesolenoid->Set(false);
 }
 
 float Kicker::GetEncoder() {
@@ -40,9 +44,7 @@ float Kicker::GetEncoder() {
 }
 
 void Kicker::RunBackdrive() {
-	spike.Set(Relay::kForward);
-	Wait(2.0);
-	spike.Set(Relay::kOff);
+	winch.Set(Relay::kForward);
 }
 
 /*void Kicker::ResetEncoder() {
@@ -75,12 +77,12 @@ void Kicker::GoToHighGear() {
 
 void Kicker::KickBall(){
 	printf("Kicking ball...\n");
-	solenoid->Set(true);
-	if (solenoid->Get()) {
-		printf("solenoid = true\n");
+	firesolenoid->Set(true);
+	if (firesolenoid->Get()) {
+		printf("firesolenoid = true\n");
 	}
 }
 
-void Kicker::ReleaseSolenoid() {
-	solenoid->Set(false);
+void Kicker::ReleaseFireSolenoid() {
+	firesolenoid->Set(false);
 }

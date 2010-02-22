@@ -12,15 +12,20 @@ const int SPIKE_NUM = 3;
 //Distances Encoder need to go from 0.
 const int LOW_GEAR_DIST = 100;
 const int MID_GEAR_DIST = 200;
-const int HIGH_GEAR_DIST = 300;
+const int HIGH_GEAR_DIST = 300; 
 
 class Kicker {
 public:
 	Encoder *encoder;
-	Relay spike;
+	Relay winch;
 	Compressor *compressor;
-	Solenoid *solenoid;
+	//Solenoid *dogsolenoid;
+	Solenoid *firesolenoid;
 	Servo *servo;
+	
+	bool backdriveEnabled;
+	
+	
 	
 	typedef enum { kWinchUp, kWinchStop } KickerSetting;
 	
@@ -30,10 +35,11 @@ public:
 	
 	void StartCompressor();
 	
-	void LockServo();
-	void UnlockServo();
+	void EngageFireSolenoid();
+	void DisengageFireSolenoid();
 	
-	void ReleaseSolenoid();
+	void SetServo();
+	void ReleaseFireSolenoid();
 	
 	void RunBackdrive();
 	
