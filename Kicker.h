@@ -22,6 +22,7 @@ public:
 	//Solenoid *dogsolenoid;
 	Solenoid *firesolenoid;
 	Servo *servo;
+	Timer *timer;
 	
 	bool backdriveEnabled;
 	
@@ -42,6 +43,7 @@ public:
 	void ReleaseFireSolenoid();
 	
 	void RunBackdrive();
+	void StopBackdrive();
 	
 	void MoveKicker(KickerSetting ks);
 	

@@ -31,8 +31,8 @@ else
 MODE_DIR := NonDebug
 endif
 OBJ_DIR := .
-PRJ_ROOT_DIR := C:/windriver/workspace/Wiredcats2010
-WS_ROOT_DIR := C:/windriver/workspace
+PRJ_ROOT_DIR := C:/WindRiver/workspace/SimpleTemplate
+WS_ROOT_DIR := C:/WindRiver/workspace
 
 
 
@@ -158,41 +158,41 @@ SimpleTemplate_partialImage/$(MODE_DIR)/% : LIBPATH =
 SimpleTemplate_partialImage/$(MODE_DIR)/% : LIBS = 
 SimpleTemplate_partialImage/$(MODE_DIR)/% : OBJ_DIR := SimpleTemplate_partialImage/$(MODE_DIR)
 
-SimpleTemplate_partialImage/$(MODE_DIR)/Objects/Wiredcats2010/Arm.o : C:/windriver/workspace/Wiredcats2010/Arm.cpp
+SimpleTemplate_partialImage/$(MODE_DIR)/Objects/SimpleTemplate/Arm.o : C:/WindRiver/workspace/SimpleTemplate/Arm.cpp
 	$(TRACE_FLAG)if [ ! -d "`dirname "$@"`" ]; then mkdir -p "`dirname "$@"`"; fi;echo "building $@"; $(TOOL_PATH)ccppc $(DEBUGFLAGS_C++-Compiler) $(CC_ARCH_SPEC) -ansi -Wall  -MD -MP -mlongcall $(ADDED_C++FLAGS) $(IDE_INCLUDES) $(ADDED_INCLUDES) -DCPU=$(CPU) -DTOOL_FAMILY=$(TOOL_FAMILY) -DTOOL=$(TOOL) -D_WRS_KERNEL   $(DEFINES) -o "$@" -c "$<"
 
 
-SimpleTemplate_partialImage/$(MODE_DIR)/Objects/Wiredcats2010/CAN/CANJaguar.o : C:/windriver/workspace/Wiredcats2010/CAN/CANJaguar.cpp
+SimpleTemplate_partialImage/$(MODE_DIR)/Objects/SimpleTemplate/CAN/CANJaguar.o : C:/WindRiver/workspace/SimpleTemplate/CAN/CANJaguar.cpp
 	$(TRACE_FLAG)if [ ! -d "`dirname "$@"`" ]; then mkdir -p "`dirname "$@"`"; fi;echo "building $@"; $(TOOL_PATH)ccppc $(DEBUGFLAGS_C++-Compiler) $(CC_ARCH_SPEC) -ansi -Wall  -MD -MP -mlongcall $(ADDED_C++FLAGS) $(IDE_INCLUDES) $(ADDED_INCLUDES) -DCPU=$(CPU) -DTOOL_FAMILY=$(TOOL_FAMILY) -DTOOL=$(TOOL) -D_WRS_KERNEL   $(DEFINES) -o "$@" -c "$<"
 
 
-SimpleTemplate_partialImage/$(MODE_DIR)/Objects/Wiredcats2010/ControlBoard.o : C:/windriver/workspace/Wiredcats2010/ControlBoard.cpp
+SimpleTemplate_partialImage/$(MODE_DIR)/Objects/SimpleTemplate/ControlBoard.o : C:/WindRiver/workspace/SimpleTemplate/ControlBoard.cpp
 	$(TRACE_FLAG)if [ ! -d "`dirname "$@"`" ]; then mkdir -p "`dirname "$@"`"; fi;echo "building $@"; $(TOOL_PATH)ccppc $(DEBUGFLAGS_C++-Compiler) $(CC_ARCH_SPEC) -ansi -Wall  -MD -MP -mlongcall $(ADDED_C++FLAGS) $(IDE_INCLUDES) $(ADDED_INCLUDES) -DCPU=$(CPU) -DTOOL_FAMILY=$(TOOL_FAMILY) -DTOOL=$(TOOL) -D_WRS_KERNEL   $(DEFINES) -o "$@" -c "$<"
 
 
-SimpleTemplate_partialImage/$(MODE_DIR)/Objects/Wiredcats2010/Kicker.o : C:/windriver/workspace/Wiredcats2010/Kicker.cpp
+SimpleTemplate_partialImage/$(MODE_DIR)/Objects/SimpleTemplate/Kicker.o : C:/WindRiver/workspace/SimpleTemplate/Kicker.cpp
 	$(TRACE_FLAG)if [ ! -d "`dirname "$@"`" ]; then mkdir -p "`dirname "$@"`"; fi;echo "building $@"; $(TOOL_PATH)ccppc $(DEBUGFLAGS_C++-Compiler) $(CC_ARCH_SPEC) -ansi -Wall  -MD -MP -mlongcall $(ADDED_C++FLAGS) $(IDE_INCLUDES) $(ADDED_INCLUDES) -DCPU=$(CPU) -DTOOL_FAMILY=$(TOOL_FAMILY) -DTOOL=$(TOOL) -D_WRS_KERNEL   $(DEFINES) -o "$@" -c "$<"
 
 
-SimpleTemplate_partialImage/$(MODE_DIR)/Objects/Wiredcats2010/Log.o : C:/windriver/workspace/Wiredcats2010/Log.cpp
+SimpleTemplate_partialImage/$(MODE_DIR)/Objects/SimpleTemplate/Log.o : C:/WindRiver/workspace/SimpleTemplate/Log.cpp
 	$(TRACE_FLAG)if [ ! -d "`dirname "$@"`" ]; then mkdir -p "`dirname "$@"`"; fi;echo "building $@"; $(TOOL_PATH)ccppc $(DEBUGFLAGS_C++-Compiler) $(CC_ARCH_SPEC) -ansi -Wall  -MD -MP -mlongcall $(ADDED_C++FLAGS) $(IDE_INCLUDES) $(ADDED_INCLUDES) -DCPU=$(CPU) -DTOOL_FAMILY=$(TOOL_FAMILY) -DTOOL=$(TOOL) -D_WRS_KERNEL   $(DEFINES) -o "$@" -c "$<"
 
 
-SimpleTemplate_partialImage/$(MODE_DIR)/Objects/Wiredcats2010/Target.o : C:/windriver/workspace/Wiredcats2010/Target.cpp
+SimpleTemplate_partialImage/$(MODE_DIR)/Objects/SimpleTemplate/Target.o : C:/WindRiver/workspace/SimpleTemplate/Target.cpp
 	$(TRACE_FLAG)if [ ! -d "`dirname "$@"`" ]; then mkdir -p "`dirname "$@"`"; fi;echo "building $@"; $(TOOL_PATH)ccppc $(DEBUGFLAGS_C++-Compiler) $(CC_ARCH_SPEC) -ansi -Wall  -MD -MP -mlongcall $(ADDED_C++FLAGS) $(IDE_INCLUDES) $(ADDED_INCLUDES) -DCPU=$(CPU) -DTOOL_FAMILY=$(TOOL_FAMILY) -DTOOL=$(TOOL) -D_WRS_KERNEL   $(DEFINES) -o "$@" -c "$<"
 
 
-SimpleTemplate_partialImage/$(MODE_DIR)/Objects/Wiredcats2010/Wiredcats2010.o : C:/windriver/workspace/Wiredcats2010/Wiredcats2010.cpp
+SimpleTemplate_partialImage/$(MODE_DIR)/Objects/SimpleTemplate/Wiredcats2010.o : C:/WindRiver/workspace/SimpleTemplate/Wiredcats2010.cpp
 	$(TRACE_FLAG)if [ ! -d "`dirname "$@"`" ]; then mkdir -p "`dirname "$@"`"; fi;echo "building $@"; $(TOOL_PATH)ccppc $(DEBUGFLAGS_C++-Compiler) $(CC_ARCH_SPEC) -ansi -Wall  -MD -MP -mlongcall $(ADDED_C++FLAGS) $(IDE_INCLUDES) $(ADDED_INCLUDES) -DCPU=$(CPU) -DTOOL_FAMILY=$(TOOL_FAMILY) -DTOOL=$(TOOL) -D_WRS_KERNEL   $(DEFINES) -o "$@" -c "$<"
 
 
-OBJECTS_SimpleTemplate_partialImage = SimpleTemplate_partialImage/$(MODE_DIR)/Objects/Wiredcats2010/Arm.o \
-	 SimpleTemplate_partialImage/$(MODE_DIR)/Objects/Wiredcats2010/CAN/CANJaguar.o \
-	 SimpleTemplate_partialImage/$(MODE_DIR)/Objects/Wiredcats2010/ControlBoard.o \
-	 SimpleTemplate_partialImage/$(MODE_DIR)/Objects/Wiredcats2010/Kicker.o \
-	 SimpleTemplate_partialImage/$(MODE_DIR)/Objects/Wiredcats2010/Log.o \
-	 SimpleTemplate_partialImage/$(MODE_DIR)/Objects/Wiredcats2010/Target.o \
-	 SimpleTemplate_partialImage/$(MODE_DIR)/Objects/Wiredcats2010/Wiredcats2010.o
+OBJECTS_SimpleTemplate_partialImage = SimpleTemplate_partialImage/$(MODE_DIR)/Objects/SimpleTemplate/Arm.o \
+	 SimpleTemplate_partialImage/$(MODE_DIR)/Objects/SimpleTemplate/CAN/CANJaguar.o \
+	 SimpleTemplate_partialImage/$(MODE_DIR)/Objects/SimpleTemplate/ControlBoard.o \
+	 SimpleTemplate_partialImage/$(MODE_DIR)/Objects/SimpleTemplate/Kicker.o \
+	 SimpleTemplate_partialImage/$(MODE_DIR)/Objects/SimpleTemplate/Log.o \
+	 SimpleTemplate_partialImage/$(MODE_DIR)/Objects/SimpleTemplate/Target.o \
+	 SimpleTemplate_partialImage/$(MODE_DIR)/Objects/SimpleTemplate/Wiredcats2010.o
 
 SimpleTemplate_partialImage/$(MODE_DIR)/SimpleTemplate_partialImage.o : $(OBJECTS_SimpleTemplate_partialImage)
 	$(TRACE_FLAG)if [ ! -d "`dirname "$@"`" ]; then mkdir -p "`dirname "$@"`"; fi;echo "building $@"; $(TOOL_PATH)ccppc -r -nostdlib -Wl,-X  -o "$@" $(OBJECTS_SimpleTemplate_partialImage) $(LIBPATH) $(LIBS) $(ADDED_LIBPATH) $(ADDED_LIBS)  && if [ "$(EXPAND_DBG)" = "1" ]; then plink "$@";fi
@@ -204,9 +204,9 @@ _clean :: SimpleTemplate_partialImage/$(MODE_DIR)/SimpleTemplate_partialImage_cl
 SimpleTemplate_partialImage/$(MODE_DIR)/SimpleTemplate_partialImage_clean : 
 	$(TRACE_FLAG)if [ -d "SimpleTemplate_partialImage" ]; then cd "SimpleTemplate_partialImage"; rm -rf $(MODE_DIR); fi
 
-DEP_FILES := SimpleTemplate_partialImage/$(MODE_DIR)/Objects/Wiredcats2010/Arm.d SimpleTemplate_partialImage/$(MODE_DIR)/Objects/Wiredcats2010/CAN/CANJaguar.d SimpleTemplate_partialImage/$(MODE_DIR)/Objects/Wiredcats2010/ControlBoard.d \
-	 SimpleTemplate_partialImage/$(MODE_DIR)/Objects/Wiredcats2010/Kicker.d SimpleTemplate_partialImage/$(MODE_DIR)/Objects/Wiredcats2010/Log.d SimpleTemplate_partialImage/$(MODE_DIR)/Objects/Wiredcats2010/Target.d \
-	 SimpleTemplate_partialImage/$(MODE_DIR)/Objects/Wiredcats2010/Wiredcats2010.d
+DEP_FILES := SimpleTemplate_partialImage/$(MODE_DIR)/Objects/SimpleTemplate/Arm.d SimpleTemplate_partialImage/$(MODE_DIR)/Objects/SimpleTemplate/CAN/CANJaguar.d SimpleTemplate_partialImage/$(MODE_DIR)/Objects/SimpleTemplate/ControlBoard.d \
+	 SimpleTemplate_partialImage/$(MODE_DIR)/Objects/SimpleTemplate/Kicker.d SimpleTemplate_partialImage/$(MODE_DIR)/Objects/SimpleTemplate/Log.d SimpleTemplate_partialImage/$(MODE_DIR)/Objects/SimpleTemplate/Target.d \
+	 SimpleTemplate_partialImage/$(MODE_DIR)/Objects/SimpleTemplate/Wiredcats2010.d
 -include $(DEP_FILES)
 
 

@@ -47,6 +47,10 @@ void Kicker::RunBackdrive() {
 	winch.Set(Relay::kForward);
 }
 
+void Kicker::StopBackdrive(){
+	winch.Set(Relay::kOff);
+}
+
 /*void Kicker::ResetEncoder() {
 	encoder->Reset();
 }

@@ -35,13 +35,14 @@ class Wiredcats2010 : public SimpleRobot
 	
 	Arm arm;
 	
-	
 	RobotDrive *drive;
 	PIDOutput *drivePIDOutput;
 
 	PIDController *turnController;
 	
 	AxisCamera *camera;
+	
+	Timer kicker_timer;
 	
 	bool loopingPid;
 
@@ -75,6 +76,8 @@ public:
 		turnController->SetOutputRange(-0.6, 0.6);
 		turnController->SetTolerance(1.0 / 90.0 * 100);
 		turnController->Disable();
+		
+		kicker_timer.Reset();
 		
 		rlog.addLine("Sucessfully started constructor, running program...");
 		 
@@ -319,6 +322,7 @@ public:
 			
 			if (board.GetLeftJoy()->GetRawButton(6)) {
 				kicker.RunBackdrive();
+				kicker_timer.Start();
 			}
 			
 			if (board.GetLeftJoy()->GetRawButton(7)) {
@@ -331,6 +335,12 @@ public:
 			
 			if (board.GetLeftJoy()->GetRawButton(9)) {
 				kicker.ReleaseFireSolenoid();
+			}
+			
+			if(kicker_timer.Get()>=BACKDRIVE_THRESH){
+				kicker.StopBackdrive();
+				kicker_timer.Stop();
+				kicker_timer.Reset();
 			}
 			
 			// Drive or Control PID
