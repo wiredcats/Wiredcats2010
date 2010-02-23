@@ -17,7 +17,8 @@ const float ROLLER_SPEED = -1.0;
 
 const float ROLL_VOLT_THRESH = 1.5;
 const float MOTOR_MOVE_THRESH = 0.05;
-const float BACKDRIVE_THRESH = 1.25;
+const float BACKDRIVE_TIMER_LIMIT = 1.0;
+const float FIRE_TIMER_LIMIT = 1.0;
 
 const float CLOSE_OFFSET_BALL_WAIT = 2.0;
 const float MID_OFFSET_BALL_WAIT = 3.0;

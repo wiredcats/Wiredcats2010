@@ -26,13 +26,17 @@ public:
 	
 	bool backdriveEnabled;
 	
-	
-	
 	typedef enum { kWinchUp, kWinchStop } KickerSetting;
+	typedef enum { gLow, gMid, gHigh } GearStop;
 	
 	Kicker();
 	void ResetEncoder();
 	float GetEncoder();
+	
+	void UnlockServo();
+	void LockServo();
+	
+	bool BackdriveEnabled();
 	
 	void StartCompressor();
 	
@@ -46,6 +50,7 @@ public:
 	void StopBackdrive();
 	
 	void MoveKicker(KickerSetting ks);
+	void WinchToGear(GearStop gs);
 	
 	void GoToLowGear();
 	void GoToMidGear();

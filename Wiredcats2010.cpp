@@ -17,53 +17,60 @@ private:
 
 class Wiredcats2010 : public SimpleRobot
 {
+	// Devlog
 	Log rlog;
 	
+	// Control board (joysticks, buttons, etc.)
 	ControlBoard board;
-	Kicker kicker;
 	
+	// Component objects
+	Kicker kicker;
+	Arm arm;
+	
+	// Camera components
 	HSLImage image;
+	AxisCamera *camera;
+	
+	// Sensors
 	Gyro *gyro;
 	
+	// Drive and roller motors
 	CANJaguar jagDriveLeftCenter;
 	CANJaguar jagDriveLeftOuter;
 	CANJaguar jagDriveRightOuter;
 	CANJaguar jagDriveRightCenter;
-	
 	CANJaguar jagRoller;
-	CANJaguar jagArmRaise;
-	
-	Arm arm;
 	
 	RobotDrive *drive;
+	
+	// Drive PID components
 	PIDOutput *drivePIDOutput;
-
 	PIDController *turnController;
 	
-	AxisCamera *camera;
+	// Timers
+	Timer *backdriveTimer;
+	Timer *fireTimer;
 	
-	Timer kicker_timer;
-	
+	// Function-specific variables
 	bool loopingPid;
+	bool backdriveEnabled;
 
 public:
 	Wiredcats2010(void):
-		rlog("testlog.txt"), board(), kicker(),
+		rlog("testlog.txt"), board(), kicker(), arm(),
 		jagDriveLeftCenter(4), jagDriveLeftOuter(5), jagDriveRightOuter(2), jagDriveRightCenter(3),
-		jagRoller(7), jagArmRaise(9),
-		arm()
+		jagRoller(7)
 	{
 		// Constructor
 		rlog.setMode("CNST");
 		rlog.addLine("Opening constructor...");
 		
+		// Open sensors
 		gyro = new Gyro(1);
+		
+		// Open drive and drive PIDs
 		drive = new RobotDrive(jagDriveRightOuter,  jagDriveRightCenter, jagDriveLeftCenter, jagDriveLeftOuter);
 		drivePIDOutput = new DrivePID(drive);
-		
-		camera = &(AxisCamera::GetInstance());
-		camera->WriteResolution(AxisCamera::kResolution_320x240);
-		camera->WriteBrightness(0);
 		
 		turnController = new PIDController( PROPORTION,
 								INTEGRAL,
@@ -77,7 +84,16 @@ public:
 		turnController->SetTolerance(1.0 / 90.0 * 100);
 		turnController->Disable();
 		
-		kicker_timer.Reset();
+		// Open camera
+		camera = &(AxisCamera::GetInstance());
+		camera->WriteResolution(AxisCamera::kResolution_320x240);
+		camera->WriteBrightness(0);
+		
+		// Open timers
+		backdriveTimer = new Timer();
+		backdriveTimer->Reset();
+		fireTimer = new Timer();
+		fireTimer->Reset();
 		
 		rlog.addLine("Sucessfully started constructor, running program...");
 		 
@@ -209,17 +225,17 @@ public:
 		
 		rlog.addLine("Entered teleop!");
 		
-		// Set up PID
+		// Set initial variable values
 		//gyro->Reset();
 		loopingPid = false;
-		
 		bool servoEnabled = false;
+		backdriveEnabled = false;
 		
+		// Start timestamp timer for rlog
 		rlog.startTimer();
 		
+		// Start the kicker compressor
 		kicker.StartCompressor();
-		
-		//float jagRollerSpeed = 0.0;
 		
 		while (IsOperatorControl())
 		{
@@ -228,7 +244,7 @@ public:
 			//CAN Voodoo...
 			jagDriveLeftCenter.GetOutputVoltage();
 			
-			//Roller
+			// Roller
 			if(board.GetLeftJoy()->GetRawButton(1)){
 				jagRoller.Set(ROLLER_SPEED);
 			} else if (board.GetRightJoy()->GetRawButton(1)){
@@ -308,39 +324,44 @@ public:
 				arm.ExtendArm(Arm::aStop);
 			}
 			
-			// Kicker
-			if (board.GetLeftJoy()->GetRawButton(3)) {
+			// Kicker //
+			// Winch Back
+			if (board.GetFakeJoy()->GetRawButton(1)) {
+				// rlog.addLine("Winching back...");
 				kicker.MoveKicker(Kicker::kWinchUp);
 			} else {
 				kicker.MoveKicker(Kicker::kWinchStop);
 			}
 			
-			/*if (board.GetFakeJoy()->GetRawButton(2)) {
-				kicker.BackdriveAndRelease();
-				kicker.KickBall();
-			}*/
-			
-			if (board.GetLeftJoy()->GetRawButton(6)) {
-				kicker.RunBackdrive();
-				kicker_timer.Start();
-			}
-			
-			if (board.GetLeftJoy()->GetRawButton(7)) {
-				kicker.DisengageFireSolenoid();
-			}
-			
-			if (board.GetLeftJoy()->GetRawButton(8)) {
-				kicker.KickBall();
-			}
-			
-			if (board.GetLeftJoy()->GetRawButton(9)) {
-				kicker.ReleaseFireSolenoid();
-			}
-			
-			if(kicker_timer.Get()>=BACKDRIVE_THRESH){
+			// Run Backdrive -> release tension on dog gear
+			if (backdriveTimer->Get() >= BACKDRIVE_TIMER_LIMIT) {
+				rlog.addLine("Stopping backdrive, unlocking servo...");
 				kicker.StopBackdrive();
-				kicker_timer.Stop();
-				kicker_timer.Reset();
+				backdriveTimer->Stop();
+				backdriveTimer->Reset();
+				kicker.UnlockServo();
+			} else {
+				if (kicker.BackdriveEnabled()) {
+					kicker.RunBackdrive();
+				} else if (board.GetFakeJoy()->GetRawButton(3)) {
+					rlog.addLine("Engaging backdrive...");
+					kicker.RunBackdrive();
+					backdriveTimer->Start();
+				}
+			}
+			
+			// Fire kicker (engage piston!)
+			if (fireTimer->Get() >= FIRE_TIMER_LIMIT) {
+				rlog.addLine("Disengaging fire piston...");
+				kicker.DisengageFireSolenoid();
+				fireTimer->Stop();
+				fireTimer->Reset();
+			} else {
+				if (board.GetFakeJoy()->GetRawButton(2)) {
+					rlog.addLine("FIRE IN THE HOLE!");
+					kicker.EngageFireSolenoid();
+					fireTimer->Start();
+				}
 			}
 			
 			// Drive or Control PID
