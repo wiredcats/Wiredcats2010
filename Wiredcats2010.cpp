@@ -230,6 +230,7 @@ public:
 		loopingPid = false;
 		bool servoEnabled = false;
 		backdriveEnabled = false;
+		float jagRollerSpeed = 0.0;
 		
 		// Start timestamp timer for rlog
 		rlog.startTimer();
@@ -246,9 +247,17 @@ public:
 			
 			// Roller
 			if(board.GetLeftJoy()->GetRawButton(1)){
-				jagRoller.Set(ROLLER_SPEED);
+				jagRollerSpeed += 0.05;
+				Wait(0.5);
 			} else if (board.GetRightJoy()->GetRawButton(1)){
-				jagRoller.Set(0.0);
+				jagRollerSpeed -= 0.05;
+				Wait(0.5);
+			}
+			
+			jagRoller.Set(jagRollerSpeed);
+			
+			if (board.GetFakeJoy()->GetRawButton(5)) {
+				printf("jag roller speed: %f", jagRollerSpeed);
 			}
 			
 			// Autotracking
