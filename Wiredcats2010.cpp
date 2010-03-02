@@ -33,6 +33,7 @@ class Wiredcats2010 : public SimpleRobot
 	
 	// Sensors
 	Gyro *gyro;
+	Kickertooth *ktooth;
 	
 	// Drive and roller motors
 	CANJaguar jagDriveLeftCenter;
@@ -67,6 +68,7 @@ public:
 		
 		// Open sensors
 		gyro = new Gyro(1);
+		ktooth = new Kickertooth(2);
 		
 		// Open drive and drive PIDs
 		drive = new RobotDrive(jagDriveRightOuter,  jagDriveRightCenter, jagDriveLeftCenter, jagDriveLeftOuter);
@@ -230,7 +232,6 @@ public:
 		loopingPid = false;
 		bool servoEnabled = false;
 		backdriveEnabled = false;
-		float jagRollerSpeed = 0.0;
 		
 		// Start timestamp timer for rlog
 		rlog.startTimer();
@@ -242,23 +243,13 @@ public:
 		{
 			GetWatchdog().Feed();
 			
+			// Run Kickertooth Period
+			ktooth->RunPeriod();
+			
 			//CAN Voodoo...
 			jagDriveLeftCenter.GetOutputVoltage();
 			
-			// Roller
-			if(board.GetLeftJoy()->GetRawButton(1)){
-				jagRollerSpeed += 0.05;
-				Wait(0.5);
-			} else if (board.GetRightJoy()->GetRawButton(1)){
-				jagRollerSpeed -= 0.05;
-				Wait(0.5);
-			}
-			
-			jagRoller.Set(jagRollerSpeed);
-			
-			if (board.GetFakeJoy()->GetRawButton(5)) {
-				printf("jag roller speed: %f", jagRollerSpeed);
-			}
+			printf("geartooth: %d\n", ktooth->GetToothCount());
 			
 			// Autotracking
 			if (board.GetLeftJoy()->GetRawButton(2)) {

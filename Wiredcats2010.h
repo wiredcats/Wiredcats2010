@@ -71,5 +71,6 @@ const float DIAG_WAIT = 2.2;
 #include "ControlBoard.h"
 #include "Kicker.h"
 #include "Arm.h"
+#include "Kickertooth.h"
 
 #endif

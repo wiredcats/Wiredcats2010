@@ -11,6 +11,8 @@ void _GLOBAL__I__Z11formatTimerd();
 
 void _GLOBAL__I__Z20FRC_userClassFactoryv();
 
+void _GLOBAL__I__ZN11KickertoothC2Ei();
+
 void _GLOBAL__I__ZN12ControlBoardC2Ev();
 
 void _GLOBAL__I__ZN3ArmC2Ev();
@@ -30,6 +32,7 @@ void (*_ctors[])() =
     {
     _GLOBAL__I__Z11formatTimerd,
     _GLOBAL__I__Z20FRC_userClassFactoryv,
+    _GLOBAL__I__ZN11KickertoothC2Ei,
     _GLOBAL__I__ZN12ControlBoardC2Ev,
     _GLOBAL__I__ZN3ArmC2Ev,
     _GLOBAL__I__ZN6KickerC2Ev,
@@ -41,6 +44,8 @@ void (*_ctors[])() =
     };
 
 void _GLOBAL__D__Z20FRC_userClassFactoryv();
+
+void _GLOBAL__D__ZN11KickertoothC2Ei();
 
 void _GLOBAL__D__ZN12ControlBoardC2Ev();
 
@@ -60,6 +65,7 @@ extern void (*_dtors[])();
 void (*_dtors[])() =
     {
     _GLOBAL__D__Z20FRC_userClassFactoryv,
+    _GLOBAL__D__ZN11KickertoothC2Ei,
     _GLOBAL__D__ZN12ControlBoardC2Ev,
     _GLOBAL__D__ZN3ArmC2Ev,
     _GLOBAL__D__ZN6KickerC2Ev,
