@@ -113,109 +113,36 @@ public:
 		
 		gyro->Reset();
 		
-		double initRollerVoltage = jagRoller.GetOutputVoltage();
-		
-		rlog.addLine("Entering Phase One of autonomous (going towards initial ball)");
-		
-		int ballNumber=rlog.readTextNumber("instructions.txt");
-		
-		switch (ballNumber) {
-		case 1:
-			TurnTowardsOffsetBall(CLOSE_OFFSET_ANGLE, CLOSE_OFFSET_BALL_WAIT);
-			break;
-		case 2:
-			TurnTowardsOffsetBall(MID_OFFSET_ANGLE, MID_OFFSET_BALL_WAIT);
-			break;
-		case 3:
-			TurnTowardsOffsetBall(FAR_OFFSET_ANGLE, FAR_OFFSET_BALL_WAIT);
-			break;
-		
-		case 4:
-			TurnTowardsStraightBall(BALL_4_WAIT);
-			break;
-		case 5:
-			TurnTowardsStraightBall(BALL_5_WAIT);
-			break;
-		case 6:
-			TurnTowardsStraightBall(BALL_6_WAIT);
-			break;
-		
-		case 7:
-			TurnTowardsOffsetBall(-CLOSE_OFFSET_ANGLE, CLOSE_OFFSET_BALL_WAIT);
-			break;
-		case 8:
-			TurnTowardsOffsetBall(-MID_OFFSET_ANGLE, MID_OFFSET_BALL_WAIT);
-			break;
-		case 9:
-			TurnTowardsOffsetBall(-FAR_OFFSET_ANGLE, FAR_OFFSET_BALL_WAIT);
-			break;
-		
-		default:
-			rlog.addLine("EXTREME ERROR: COULD NOT FIND VALUE TO MOVE TO NEXT BALL! MOVING TO POSITION 4 AND DISABLING");
-			drive->Drive(AUTO_DRIVE_SPEED, 0);
-			Wait(BALL_4_WAIT);
-			drive->Drive(0, 0);
-			break;
-		}
-		
-		if (jagRoller.GetOutputVoltage() < initRollerVoltage - ROLL_VOLT_THRESH) {
-			rlog.addLine("Ball found! Tracking towards target...");
-			if (TurnTowardsOurTarget()) {
-				rlog.addLine("Successfully tracked target! Kicking ball...");
-				KickBallInAuto();
-			} else {
-				rlog.addLine("Could not find our target!");
-			}
-		} else {
-			rlog.addLine("Ball not found, aborting! Attempting to track next ball");
-		}
-		
-		////////////////////////
-		////////////////////////
-		////////////////////////
-		
-		rlog.addLine("Entering Phase Two of autonomous (go to second ball from initial)");
-		bool IsSecondPhase = true;
-		
-		while(IsSecondPhase){
-			int direction = rlog.readTextNumber("instructions.txt");
+		for(int counter=NUM_BALLS;counter>0;counter--){
+			//Drive to a ball
+			drive->Drive(AUTO_DRIVE_SPEED,0);
+			Wait(STRAIGHT_WAIT);
+			drive->Drive(0,0);
 			
-			switch(direction) {
-			case 1:				//North
-				GotoNewBall(POSITIVE_NORTH_ANGLE, NEGATIVE_NORTH_ANGLE, STRAIGHT_WAIT);
-				break;
-			case 2:		
-				GotoNewBall(POSITIVE_EAST_ANGLE, NEGATIVE_EAST_ANGLE, STRAIGHT_WAIT);
-				break;
-			case 3:	
-				GotoNewBall(POSITIVE_SOUTH_ANGLE, NEGATIVE_SOUTH_ANGLE, STRAIGHT_WAIT);
-				break;
-			case 4:
-				GotoNewBall(POSITIVE_WEST_ANGLE, NEGATIVE_WEST_ANGLE, STRAIGHT_WAIT);
-				break;
+			//Winch Up
+			kicker.MoveKicker(Kicker::kWinchUp);
+			//Use Geartooth to tell if winched far enough back
+			kicker.MoveKicker(Kicker::kWinchStop);
 			
-			case 12:
-				GotoNewBall(POSITIVE_NORTHEAST_ANGLE, NEGATIVE_NORTHEAST_ANGLE, DIAG_WAIT);
-				break;
-			case 14:
-				GotoNewBall(POSITIVE_NORTHWEST_ANGLE, NEGATIVE_NORTHWEST_ANGLE, DIAG_WAIT);
-				break;
-			case 32:
-				GotoNewBall(POSITIVE_SOUTHEAST_ANGLE, NEGATIVE_SOUTHEAST_ANGLE, DIAG_WAIT);
-				break;
-			case 34:
-				GotoNewBall(POSITIVE_SOUTHWEST_ANGLE, NEGATIVE_SOUTHWEST_ANGLE, DIAG_WAIT);
-				break;
+			//Start Backdrive
+			rlog.addLine("Engaging backdrive...");
+			kicker.RunBackdrive();
 			
-			case 0: //The Kicking Number
-				KickBallInAuto();
-				break;
-			case 55: //The signal that 2nd Phase is done
-				IsSecondPhase = false;
-				break;
-			}
+			Wait(BACKDRIVE_TIMER_LIMIT);
+			
+			rlog.addLine("Stopping backdrive, unlocking servo...");
+			kicker.StopBackdrive();
+			kicker.UnlockServo();
+			
+			//Fire Piston!
+			rlog.addLine("FIRE IN THE HOLE!");
+			kicker.EngageFireSolenoid();
+			
+			Wait(FIRE_TIMER_LIMIT);
+			
+			rlog.addLine("Disengaging fire piston...");
+			kicker.DisengageFireSolenoid();
 		}
-		//Third Phase: Strategy dependent.
 	}
 	
 	void OperatorControl(void)
@@ -392,47 +319,12 @@ public:
 	}
 	
 	void KickBallInAuto() {
-		// Kick ball :-)
-	}
-	
-	void GotoNewBall(int posAngle, int negAngle, float wait) {
-		turnController->Enable();
-		//Choose which direction is a smaller turn angle
-		if((abs(abs(posAngle) - (int)gyro->GetAngle())) < abs(abs(negAngle - (int)gyro->GetAngle()))) {
-			turnController->SetSetpoint(posAngle);
-		} else {
-			turnController->SetSetpoint(negAngle);
-		}
-		
-		while(DriveIsMoving()) {
-			Wait(0.02);
-		}
-		
-		drive->Drive(AUTO_DRIVE_SPEED, 0);
-		Wait(wait);
-		drive->Drive(0, 0);
-	}
-	
-	void TurnTowardsOffsetBall(float angle, float wait) {
-		rlog.addLine("Turning towards ball...");
-		turnController->Enable();
-		turnController->SetSetpoint(angle);
-		
-		while (DriveIsMoving()) {
-			Wait(0.02);
-		}
-		
-		rlog.addLine("Turned towards Offset Ball, approaching");
-		drive->Drive(AUTO_DRIVE_SPEED, 0);
-		Wait(wait);
-		drive->Drive(0, 0);
-	}
-	
-	void TurnTowardsStraightBall(float wait) {
-		rlog.addLine("Approaching Straight Ball");
-		drive->Drive(AUTO_DRIVE_SPEED, 0);
-		Wait(wait);
-		drive->Drive(0, 0);
+		/*
+		 * Winch Back (servo is locked
+		 * Unlock servo
+		 * run gears for a second
+		 * set solenoid to true
+		 */
 	}
 	
 	bool TurnTowardsOurTarget() { 
