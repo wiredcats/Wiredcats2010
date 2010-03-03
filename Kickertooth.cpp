@@ -2,6 +2,7 @@
 
 Kickertooth::Kickertooth(int channel) {
 	geartooth = new DigitalInput(channel);
+	count = 0;
 }
 
 void Kickertooth::RunPeriod() {

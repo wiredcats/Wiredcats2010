@@ -7,6 +7,8 @@ winch(SPIKE_NUM) {
 	compressor = new Compressor(1,1);
 	firesolenoid = new Solenoid(8,1);
 	//dogsolenoid = new Solenoid(8, 1);
+	ktooth = new Kickertooth(2);
+	
 	
 	backdriveEnabled = false;
 }
@@ -117,4 +119,10 @@ void Kicker::KickBall(){
 
 void Kicker::ReleaseFireSolenoid() {
 	firesolenoid->Set(false);
+}
+
+void Kicker::RunPeriod(){
+	if (ktooth )
+	
+	}
 }
