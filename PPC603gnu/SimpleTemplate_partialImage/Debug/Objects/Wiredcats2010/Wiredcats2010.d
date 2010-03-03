@@ -279,9 +279,9 @@ SimpleTemplate_partialImage/Debug/Objects/Wiredcats2010/Wiredcats2010.o:  \
   C:/windriver/vxworks-6.3/target/h/WPILib/Timer.h \
   C:/windriver/workspace/Wiredcats2010/ControlBoard.h \
   C:/windriver/workspace/Wiredcats2010/Kicker.h \
+  C:/windriver/workspace/Wiredcats2010/Kickertooth.h \
   C:/windriver/workspace/Wiredcats2010/Arm.h \
-  C:/windriver/vxworks-6.3/target/h/WPILib/WPILib.h \
-  C:/windriver/workspace/Wiredcats2010/Kickertooth.h
+  C:/windriver/vxworks-6.3/target/h/WPILib/WPILib.h
 
 C:/windriver/workspace/Wiredcats2010/Wiredcats2010.h:
 
@@ -841,8 +841,8 @@ C:/windriver/workspace/Wiredcats2010/ControlBoard.h:
 
 C:/windriver/workspace/Wiredcats2010/Kicker.h:
 
+C:/windriver/workspace/Wiredcats2010/Kickertooth.h:
+
 C:/windriver/workspace/Wiredcats2010/Arm.h:
 
 C:/windriver/vxworks-6.3/target/h/WPILib/WPILib.h:
-
-C:/windriver/workspace/Wiredcats2010/Kickertooth.h:

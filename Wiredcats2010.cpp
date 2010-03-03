@@ -244,7 +244,7 @@ public:
 			GetWatchdog().Feed();
 			
 			// Run Kickertooth Period
-			kicker->RunPeriod();
+			kicker.RunPeriod();
 			
 			//CAN Voodoo...
 			jagDriveLeftCenter.GetOutputVoltage();
